@@ -28,16 +28,16 @@ void gui::ImGuiHandler::DrawInputWindow() {
 	bool open = true;
 	ImGui::Begin("Inputs", &open);
 
-	std::string mousePos = "Mouse Position: (" + std::to_string(static_cast<int>(Input::InputSystem::inputSystem->mousePos.x)) + " , " + std::to_string(static_cast<int>(Input::InputSystem::inputSystem->mousePos.y)) + ")";
+	std::string mousePos = "Mouse Position: (" + std::to_string(static_cast<int>(Input::InputSystem::GetInstance()->mousePos.x)) + " , " + std::to_string(static_cast<int>(Input::InputSystem::GetInstance()->mousePos.y)) + ")";
 	ImGui::Text(mousePos.c_str());
 	
 	std::string clickedID = "Clicked ID: (" + std::to_string(m_clickedEntityId) + ")";
 	ImGui::Text(clickedID.c_str());
 
-	//std::string keyStatus = "Key Status: " + Input::InputSystem::inputSystem->keyString;
+	//std::string keyStatus = "Key Status: " + Input::InputSystem::GetInstance()->keyString;
 	//ImGui::Text(keyStatus.c_str());
 
-	//std::string mouseStatus = "MouseButton Status: " + Input::InputSystem::inputSystem->mouseString;
+	//std::string mouseStatus = "MouseButton Status: " + Input::InputSystem::GetInstance()->mouseString;
 	//ImGui::Text(mouseStatus.c_str());
 
 	ImGui::End();

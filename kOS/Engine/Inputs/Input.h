@@ -40,8 +40,12 @@ namespace Input {
 	class InputSystem {
 
 	public:
-		//static std::shared_ptr<InputSystem> inputSystem;
-		static std::unique_ptr<InputSystem> inputSystem;
+		static InputSystem* GetInstance() {
+			if (!m_InstancePtr) {
+				m_InstancePtr.reset(new InputSystem{});
+			}
+			return m_InstancePtr.get();
+		}
 
 		glm::vec2 mousePos;
 		std::vector<std::string> droppedFiles;
@@ -57,6 +61,8 @@ namespace Input {
 		void InputUpdate();
 	private:
 		inline static std::unordered_map<int, Key> keysRegistered;
+
+		static std::shared_ptr<InputSystem> m_InstancePtr;
 	};
 
 }

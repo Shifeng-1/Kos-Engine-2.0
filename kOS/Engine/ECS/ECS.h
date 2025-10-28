@@ -129,8 +129,8 @@ namespace ecs {
 		GAMESTATE GetNextState() { return m_nextState; }
 		void SetState(GAMESTATE state) { m_nextState = state; }
 
-
-		float deltaTime{};
+		float m_GetDeltaTime() { return m_deltaTime; }
+		
 
 		std::unordered_map<std::string, std::shared_ptr<IActionInvoker>> componentAction;
 
@@ -151,6 +151,8 @@ namespace ecs {
 		//modify from set next state
 		GAMESTATE m_nextState{ STOP };
 		GAMESTATE m_state{ STOP };
+
+		float m_deltaTime{};
 
 		//COMPONENT DATA
 		std::unordered_map<std::string, std::shared_ptr<ISparseSet>> m_combinedComponentPool;

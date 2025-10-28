@@ -20,6 +20,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 struct StaticVariableManager {
 	void* ECSSystem;
 	void* field;
+	void* input;
 	std::vector<std::string>* scriptNames;
 };
 

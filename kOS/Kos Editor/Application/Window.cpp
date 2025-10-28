@@ -175,7 +175,7 @@ namespace Application {
         mode = glfwGetVideoMode(monitor);
         window = glfwCreateWindow(windowWidth, windowHeight, "Kos 2.0", enabledFullScreen ? monitor : NULL, NULL);
 
-        Input::InputSystem::inputSystem->InputInit(window);
+        Input::InputSystem::GetInstance()->InputInit(window);
         if (!window)
         {
             glfwTerminate();
@@ -212,7 +212,7 @@ namespace Application {
 
 
 
-        if ((Input::InputSystem::inputSystem->IsKeyPressed(keys::LeftAlt) || Input::InputSystem::inputSystem->IsKeyPressed(keys::RightAlt)) && Input::InputSystem::inputSystem->IsKeyTriggered(keys::ENTER)) {
+        if ((Input::InputSystem::GetInstance()->IsKeyPressed(keys::LeftAlt) || Input::InputSystem::GetInstance()->IsKeyPressed(keys::RightAlt)) && Input::InputSystem::GetInstance()->IsKeyTriggered(keys::ENTER)) {
             if (enabledFullScreen) {
                 glfwSetWindowFocusCallback(window, windowedFocusCallback);
                 glfwSetWindowMonitor(window, nullptr, 100, 100, static_cast<int>(AppWindow::windowWidth), static_cast<int>(AppWindow::windowHeight), 0);

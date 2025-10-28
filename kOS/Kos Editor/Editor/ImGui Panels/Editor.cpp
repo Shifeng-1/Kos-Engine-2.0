@@ -148,7 +148,7 @@ namespace gui {
 
 		NewFrame();
 
-		if (Input::InputSystem::inputSystem->IsKeyTriggered(keys::F11))
+		if (Input::InputSystem::GetInstance()->IsKeyTriggered(keys::F11))
 		{
 
 		}

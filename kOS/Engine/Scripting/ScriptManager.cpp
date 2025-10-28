@@ -15,11 +15,12 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "Config/pch.h"
 #include "ScriptManager.h"
 
+
 //Systems to be shared with DLL
 #include "Debugging/Logging.h"
 #include "Config/ComponentRegistry.h"
 #include "ECS/ECS.h"
-
+#include "Inputs/Input.h"
 
 std::shared_ptr<ScriptManager> ScriptManager::m_ScriptManagerPtr{ new ScriptManager{} };
 
@@ -102,6 +103,7 @@ void ScriptManager::RunDLL() {
 		if (!hInstDLL) { LOGGING_ERROR("Failed to load DLL library"); return; }
 		svm.ECSSystem = ecs::ECS::GetInstance();
 		svm.field = FieldSingleton::GetInstance();
+		svm.input = Input::InputSystem::GetInstance();
 		svm.scriptNames = &scriptList;
 		DLLUpdateStatic updateFunc = (DLLUpdateStatic)GetProcAddress(hInstDLL, "UpdateStatic");
 		updateFunc(&svm);

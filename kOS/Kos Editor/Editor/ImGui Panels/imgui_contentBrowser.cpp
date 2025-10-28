@@ -382,8 +382,8 @@ namespace gui {
 
 				//allow drag and drop on child directory
 				if (ImGui::IsWindowHovered(ImGuiHoveredFlags_ChildWindows)) {
-					if (!Input::InputSystem::inputSystem->droppedFiles.empty()) {
-						for (const auto& file : Input::InputSystem::inputSystem->droppedFiles) {
+					if (!Input::InputSystem::GetInstance()->droppedFiles.empty()) {
+						for (const auto& file : Input::InputSystem::GetInstance()->droppedFiles) {
 							std::filesystem::path source = file;
 							std::filesystem::path destination = currentDirectory;
 
@@ -413,7 +413,7 @@ namespace gui {
 
 						}
 						// Clear the vector if you want to reset after displaying
-						Input::InputSystem::inputSystem->droppedFiles.clear();
+						Input::InputSystem::GetInstance()->droppedFiles.clear();
 					}
 				}
 				ImGui::EndChild();

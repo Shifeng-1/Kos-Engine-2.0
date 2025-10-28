@@ -21,11 +21,14 @@ public:
 	void Awake() { this->DLLAwake(EntityID); };
 	void Start() { this->DLLStart(EntityID); };
 	void Update() { this->DLLUpdate(EntityID); };
+	void LateUpdate() { this->DLLLateUpdate(EntityID); };
 	void FixedUpdate() { this->DLLFixedUpdate(EntityID); };
+
 	//Script contains data of each function
 	DLLFunction DLLAwake{};
 	DLLFunction DLLStart{};
 	DLLFunction DLLUpdate{};
+	DLLFunction DLLLateUpdate{};
 	DLLFunction DLLFixedUpdate{};
 
 	std::string EntityID;
@@ -38,6 +41,7 @@ public:
 	virtual void Awake();
 	virtual void Start();
 	virtual void Update();
+	virtual void LateUpdate();
 	virtual void FixedUpdate();
 	bool isStart = false;
 	static std::map<std::string, GenerateScriptClass> ScriptClassGenerator;

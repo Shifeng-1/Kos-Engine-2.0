@@ -34,7 +34,7 @@ namespace ecs {
             }
         }
 
-        pm->Update(ecs->deltaTime);
+        pm->Update(ecs->m_GetDeltaTime());
 
         for (EntityID id : entities) {
             auto* rb = ecs->GetComponent<RigidbodyComponent>(id);

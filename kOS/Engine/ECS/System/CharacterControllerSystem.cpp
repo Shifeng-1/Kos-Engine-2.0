@@ -109,29 +109,29 @@ namespace ecs {
             }
 
             glm::vec3 moveVec{ 0.0f };
-            if (Input::InputSystem::inputSystem->IsKeyPressed(keys::W)) { moveVec.z -= 1.0f; }
-            if (Input::InputSystem::inputSystem->IsKeyPressed(keys::S)) { moveVec.z += 1.0f; }
-            if (Input::InputSystem::inputSystem->IsKeyPressed(keys::A)) { moveVec.x -= 1.0f; }
-            if (Input::InputSystem::inputSystem->IsKeyPressed(keys::D)) { moveVec.x += 1.0f; }
+            if (Input::InputSystem::GetInstance()->IsKeyPressed(keys::W)) { moveVec.z -= 1.0f; }
+            if (Input::InputSystem::GetInstance()->IsKeyPressed(keys::S)) { moveVec.z += 1.0f; }
+            if (Input::InputSystem::GetInstance()->IsKeyPressed(keys::A)) { moveVec.x -= 1.0f; }
+            if (Input::InputSystem::GetInstance()->IsKeyPressed(keys::D)) { moveVec.x += 1.0f; }
 
             if (glm::length(moveVec) > 0.0f) { moveVec = glm::normalize(moveVec); }
 
             const float speed = 5.0f;
-            PxVec3 displacement{ moveVec.x * speed * ecs->deltaTime, 0.0f, moveVec.z * speed * ecs->deltaTime };
+            PxVec3 displacement{ moveVec.x * speed * ecs->m_GetDeltaTime(), 0.0f, moveVec.z * speed * ecs->m_GetDeltaTime()};
 
             const float gravity = -9.81f;
             const float jumpStrength = 10.0f;
 
-            charctrl->yVelocity += gravity * ecs->deltaTime;
+            charctrl->yVelocity += gravity * ecs->m_GetDeltaTime();
 
-            if (Input::InputSystem::inputSystem->IsKeyTriggered(keys::SPACE) && charctrl->isGrounded) {
+            if (Input::InputSystem::GetInstance()->IsKeyTriggered(keys::SPACE) && charctrl->isGrounded) {
                 charctrl->yVelocity = jumpStrength;
                 charctrl->isGrounded = false;
             }
 
-            displacement.y = charctrl->yVelocity * ecs->deltaTime;
+            displacement.y = charctrl->yVelocity * ecs->m_GetDeltaTime();
 
-            PxControllerCollisionFlags flags = ctrl->move(displacement, charctrl->minMoveDistance, ecs->deltaTime, PxControllerFilters());
+            PxControllerCollisionFlags flags = ctrl->move(displacement, charctrl->minMoveDistance, ecs->m_GetDeltaTime(), PxControllerFilters());
 
             if (flags & PxControllerCollisionFlag::eCOLLISION_DOWN) {
                 charctrl->isGrounded = true;

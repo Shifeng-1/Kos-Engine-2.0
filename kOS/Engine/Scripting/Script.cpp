@@ -27,6 +27,10 @@ void ScriptClass::Update() {
 
 }
 
+void ScriptClass::LateUpdate() {
+
+}
+
 void ScriptClass::FixedUpdate() {
 
 }
