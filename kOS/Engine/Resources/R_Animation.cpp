@@ -112,16 +112,9 @@ void R_Animation::Load() {
     this->m_Name.clear();
     for (unsigned int i{ 0 }; i < nameSize; i++) {
         this->m_Name += DecodeBinary<char>(serialized, offset);
-        //std::cout << this->m_Name << '\n';
     }
-    /// std::cout << "ANBIMATION DETAILKS\n";
-    /// std::cout << this->m_Duration << '\n';
-    /// std::cout << this->m_TicksPerSecond << '\n';
-    /// std::cout << nameSize;
-    /// std::cout << this->m_Name << '\n';
 
     unsigned int boneSize = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
-    ///std::cout << "BONE SIZE" << boneSize << '\n';
     for (unsigned int i{ 0 }; i < boneSize; i++) {
         //deserialize key
         unsigned int keySize = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
@@ -132,7 +125,6 @@ void R_Animation::Load() {
 
         //Add a bone based on the key
         m_Bones[key] = Bone{};
-        /// std::cout << "KEY NAME" << key << '\n';
 
          //Get bone name
         keySize = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
@@ -140,7 +132,6 @@ void R_Animation::Load() {
         for (unsigned int i{ 0 }; i < keySize; i++) {
             key += DecodeBinary<char>(serialized, offset);
         }
-        /// std::cout << "NAME" << key << '\n';
         m_Bones[key].m_Name = key;
 
         //Serialize ID
@@ -153,7 +144,6 @@ void R_Animation::Load() {
             pos.x = DecodeBinary<float>(serialized, offset);
             pos.y = DecodeBinary<float>(serialized, offset);
             pos.z = DecodeBinary<float>(serialized, offset);
-            /// std::cout << "POSITON DATA" << pos.x << ' ' << pos.y << ' ' << pos.z << '\n';
             m_Bones[key].m_Positions.push_back(pos);
         }
 
@@ -161,7 +151,6 @@ void R_Animation::Load() {
         keySize = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
         for (unsigned int i{ 0 }; i < keySize; i++) {
             m_Bones[key].m_PosTimes.push_back(DecodeBinary<float>(serialized, offset));
-            ///  std::cout << "POS TIME" << m_Bones[key].m_PosTimes.back() << '\n';
         }
 
 
@@ -173,7 +162,6 @@ void R_Animation::Load() {
             rot.y = DecodeBinary<float>(serialized, offset);
             rot.z = DecodeBinary<float>(serialized, offset);
             rot.w = DecodeBinary<float>(serialized, offset);
-            /// std::cout << "Rotation DATA" << rot.x << ' ' << rot.y << ' ' << rot.z << rot.w << '\n';
             m_Bones[key].m_Rotations.push_back(rot);
         }
 
@@ -181,7 +169,6 @@ void R_Animation::Load() {
         keySize = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
         for (unsigned int i{ 0 }; i < keySize; i++) {
             m_Bones[key].m_RotTimes.push_back(DecodeBinary<float>(serialized, offset));
-            /// std::cout << "ROT TIME" << m_Bones[key].m_RotTimes.back() << '\n';
         }
 
         //Get scales 
@@ -191,7 +178,6 @@ void R_Animation::Load() {
             scale.x = DecodeBinary<float>(serialized, offset);
             scale.y = DecodeBinary<float>(serialized, offset);
             scale.z = DecodeBinary<float>(serialized, offset);
-            /// std::cout << "Rotation DATA" << scale.x << ' ' << scale.y << ' ' << scale.z << '\n';
             m_Bones[key].m_Scales.push_back(scale);
         }
 
@@ -199,7 +185,6 @@ void R_Animation::Load() {
         keySize = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
         for (unsigned int i{ 0 }; i < keySize; i++) {
             m_Bones[key].m_ScaleTimes.push_back(DecodeBinary<float>(serialized, offset));
-            /// std::cout << "POS TIME" << m_Bones[key].m_ScaleTimes.back() << '\n';
         }
     }
     this->m_RootNode = NodeDataParser(serialized, offset);
@@ -233,11 +218,12 @@ void R_Animation::CalculateBoneTransform(const NodeData& node, const glm::mat4& 
     if (boneMap.find(nodeName) != boneMap.end())
     {
         int index = boneMap.at(nodeName);
-        m_FinalBoneTransforms[index] = globalInverse * globalTransform * boneInfo.at(index).offsetMatrix;
+        //Global Inverse does nothing for now
+        m_FinalBoneTransforms[index] = /*globalInverse **/ globalTransform * boneInfo.at(index).offsetMatrix;
     }
     else
     {
-        ///There shouldnt be any unrecognized bones here
+        //There shouldnt be any unrecognized bones here
     }
 
     for (const NodeData& child : node.children)
