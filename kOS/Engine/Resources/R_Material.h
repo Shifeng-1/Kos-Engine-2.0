@@ -1,3 +1,4 @@
+#pragma once
 #include "Resource.h"
 #include "Config/pch.h"
 
@@ -27,8 +28,8 @@ public:
     void Unload() override;
 
 
-
-
+    MaterialData md;
+   
     REFLECTABLE(R_Material);
 
 private:

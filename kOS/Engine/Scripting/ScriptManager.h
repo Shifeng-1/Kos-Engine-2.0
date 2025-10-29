@@ -21,6 +21,8 @@ struct StaticVariableManager {
 	void* ECSSystem;
 	void* field;
 	void* input;
+	void* scene;
+	void* physics;
 	std::vector<std::string>* scriptNames;
 };
 

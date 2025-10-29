@@ -125,14 +125,14 @@ void Sphere::CreateMesh() {
     float nx, ny, nz, lengthInv = 1.0f / radius;    // vertex normal
     float s, t;                                     // vertex texCoord
 
-    float sectorStep = static_cast<float>(2 * PI / sectorCount);
-    float stackStep = static_cast<float>(PI / stackCount);
+    float sectorStep = 2 * PI / sectorCount;
+    float stackStep = PI / stackCount;
     float sectorAngle, stackAngle;
     std::vector <float>vertexData;
 
-    for (int i{ 0 }; i < stackCount; i++) {
-        stackAngle = static_cast<float>(PI / 2 - i * stackStep);
-        xy = radius * cosf(stackAngle); 
+    for (int i{ 0 }; i <= stackCount; i++) {
+        stackAngle = PI / 2 - i * stackStep;
+        xy = radius * cosf(stackAngle);
         z = radius * sinf(stackAngle);
 
         for (int j = 0; j <= sectorCount; ++j)
@@ -195,7 +195,7 @@ void Sphere::CreateMesh() {
             vertexData.push_back(bz);
         }
     }
-   
+
     //Create indices
     std::vector<short> indices;
     int k1, k2;
@@ -263,13 +263,13 @@ void Sphere::CreateMesh() {
 
     //Set up EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(short), indices.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(short), indices.data(), GL_STATIC_DRAW);
 
     // Unbind VAO
     glBindVertexArray(0);
 
     primitiveType = GL_TRIANGLES;
-    drawCount = static_cast<GLint>(indices.size());
+    drawCount = indices.size();
     //std::cout << "CREATED SPHERE\n";
 }
 
@@ -277,9 +277,11 @@ void Sphere::DrawMesh()
 {
     //std::cout << "DRAWOING SQUARE \n";
     //Draw element
+    glDisable(GL_CULL_FACE);
     glBindVertexArray(vaoId);
     glDrawElements(primitiveType, drawCount, GL_UNSIGNED_SHORT, NULL);
     glBindVertexArray(0);
+    glEnable(GL_CULL_FACE);
 
 }
 void DebugCube::CreateMesh() {

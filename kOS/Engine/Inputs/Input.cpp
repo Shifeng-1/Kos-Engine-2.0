@@ -17,9 +17,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************/
 
 #include "Config/pch.h"
-#include "ECS/ECS.h"
 #include "Input.h"
-#include "../Kos Editor/Application/Window.h"
 
 namespace Input {
 	/*--------------------------------------------------------------
@@ -29,8 +27,6 @@ namespace Input {
 	// The number of frames needed for a button to be pressed before the state turns from triggered to pressed.
 	float secondsBeforePressed = 0.05f;
 
-	// ECS
-	auto* ecs = ecs::ECS::GetInstance();
 	std::shared_ptr<InputSystem> InputSystem::m_InstancePtr = nullptr;
 	// Shared pointer
 	//std::shared_ptr<InputSystem> InputSystem::GetInstance(){ std::make_shared<InputSystem>(InputSystem{}) };
@@ -84,9 +80,8 @@ namespace Input {
 		InputSystem::GetInstance()->inputWindow = window;
 	}
 
-	void InputSystem::InputUpdate() {
+	void InputSystem::InputUpdate(float deltaTime) {
 		
-
 		for (std::pair<const int, Key>& key : keysRegistered) {
 			int state;
 
@@ -103,7 +98,7 @@ namespace Input {
 
 			// Current checks
 			if (state == GLFW_PRESS) {
-				if (key.second.prevKeyState == KeyState::UNUSED) {
+ 				if (key.second.prevKeyState == KeyState::UNUSED) {
 					if (!key.second.currPressedTimer) {
 						key.second.currKeyState = KeyState::TRIGGERED;
 					}
@@ -111,7 +106,7 @@ namespace Input {
 						key.second.currKeyState = KeyState::WAITING;
 					}
 
-					key.second.currPressedTimer += ecs->m_GetDeltaTime();
+					key.second.currPressedTimer += deltaTime;
 				}
 
 				if(key.second.currPressedTimer >= secondsBeforePressed) {

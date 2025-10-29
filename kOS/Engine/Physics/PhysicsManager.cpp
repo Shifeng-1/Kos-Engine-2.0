@@ -107,23 +107,17 @@ namespace physics {
 		}
 	}
 
-	void PhysicsManager::AddForce(EntityID id, const glm::vec3& force, ForceMode mode) {
-		RigidbodyComponent* rb = ECS::GetInstance()->GetComponent<RigidbodyComponent>(id);
-		if (rb && rb->actor) {
-			PxRigidDynamic* actor = static_cast<PxRigidDynamic*>(rb->actor);
-			if (!actor->getRigidBodyFlags().isSet(PxRigidBodyFlag::eKINEMATIC)) {
-				actor->addForce(PxVec3(force.x, force.y, force.z), ToPhysxForceMode(mode));
-			}
+	void PhysicsManager::AddForce(void* actor, const glm::vec3& force, ForceMode mode) {
+		PxRigidDynamic* rb = static_cast<PxRigidDynamic*>(actor);
+		if (!rb->getRigidBodyFlags().isSet(PxRigidBodyFlag::eKINEMATIC)) {
+			rb->addForce(PxVec3(force.x, force.y, force.z), ToPhysxForceMode(mode));
 		}
 	}
 
-	void PhysicsManager::AddTorque(EntityID id, const glm::vec3& torque, ForceMode mode) {
-		RigidbodyComponent* rb = ECS::GetInstance()->GetComponent<RigidbodyComponent>(id);
-		if (rb && rb->actor) {
-			PxRigidDynamic* actor = static_cast<PxRigidDynamic*>(rb->actor);
-			if (!actor->getRigidBodyFlags().isSet(PxRigidBodyFlag::eKINEMATIC)) {
-				actor->addTorque(PxVec3(torque.x, torque.y, torque.z), ToPhysxForceMode(mode));
-			}
+	void PhysicsManager::AddTorque(void* actor, const glm::vec3& torque, ForceMode mode) {
+		PxRigidDynamic* rb = static_cast<PxRigidDynamic*>(actor);
+		if (!rb->getRigidBodyFlags().isSet(PxRigidBodyFlag::eKINEMATIC)) {
+			rb->addTorque(PxVec3(torque.x, torque.y, torque.z), ToPhysxForceMode(mode));
 		}
 	}
 }

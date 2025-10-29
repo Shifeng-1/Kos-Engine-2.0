@@ -51,7 +51,6 @@ namespace Application {
 
 		AppWindow lvWindow;
 		gui::ImGuiHandler Editor; //should only remain in Application
-		Input::InputSystem Input;
 		logging::Logger logs;
 	};
 

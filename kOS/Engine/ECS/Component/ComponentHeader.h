@@ -14,6 +14,7 @@
 #include "LightComponent.h"
 #include "ScriptComponent.h"
 #include "CubeRenderComponent.h"
+#include "MaterialComponent.h"
 
 #include "BoxColliderComponent.h"
 #include "CapsuleColliderComponent.h"

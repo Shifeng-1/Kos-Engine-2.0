@@ -74,6 +74,7 @@ public:
 	inline void gm_PushGameCameraData(CameraData&& camera) { gameCameras.emplace_back(std::move(camera)); };
 	inline void gm_PushCubeDebugData(BasicDebugData&& data) { debugRenderer.basicDebugCubes.emplace_back(std::move(data)); };
 	inline void gm_PushCubeData(CubeRenderer::CubeData&& data) { cubeRenderer.cubesToDraw.emplace_back(std::move(data)); };
+	void gm_DrawMaterial(const PBRMaterial& md, FrameBuffer& fb);
 	inline void gm_PushSkinnedMeshData(SkinnedMeshData&& skinnedMeshData) {
 		skinnedMeshRenderer.skinnedMeshesToDraw.emplace_back(std::move(skinnedMeshData));
 		skinnedMeshRenderer.skinnedMeshLookup[skinnedMeshRenderer.skinnedMeshesToDraw.back().entityID]
@@ -100,7 +101,6 @@ private:
 	void gm_RenderCubeMap(const CameraData& camera);
 	void gm_RenderDebugObjects(const CameraData& camera);
 	void gm_RenderUIObjects(const CameraData& camera);
-
 	//Cameras
 	CameraData editorCamera{};
 	std::vector<CameraData> gameCameras{};
@@ -120,6 +120,7 @@ private:
 	FramebufferManager framebufferManager;
 
 	Cube cube;
+	Sphere sphere;
 	//Viewport sizes
 	float windowWidth, windowHeight;
 

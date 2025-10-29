@@ -3,6 +3,7 @@
 #include "ECS/ECS.h"
 #include "Scripting/ScriptManager.h"
 #include "Config/ComponentRegistry.h"
+#include "Scene/SceneManager.h"
 #include "Scripts/Include/ScriptHeader.h"
 #include "Inputs/Input.h"
 
@@ -24,10 +25,11 @@ extern "C"  __declspec(dllexport) void UpdateStatic(StaticVariableManager* svm) 
 	ComponentRegistry::SetECSInstance(static_cast<ecs::ECS*>(svm->ECSSystem));
 	ComponentRegistry::SetFieldInstance(static_cast<FieldSingleton*>(svm->field));
 	ComponentRegistry::SetInputInstance(static_cast<Input::InputSystem*>(svm->input));
+	ComponentRegistry::SetSceneInstance(static_cast<scenes::SceneManager*>(svm->scene));
 
 	TemplateSC::ecsPtr = ComponentRegistry::GetECSInstance();
 	TemplateSC::Input = ComponentRegistry::GetInputInstance();
-
+	TemplateSC::Scenes = ComponentRegistry::GetSceneInstance();
 
 
 	RegisterScript<PlayerScript>();

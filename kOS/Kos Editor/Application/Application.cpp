@@ -42,6 +42,12 @@ namespace Application {
     /*--------------------------------------------------------------
       GLOBAL VARAIBLE
     --------------------------------------------------------------*/
+    auto ecs = ecs::ECS::GetInstance();
+    auto scenemanager = scenes::SceneManager::m_GetInstance();
+    auto peformance = Peformance::GetInstance();
+    auto input = Input::InputSystem::GetInstance();
+    auto resourceManager = ResourceManager::GetInstance();
+
 
     int Application::Init() {
         
@@ -77,7 +83,6 @@ namespace Application {
         /*--------------------------------------------------------------
            INITIALIZE ECS
         --------------------------------------------------------------*/
-        ecs::ECS* ecs = ecs::ECS::GetInstance();
         ecs->Load();
         ecs->Init();
         LOGGING_INFO("Load ECS Successful");
@@ -117,7 +122,7 @@ namespace Application {
            INITIALIZE Input
         --------------------------------------------------------------*/
         //call back must happen before imgui
-        Input.SetCallBack(lvWindow.window);
+        input->SetCallBack(lvWindow.window);
         LOGGING_INFO("Set Input Call Back Successful");
 
         
@@ -144,10 +149,7 @@ namespace Application {
 
 
     int Application::Run() {
-        auto ecs = ecs::ECS::GetInstance();
-        auto scenemanager = scenes::SceneManager::m_GetInstance();
-        auto peformance = Peformance::GetInstance();
-        auto resourceManager = ResourceManager::GetInstance();
+
 
         //float FPSCapTime = 1.f / help->m_fpsCap;
         double lastFrameTime = glfwGetTime();
@@ -188,9 +190,9 @@ namespace Application {
                 /*--------------------------------------------------------------
                     UPDATE INPUT
                 --------------------------------------------------------------*/
-                Input.InputUpdate();
-                Editor.InputUpdate();
 
+                input->InputUpdate(deltaTime);
+                Editor.InputUpdate();
                 /*--------------------------------------------------------------
                     UPDATE ECS
                 --------------------------------------------------------------*/

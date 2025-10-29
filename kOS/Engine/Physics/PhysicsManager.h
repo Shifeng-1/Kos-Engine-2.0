@@ -32,7 +32,6 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #ifndef PHYSICSMANAGER_H
 #define PHYSICSMANAGER_H
 
-#include "ECS/ECS.h"
 #include "Physics/PhysicsEventCallback.h"
 #include "Physics/PhysxUtils.h"
 #include "PHYSX/PxPhysicsAPI.h"
@@ -47,9 +46,11 @@ namespace physics {
 		PhysicsManager() = default;  
 		~PhysicsManager() = default;
 
-		static std::shared_ptr<PhysicsManager> GetInstance() {
-			if (!m_instancePtr) { m_instancePtr = std::make_shared<PhysicsManager>(); }
-			return m_instancePtr;
+		static PhysicsManager* GetInstance() {
+			if (!m_instancePtr) {
+				m_instancePtr.reset(new PhysicsManager{});
+			}
+			return m_instancePtr.get();
 		}
 		
 		void Init();
@@ -63,8 +64,8 @@ namespace physics {
 		float GetFixedDeltaTime() const { return m_fixedDeltaTime; }
 		void SetFixedDeltaTime(float t) { m_fixedDeltaTime = t; }
 
-		void AddForce(EntityID, const glm::vec3&, ForceMode mode = ForceMode::Force);
-		void AddTorque(EntityID, const glm::vec3&, ForceMode mode = ForceMode::Force);
+		void AddForce(void*, const glm::vec3&, ForceMode mode = ForceMode::Force);
+		void AddTorque(void*, const glm::vec3&, ForceMode mode = ForceMode::Force);
 
 		CollisionCallbacks* GetCollisionCallbacks(EntityID entity) { return m_eventCallback->RegisterCollisionCallbacks(entity); }
 		TriggerCallbacks* GetTriggerCallbacks(EntityID entity) { return m_eventCallback->RegisterTriggerCallbacks(entity); }

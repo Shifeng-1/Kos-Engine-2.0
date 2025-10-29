@@ -48,23 +48,24 @@ namespace ecs {
         for (const EntityID id : entities) {
             TransformComponent* transform = ecs->GetComponent<TransformComponent>(id);
             NameComponent* nameComp = ecs->GetComponent<NameComponent>(id);
-            MeshRendererComponent* meshRenderer = ecs->GetComponent<MeshRendererComponent>(id);
+            MaterialComponent* matRenderer = ecs->GetComponent<MaterialComponent>(id);
             MeshFilterComponent* meshFilter = ecs->GetComponent<MeshFilterComponent>(id);
 
             // Skip entities not in this scene or hidden
-            if ((meshRenderer->scene != scene) || !ecs->layersStack.m_layerBitSet.test(nameComp->Layer) || nameComp->hide)
+            if ((matRenderer->scene != scene) || !ecs->layersStack.m_layerBitSet.test(nameComp->Layer) || nameComp->hide)
                 continue;
 
             // Only send data if there is a mesh to render, this is probably redundant, the ECS already forces it
             if (!ecs->HasComponent<MeshFilterComponent>(id))
                 continue;
 
+            std::shared_ptr<R_Material> mat= rm->GetResource<R_Material>(matRenderer->materialGUID);
             std::shared_ptr<R_Model> mesh = rm->GetResource<R_Model>(meshFilter->meshGUID);
-            std::shared_ptr<R_Texture> diff = rm->GetResource<R_Texture>(meshRenderer->diffuseMaterialGUID);
-            std::shared_ptr<R_Texture> spec = rm->GetResource<R_Texture>(meshRenderer->specularMaterialGUID);
-            std::shared_ptr<R_Texture> norm = rm->GetResource<R_Texture>(meshRenderer->normalMaterialGUID);
-            std::shared_ptr<R_Texture> ao = rm->GetResource<R_Texture>(meshRenderer->ambientOcclusionMaterialGUID);
-            std::shared_ptr<R_Texture> rough = rm->GetResource<R_Texture>(meshRenderer->roughnessMaterialGUID);
+            std::shared_ptr<R_Texture> diff = rm->GetResource<R_Texture>(mat->md.diffuseMaterialGUID);
+            std::shared_ptr<R_Texture> spec = rm->GetResource<R_Texture>(mat->md.specularMaterialGUID);
+            std::shared_ptr<R_Texture> norm = rm->GetResource<R_Texture>(mat->md.normalMaterialGUID);
+            std::shared_ptr<R_Texture> ao = rm->GetResource<R_Texture>(mat->md.ambientOcclusionMaterialGUID);
+            std::shared_ptr<R_Texture> rough = rm->GetResource<R_Texture>(mat->md.roughnessMaterialGUID);
 
             if (mesh)
                 gm->gm_PushMeshData(MeshData{ mesh,PBRMaterial{diff,spec,rough,ao,norm}, transform->transformation,id});

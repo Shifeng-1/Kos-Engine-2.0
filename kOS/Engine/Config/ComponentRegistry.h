@@ -16,12 +16,16 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "ECS/ecs.h"
 #include "Reflection/Field.h"
 #include "Inputs/Input.h"
+#include "Scene/SceneManager.h"
+//#include "Physics/PhysicsManager.h"
 
 class ComponentRegistry {
 private:
     static ecs::ECS* s_ecsInstance;
 	static FieldSingleton* s_fieldSingleton;
     static Input::InputSystem* s_inputSystem;
+    static scenes::SceneManager* s_sceneSingleton;
+    //static physics::PhysicsManager* s_physicsSingleton;
 
 public:
     static void SetECSInstance(ecs::ECS* ecs) { s_ecsInstance = ecs; }
@@ -29,6 +33,12 @@ public:
 
     static void SetInputInstance(Input::InputSystem* input) { s_inputSystem = input; }
     static Input::InputSystem* GetInputInstance() { return s_inputSystem; }
+
+    static void SetSceneInstance(scenes::SceneManager* scene) { s_sceneSingleton = scene; }
+    static scenes::SceneManager* GetSceneInstance() { return s_sceneSingleton; }
+
+    //static void SetPhysicsInstance(physics::PhysicsManager* field) { s_physicsSingleton = field; }
+    //static physics::PhysicsManager* GetPhysicsInstance() { return s_physicsSingleton; }
 
     static void SetFieldInstance(FieldSingleton* field) { s_fieldSingleton = field; }
     static FieldSingleton* GetFieldInstance() { return s_fieldSingleton; }

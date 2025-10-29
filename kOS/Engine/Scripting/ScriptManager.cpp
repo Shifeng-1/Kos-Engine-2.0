@@ -104,6 +104,8 @@ void ScriptManager::RunDLL() {
 		svm.ECSSystem = ecs::ECS::GetInstance();
 		svm.field = FieldSingleton::GetInstance();
 		svm.input = Input::InputSystem::GetInstance();
+		svm.scene = scenes::SceneManager::m_GetInstance();
+		//svm.physics = physics::PhysicsManager::GetInstance();
 		svm.scriptNames = &scriptList;
 		DLLUpdateStatic updateFunc = (DLLUpdateStatic)GetProcAddress(hInstDLL, "UpdateStatic");
 		updateFunc(&svm);

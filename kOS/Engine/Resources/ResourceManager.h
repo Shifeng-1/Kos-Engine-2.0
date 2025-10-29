@@ -26,6 +26,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "Resources/R_Scene.h"
 #include "Resources/R_Animation.h"
 #include "Resources/R_Audio.h"
+#include "Resources/R_Material.h"
 class ResourceManager {
 
 public:
@@ -37,6 +38,7 @@ public:
 		RegisterResourceType<R_Scene>(".scene");
 		RegisterResourceType<R_Animation>(".ani");
 		RegisterResourceType<R_Audio>(".wav");
+		RegisterResourceType<R_Material>(".mat");
         //Wait for texture type
     }
 

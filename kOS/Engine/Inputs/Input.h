@@ -58,9 +58,9 @@ namespace Input {
 		bool IsKeyReleased(const keyCode key);
 		glm::vec2 GetMousePos();
 		void InputInit(GLFWwindow* window);
-		void InputUpdate();
+		void InputUpdate(float deltaTime);
 	private:
-		inline static std::unordered_map<int, Key> keysRegistered;
+		std::unordered_map<int, Key> keysRegistered;
 
 		static std::shared_ptr<InputSystem> m_InstancePtr;
 	};

@@ -48,6 +48,8 @@ public:
 		engineShaders.insert({ "ScreenSpriteShader",Shader(screenSpriteVS, screenSpriteFS) });
 		engineShaders.insert({ "FrameBufferShader",Shader(frameBufferVS, frameBufferFS) });
 		engineShaders.insert({ "FBOCompositeShader",Shader(fboCompositeVS, fboCompositeFS) });
+		engineShaders.insert({ "MaterialShader",Shader(materialVS, materialFS) });
+
 	}
 
 	std::unordered_map<std::string, Shader> engineShaders;
@@ -64,6 +66,14 @@ private:
 	const char* defaultDrawFS
 	{
 		#include "CoreEngineShaders/Shaders/DefaultDraw/DefaultDraw.fs"
+	};
+	const char* materialVS
+	{
+		#include "CoreEngineShaders/Shaders/MaterialShader/MaterialShader.vs"
+	};
+	const char* materialFS
+	{
+		#include "CoreEngineShaders/Shaders/MaterialShader/MaterialShader.fs"
 	};
 	const char* frameBufferVS
 	{
@@ -129,4 +139,5 @@ private:
 	{
 		#include "CoreEngineShaders/Shaders/ScreenSpriteShader/ScreenSpriteShader.fs"
 	};
+
 };
