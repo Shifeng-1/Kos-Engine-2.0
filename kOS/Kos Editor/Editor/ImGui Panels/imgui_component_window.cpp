@@ -48,11 +48,17 @@ void gui::ImGuiHandler::DrawComponentWindow()
         ecs::ComponentSignature EntitySignature = m_ecs->GetEntitySignature(entityID);
 
         const auto& componentsString = m_ecs->GetComponentsString();
-        std::vector<const char*>componentNames;
+        static std::vector<const char*>componentNames = {"add Components"};
+        static bool initComponentName = false;
 
-        for (const auto& names: componentsString) {
-            componentNames.push_back(names.c_str());
+        if (!initComponentName) {
+            for (const auto& names : componentsString) {
+                componentNames.push_back(names.c_str());
+            }
+            initComponentName = true;
         }
+
+
        
 
         int ComponentTypeIndex = 0;
