@@ -464,7 +464,7 @@ namespace gui {
                     LOGGING_WARN("Unable to drag prefabs of same type into each other, pls go to prefab editor");
                 }
                 else {
-                    hierachy::m_SetParent(id, childId);
+                    hierachy::m_SetParent(id, childId, true);
                     LOGGING_INFO("Set Parent: %d, Child: %d", id, childId);
                     // update child's scene
                     hierachy::m_UpdateChildScene(id);

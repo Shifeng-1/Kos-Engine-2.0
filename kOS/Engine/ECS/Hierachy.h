@@ -29,7 +29,7 @@ using namespace ecs;
 
 namespace hierachy {
 
-	void m_SetParent(EntityID parent, EntityID child);
+	void m_SetParent(EntityID parent, EntityID child, bool updateTransform = false);
 
 	void m_RemoveParent(EntityID child);
 

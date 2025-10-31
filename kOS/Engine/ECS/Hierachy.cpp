@@ -6,7 +6,7 @@
 
 namespace hierachy {
 
-	void m_SetParent(EntityID parent, EntityID child) {
+	void m_SetParent(EntityID parent, EntityID child, bool updateTransform) {
 
 		ECS* ecs = ECS::GetInstance();
 
@@ -36,8 +36,10 @@ namespace hierachy {
 		childTransform->m_haveParent = true;
 		childTransform->m_parentID = parent;
 		// Recalculate Local Transform after parenting
-		childTransform->localTransform = glm::inverse(parentTransform->transformation) * childTransform->transformation;
-		math::DecomposeMtxIntoTRS(childTransform->localTransform, childTransform->LocalTransformation.position, childTransform->LocalTransformation.rotation, childTransform->LocalTransformation.scale);
+		if (updateTransform) {
+			childTransform->localTransform = glm::inverse(parentTransform->transformation) * childTransform->transformation;
+			math::DecomposeMtxIntoTRS(childTransform->localTransform, childTransform->LocalTransformation.position, childTransform->LocalTransformation.rotation, childTransform->LocalTransformation.scale);
+		}
 	}
 
 	void m_RemoveParent(EntityID child) {
