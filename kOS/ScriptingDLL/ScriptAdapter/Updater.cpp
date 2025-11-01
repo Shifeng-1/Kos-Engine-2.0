@@ -36,5 +36,7 @@ extern "C"  __declspec(dllexport) void UpdateStatic(StaticVariableManager* svm) 
 	RegisterScript<EnemyScripts>();
 	RegisterScript<AudioScript>();
 
+	RegisterScript<PlayerManagerScript>();
+
 	ComponentTypeRegistry::CreateAllDrawers((static_cast<FieldSingleton*>(svm->field)->GetAction()));
 }

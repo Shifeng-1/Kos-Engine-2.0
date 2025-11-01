@@ -29,15 +29,15 @@ public:
 				-sin(yaw)
 			};
 
-			if (inputPtr->IsKeyTriggered(keys::A)) {
+			if (Input->IsKeyTriggered(keys::A)) {
 				std::cout << "AAAAAAAAAAAAAAAAAAAAAah\n";
 			}
 
-			if (inputPtr->GetInstance()->IsKeyTriggered(keys::S)) {
+			if (Input->GetInstance()->IsKeyTriggered(keys::S)) {
 				std::cout << "BBBBBBBBBBBBBBBBBBB\n";
 			}
 
-			if (inputPtr->IsKeyPressed(keys::W)) {
+			if (Input->IsKeyPressed(keys::W)) {
 				std::cout << "MOVING FORWARD\n";
 				tc->LocalTransformation.position += glm::normalize(forward) * ecsPtr->m_GetDeltaTime();
 			}
