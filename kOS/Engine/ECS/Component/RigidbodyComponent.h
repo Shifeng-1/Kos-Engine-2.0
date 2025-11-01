@@ -41,15 +41,15 @@ namespace ecs {
 
 	enum class Constraints : uint32_t {
 		None = 0,
-		FreezePositionX = 1 << 0,
-		FreezePositionY = 1 << 1,
-		FreezePositionZ = 1 << 2,
-		FreezeRotationX = 1 << 3,
-		FreezeRotationY = 1 << 4,
-		FreezeRotationZ = 1 << 5,
-		FreezePosition = FreezePositionX | FreezePositionY | FreezePositionZ,
-		FreezeRotation = FreezeRotationX | FreezeRotationY | FreezeRotationZ,
-		FreezeAll = FreezePosition | FreezeRotation
+		FreezePositionX,
+		FreezePositionY,
+		FreezePositionZ,
+		FreezeRotationX,
+		FreezeRotationY,
+		FreezeRotationZ,
+		FreezePosition,
+		FreezeRotation,
+		FreezeAll
 	};
 
 	class RigidbodyComponent : public Component {

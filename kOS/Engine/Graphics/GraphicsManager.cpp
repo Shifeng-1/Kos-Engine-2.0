@@ -149,7 +149,7 @@ void GraphicsManager::gm_RenderToEditorFrameBuffer()
 	gm_RenderUIObjects(editorCamera);
 
 	Shader* fboCompositeShader{ &shaderManager.engineShaders.find("FBOCompositeShader")->second };
-	framebufferManager.ComposeBuffers(framebufferManager.sceneBuffer, framebufferManager.UIBuffer,
+	framebufferManager.ComposeBuffers(framebufferManager.sceneBuffer.texID, framebufferManager.UIBuffer.texID,
 		framebufferManager.editorBuffer, *fboCompositeShader);
 
 
@@ -170,7 +170,7 @@ void GraphicsManager::gm_RenderToGameFrameBuffer()
 	gm_RenderUIObjects(gameCameras[currentGameCameraIndex]);
 
 	Shader* fboCompositeShader{ &shaderManager.engineShaders.find("FBOCompositeShader")->second };
-	framebufferManager.ComposeBuffers(framebufferManager.sceneBuffer, framebufferManager.UIBuffer,
+	framebufferManager.ComposeBuffers(framebufferManager.sceneBuffer.texID, framebufferManager.UIBuffer.texID,
 		framebufferManager.gameBuffer, *fboCompositeShader);
 }
 

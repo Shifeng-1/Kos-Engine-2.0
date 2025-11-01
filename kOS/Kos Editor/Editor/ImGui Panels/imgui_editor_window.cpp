@@ -134,7 +134,16 @@ void gui::ImGuiHandler::DrawRenderScreenWindow(unsigned int windowWidth, unsigne
         //std::cout << "Clicked pixerl val is " << --pixelVal << '\n';
         --pixelVal;
         m_clickedEntityId =pixelVal>=0? pixelVal: m_clickedEntityId;
-        //std::cout << "PixelVal is " << pixelVal << '\n';
+        std::cout << "PixelVal is " << pixelVal << '\n';
+        if (ecs->HasComponent<ecs::CanvasRendererComponent>(pixelVal)
+            || (hierachy::GetParent(m_clickedEntityId).has_value() &&
+                ecs->HasComponent<ecs::CanvasRendererComponent>(hierachy::GetParent(m_clickedEntityId).value()))) {
+            std::cout << "IS UI\n";
+            m_isUi = true;
+        }
+        else {
+            m_isUi = false;
+        }
         //Get texture
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glDeleteFramebuffers(1, &fbo);

@@ -48,7 +48,7 @@ void gui::ImGuiHandler::DrawBakedWindow() {
 			//Generate GUID
 			// Attach name
 			//KEEP THIS
-			std::string filepath = AssetManager::AssetManager::GetInstance()->GetAssetManagerDirectory() + "/DepthMap/" + GenerateRandomGUIDBaked()+ ".dcm";
+			std::string filepath = AssetManager::AssetManager::GetInstance()->GetAssetManagerDirectory() + "/DepthMap/" + std::to_string(lcComp) + ".dcm";
 			gm->lightRenderer.dcm[i].SaveDepthCubeMap(filepath);
 
 			

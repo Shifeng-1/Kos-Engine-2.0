@@ -115,7 +115,7 @@ void ScreenSpriteMesh::DrawMesh(const ScreenSpriteData& spriteData, Shader& shad
     glBindTexture(GL_TEXTURE_2D, spriteData.textureToUse->RetrieveTexture());
     shader.SetInt("sprite", 0);
     shader.SetVec4("color", spriteData.color);
-
+    shader.SetInt("entityID", spriteData.entityID+1);
     glBindVertexArray(this->vaoID);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);

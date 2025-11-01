@@ -71,6 +71,7 @@ struct ScreenSpriteData : UIElementData
 	unsigned int rows{ 1 }; //Used for sprite sheet stripping
 	unsigned int columns{ 1 }; //Used for sprite sheet stripping
 	unsigned int frameNumber{ 0 }; //Used for animation current frame
+	unsigned int entityID;
 };
 
 struct ScreenGridData : UIElementData

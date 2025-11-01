@@ -35,22 +35,22 @@ public:
 	FrameBuffer sceneBuffer{};
 	FrameBuffer gameBuffer{};
 	FrameBuffer editorBuffer{};
-	FrameBuffer UIBuffer{};
+	UIBuffer UIBuffer{};
 
 	GBuffer gBuffer{};
 
 	void Initialize(unsigned int windowWidth, unsigned int windowHeight)
 	{
 		sceneBuffer.InitializeFBO(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
-		UIBuffer.InitializeFBO(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
 		frameBuffer.InitializeFBO(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
 		editorBuffer.InitializeFBO(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
 		gameBuffer.InitializeFBO(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
 		depthBuffer.InitializeDepthBuffer(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
 		gBuffer.InitializeGBuffer(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
+		UIBuffer.InitializeUIBuffer(static_cast<int>(windowWidth), static_cast<int>(windowHeight),gBuffer.gMaterial);
 	}
 
-	void ComposeBuffers(FrameBuffer& lowerBuffer, FrameBuffer& upperBuffer, FrameBuffer& outputBuffer, Shader& shader)
+	void ComposeBuffers(GLuint lowerBufferTexID, GLuint upperBufferTexID, FrameBuffer& outputBuffer, Shader& shader)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, outputBuffer.fbo);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -58,11 +58,11 @@ public:
 		shader.Use();
 
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, lowerBuffer.texID);
+		glBindTexture(GL_TEXTURE_2D, lowerBufferTexID);
 		shader.SetInt("lowerBuffer", 0);
 
 		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, upperBuffer.texID);
+		glBindTexture(GL_TEXTURE_2D, upperBufferTexID);
 		shader.SetInt("upperBuffer", 1);
 
 		glBindVertexArray(outputBuffer.vaoId);

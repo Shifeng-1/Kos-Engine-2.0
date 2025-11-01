@@ -34,29 +34,53 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 using namespace ecs;
 using namespace physx;
 
-inline Constraints operator|(Constraints a, Constraints b) {
-	return static_cast<Constraints>(static_cast<uint32_t>(a) | static_cast<uint32_t>(b));
-}
-
-inline Constraints& operator|=(Constraints& a, Constraints b) {
-	a = a | b;
-	return a;
-}
-
 inline bool HasConstraint(Constraints mask, Constraints flag) {
 	return (static_cast<uint32_t>(mask) & static_cast<uint32_t>(flag)) != 0;
 }
 
 inline void ToPhysXContraints(PxRigidDynamic* actor, Constraints constraints) {
-	PxRigidDynamicLockFlags flags;
+	PxRigidDynamicLockFlags flags{}; 
 
-	if (HasConstraint(constraints, Constraints::FreezePositionX)) { flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_X; }
-	if (HasConstraint(constraints, Constraints::FreezePositionY)) { flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_Y; }
-	if (HasConstraint(constraints, Constraints::FreezePositionZ)) { flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_Z; }
-
-	if (HasConstraint(constraints, Constraints::FreezeRotationX)) { flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_X; }
-	if (HasConstraint(constraints, Constraints::FreezeRotationY)) { flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y; }
-	if (HasConstraint(constraints, Constraints::FreezeRotationZ)) { flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z; }
+	switch (constraints) {
+		case Constraints::None:
+			break;
+		case Constraints::FreezePositionX:
+			flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_X;
+			break;
+		case Constraints::FreezePositionY:
+			flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_Y;
+			break;
+		case Constraints::FreezePositionZ:
+			flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_Z;
+			break;
+		case Constraints::FreezeRotationX:
+			flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_X;
+			break;
+		case Constraints::FreezeRotationY:
+			flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y;
+			break;
+		case Constraints::FreezeRotationZ:
+			flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z;
+			break;
+		case Constraints::FreezePosition:
+			flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_X;
+			flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_Y;
+			flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_Z;
+			break;
+		case Constraints::FreezeRotation:
+			flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_X;
+			flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y;
+			flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z;
+			break;
+		case Constraints::FreezeAll:
+			flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_X;
+			flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_Y;
+			flags |= PxRigidDynamicLockFlag::eLOCK_LINEAR_Z;
+			flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_X;
+			flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y;
+			flags |= PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z;
+			break;
+	}
 
 	actor->setRigidDynamicLockFlags(flags);
 }

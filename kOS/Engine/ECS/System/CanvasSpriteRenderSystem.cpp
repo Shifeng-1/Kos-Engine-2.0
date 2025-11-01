@@ -69,7 +69,7 @@ namespace ecs {
                                                            glm::vec2{ childTransform->WorldTransformation.scale.x, 
                                                                       childTransform->WorldTransformation.scale.y},
                                                                       -childTransform->WorldTransformation.rotation.x, spriteComp->color,
-                                                                      fontResource.get(), 0, 0, 0 }); /// Temporarily all 0
+                                                                      fontResource.get(), 0, 0, 0,childID }); /// Temporarily all 0
                     }
                 }
 

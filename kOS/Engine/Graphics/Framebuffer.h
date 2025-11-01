@@ -158,3 +158,17 @@ private:
 	unsigned int depthMap;
 	Shader* shader;
 };
+
+class UIBuffer {
+public:
+	void InitializeUIBuffer(int width, int height);
+	void InitializeUIBuffer(int width, int height,GLuint gBuffTtex);
+	void BindForDrawing();
+	unsigned int RetrieveBuffer() { return uiBuffer; }
+	unsigned int gMaterial;
+	GLuint texID{};
+private:
+	int width{}, height{};
+	unsigned int uiBuffer;
+	unsigned int rboDepth;
+};
