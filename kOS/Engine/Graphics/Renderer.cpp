@@ -331,6 +331,7 @@ void DebugRenderer::InitializeDebugRendererMeshes() {
 	debugFrustum.CreateMesh();
 	debugCircle.CreateMesh();
 	debugCube.CreateMesh();
+	debugCapsule.CreateMesh();
 }
 void DebugRenderer::Render(const CameraData& camera, Shader& shader) {
 
@@ -426,8 +427,43 @@ void DebugRenderer::RenderDebugCubes(const CameraData& camera, Shader& shader)
 	}
 }
 
+void DebugRenderer::RenderDebugSpheres(const CameraData& camera, Shader& shader) {
+	for (size_t i = 0; i < basicDebugSpheres.size(); ++i) {
+		glm::vec3 pos = glm::vec3{ basicDebugSpheres[i].worldTransform[3] };
+		float radius = glm::length(glm::vec3{ basicDebugSpheres[i].worldTransform[0] });
+		glm::mat4 model{ 1.0f };
+		model = glm::translate(model, pos) * glm::scale(model, glm::vec3{ radius });
+		shader.SetTrans("model", model);
+		shader.SetFloat("uShaderType", 2.1f);
+		debugCircle.DrawMesh();
+		glm::mat4 trY = model * glm::rotate(glm::mat4{ 1.0f }, glm::radians(90.0f), glm::vec3{ 0.0f, 1.0f, 0.0f });
+		shader.SetTrans("model", trY);
+		shader.SetFloat("uShaderType", 2.1f);
+		debugCircle.DrawMesh();
+		glm::mat4 trX = model * glm::rotate(glm::mat4{ 1.0f }, glm::radians(90.0f), glm::vec3{ 1.0f, 0.0f, 0.0f });
+		shader.SetTrans("model", trX);
+		shader.SetFloat("uShaderType", 2.1f);
+		debugCircle.DrawMesh();
+		glm::vec3 viewDirection = camera.position - pos;
+		glm::mat4 trS = glm::translate(glm::mat4{ 1.0f }, pos) * glm::scale(glm::mat4{ 1.0f }, glm::vec3{ radius }) * DebugCircle::RotateZtoV(viewDirection);
+		shader.SetTrans("model", trS);
+		shader.SetFloat("uShaderType", 2.1f);
+		debugCircle.DrawMesh();
+	}
+}
+
+void DebugRenderer::RenderDebugCapsules(const CameraData& camera, Shader& shader) {
+	for (size_t i = 0; i < basicDebugCapsules.size(); i++) {
+		shader.SetTrans("model", basicDebugCapsules[i].worldTransform);
+		shader.SetFloat("uShaderType", 2.1f);
+		debugCapsule.DrawMesh();
+	}
+}
+
 void DebugRenderer::Clear() {
 	basicDebugCubes.clear();
+	basicDebugSpheres.clear();
+	basicDebugCapsules.clear();
 }
 
 void ParticleRenderer::InitializeParticleRendererMeshes()

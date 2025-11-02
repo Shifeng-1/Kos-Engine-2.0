@@ -60,6 +60,8 @@ namespace ecs{
 		RegisterSystem<AnimatorSystem, TransformComponent, AnimatorComponent>();
 		RegisterSystem<LightingSystem, TransformComponent, LightComponent>();
 		RegisterSystem<DebugBoxColliderRenderSystem, TransformComponent, BoxColliderComponent>();
+		RegisterSystem<DebugCapsuleColliderRenderSystem, TransformComponent, CapsuleColliderComponent>();
+		RegisterSystem<DebugSphereColliderRenderSystem, TransformComponent, SphereColliderComponent>();
 		RegisterSystem<AudioSystem, TransformComponent, AudioComponent>();
 		RegisterSystem<PathfindingSystem, TransformComponent, OctreeGeneratorComponent>();
 		RegisterSystem<ParticleSystem, TransformComponent, ParticleComponent>();

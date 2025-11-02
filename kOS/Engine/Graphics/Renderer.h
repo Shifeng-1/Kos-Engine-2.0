@@ -112,16 +112,19 @@ struct DebugRenderer : BasicRenderer {
 	void RenderPointLightDebug(const CameraData& camera, Shader& shader, std::vector<PointLightData> pointLights);
 	void RenderDebugFrustums(const CameraData& camera, Shader& shader, const std::vector<CameraData>& debugFrustums);
 	void RenderDebugCubes(const CameraData& camera, Shader& shader);
+	void RenderDebugCapsules(const CameraData& camera, Shader& shader);
+	void RenderDebugSpheres(const CameraData& camera, Shader& shader);
 	void Clear() override;
 
 	std::vector<BasicDebugData> basicDebugCubes{};
 	std::vector<BasicDebugData> basicDebugCapsules{};
-	std::vector<BasicDebugData> basicDebugSpherers{};
+	std::vector<BasicDebugData> basicDebugSpheres{};
 
 private:
 	DebugCircle debugCircle;
 	DebugFrustum debugFrustum;
 	DebugCube debugCube;
+	DebugCapsule debugCapsule;
 };
 
 struct ParticleRenderer : BasicRenderer {

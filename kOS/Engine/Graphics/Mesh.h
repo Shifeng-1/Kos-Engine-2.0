@@ -76,6 +76,14 @@ struct DebugCircle :BasicMesh {
 	}
 };
 
+struct DebugCapsule : BasicMesh {
+	float radius{ 0.5f };
+	float height{ 1.0f };
+	float lineWidth{ 2.0f };
+	void CreateMesh();
+	void DrawMesh();
+};
+
 struct DebugFrustum : BasicMesh {
 	float lineWidth{ 2.0f };
 	GLuint vboId;

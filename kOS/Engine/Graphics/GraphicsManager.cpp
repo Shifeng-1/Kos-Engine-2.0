@@ -206,7 +206,7 @@ void GraphicsManager::gm_FillGBuffer(const CameraData& camera)
 	cubeRenderer.Render(camera, *gBufferPBRShader, &this->cube);
 	debugRenderer.RenderPointLightDebug(camera, *gBufferPBRShader, lightRenderer.pointLightsToDraw);
 	debugRenderer.RenderDebugFrustums(camera, *gBufferPBRShader, gameCameras);
-
+	
 	gBufferPBRShader->Disuse();
 
 	gBufferDebugShader->Use();
@@ -214,6 +214,8 @@ void GraphicsManager::gm_FillGBuffer(const CameraData& camera)
 	gBufferDebugShader->SetTrans("projection", camera.GetPerspMtx()); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	//Render debug objects if any
 	debugRenderer.RenderDebugCubes(camera, *gBufferDebugShader);
+	debugRenderer.RenderDebugSpheres(camera, *gBufferDebugShader);
+	debugRenderer.RenderDebugCapsules(camera, *gBufferDebugShader);
 	gBufferDebugShader->Disuse();
 
 

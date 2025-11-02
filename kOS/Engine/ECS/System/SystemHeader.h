@@ -14,6 +14,8 @@
 #include "CharacterControllerSystem.h"
 #include "LightingSystem.h"
 #include "DebugBoxColliderRenderSystem.h"
+#include "DebugCapsuleColliderRenderSystem.h"
+#include "DebugSphereColliderRenderSystem.h"
 #include "ScriptingSystem.h"
 #include "PathfindingSystem.h"
 #include "CubeRenderSystem.h"
