@@ -181,6 +181,95 @@ namespace Octrees {
 		return false;
 	}
 
+	bool Graph::AStarGround(OctreeNode* startNode, OctreeNode* endNode) {
+		std::cout << "RUNNING GROUND PATHFINDING\n";
+		std::cout << "Pathfind Ground Start: " << startNode->bounds.center.x << ", " << startNode->bounds.center.y << ", " << startNode->bounds.center.z << std::endl;
+		std::cout << "Pathfind Ground End: " << endNode->bounds.center.x << ", " << endNode->bounds.center.y << ", " << endNode->bounds.center.z << std::endl;
+
+		// Reset path list at the start whenever trying to evaluate another path.
+		pathList.clear();
+
+		Node* start = FindNode(startNode);
+		Node* end = FindNode(endNode);
+
+		if (!start || !end) {
+			return false;
+		}
+
+		std::multiset<Node, CompareNode> openSet;
+		std::vector<Node> closedSet;
+
+		// The iteration count for when this number increases pass the max iteration and stops the algorithm.
+		int iterationCount = 0;
+
+		// Calculate the current node's g, h and f cost.
+		start->g = 0;
+		start->h = Heuristic(*start, *end);
+		start->f = start->g + start->h;
+		start->fromID = -1;
+		openSet.insert(*start);
+
+		Node* neighbour, current;
+
+		while (openSet.size()) {
+			// Max iterations reached, abort algorithm.
+			if (++iterationCount > maxIterations) {
+				std::cout << "NO PATH FOUND1\n";
+				return false;
+			}
+
+			Node smallestFCostNode = *openSet.begin();
+			for (Node nod : openSet) {
+				if (nod.f < smallestFCostNode.f) {
+					smallestFCostNode = nod;
+				}
+			}
+
+			current = (*openSet.begin());
+			openSet.erase(openSet.begin());
+
+			// If current node is the end node, path is found.
+			if (current == end) {
+				std::cout << "PATH IS FOUND\n";
+				ReconstructPath(current);
+				return true;
+			}
+
+			closedSet.push_back(current);
+
+			for (Edge edge : current.edges) {
+				neighbour = ((edge.a) == current) ? (edge.b) : (edge.a);
+
+				auto closedSetIt = std::find(closedSet.begin(), closedSet.end(), neighbour);
+				if (closedSetIt != closedSet.end()) {
+					continue;
+				}
+
+				float tentative_gCost = current.g + Heuristic(current, *neighbour);
+				auto openSetIt = std::find(openSet.begin(), openSet.end(), neighbour);
+
+				if (tentative_gCost < neighbour->g || openSetIt == openSet.end()) {
+					neighbour->g = tentative_gCost;
+					neighbour->h = Heuristic(*neighbour, *end);
+					neighbour->f = neighbour->g + neighbour->h;
+					neighbour->fromID = current.id;
+
+					// I HAVE TO OPTIZMIE THIS NEXT TIME
+					for (Node node : nodes) {
+						if (node.id == neighbour->id) {
+							node.fromID = current.id;
+						}
+					}
+
+					openSet.insert(*neighbour);
+				}
+			}
+		}
+
+		std::cout << "NO PATH FOUND2\n";
+		return false;
+	}
+
 	void Graph::ReconstructPath(Node current) {
 		while (current.fromID != -1) {
 			pathList.push_back(current);

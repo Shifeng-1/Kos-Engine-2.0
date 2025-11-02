@@ -141,11 +141,10 @@ namespace physics {
 		PxRaycastBuffer hit;
 		bool isHit = m_scene->raycast(PxVec3{ origin.x, origin.y, origin.z }, PxVec3{ direction.x, direction.y, direction.z }.getNormalized(), maxDistance, hit);
 		if (isHit && hit.hasBlock) {
-			outHit.rigidbody = hit.block.actor;
-			outHit.collider = hit.block.shape;
 			outHit.point = glm::vec3{ hit.block.position.x, hit.block.position.y, hit.block.position.z };
 			outHit.normal = glm::vec3{ hit.block.normal.x, hit.block.normal.y, hit.block.normal.z };
 			outHit.distance = hit.block.distance;
+			if (hit.block.actor && hit.block.actor->userData) { outHit.entityID = reinterpret_cast<unsigned int>(hit.block.actor->userData); }
 			return true;
 		}
 		return false;

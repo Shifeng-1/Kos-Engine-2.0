@@ -169,8 +169,7 @@ inline PxFilterFlags ToPhysxCustomFilter(PxFilterObjectAttributes a0, PxFilterDa
 }
 
 struct RaycastHit {
-	PxRigidActor* rigidbody = nullptr;
-	PxShape* collider = nullptr;
+	unsigned int entityID;
 	glm::vec3 point;
 	glm::vec3 normal;
 	float distance = 0.0f;
