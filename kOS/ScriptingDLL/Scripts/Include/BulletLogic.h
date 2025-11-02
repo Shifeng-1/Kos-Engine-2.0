@@ -6,8 +6,8 @@ public:
 	glm::vec3 direction;
 
 	void Start() override {
-		physicsPtr->OnCollisionEnter.Add([this](const physics::Collision& col) {
-			if (col.thisEntityID != this->entity) { return; }
+		physicsPtr->OnTriggerEnter.Add([this](const physics::Collision& col) {
+			//if (col.thisEntityID != this->entity) { return; }
 			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Enemy") {
 				std::cout << "Collided with Entity: " << col.otherEntityID << std::endl;
 			}
