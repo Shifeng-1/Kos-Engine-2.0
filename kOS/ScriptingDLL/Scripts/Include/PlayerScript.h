@@ -10,7 +10,13 @@ public:
     std::string shield2;
     glm::vec3 vec3;
     glm::vec4 vec4;
+	utility::GUID guid;
+
     void Start() override {
+
+		ecs::EntityID target = ecsPtr->GetEntityIDFromGUID(guid);
+
+
         health = 1;
         shield = 50;
         physicsPtr->OnCollisionEnter.Add([this](const physics::Collision& col) {
@@ -33,5 +39,5 @@ public:
         }
     }
 
-    REFLECTABLE(PlayerScript, health, shield, healthbool, shield2);
+    REFLECTABLE(PlayerScript, health, shield, healthbool, shield2, guid);
 };

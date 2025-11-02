@@ -272,7 +272,7 @@ namespace gui {
 					}
 
 					if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-						AssetPathGUID data;
+						AssetPayload data;
 						data.GUID = assetmanager->GetGUIDfromFilePath(directoryPath.path());
 						std::string filepath = directoryPath.path().string();
 						

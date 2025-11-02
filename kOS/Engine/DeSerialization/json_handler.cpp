@@ -36,6 +36,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 /********************************************************************/
 #include "Config/pch.h"
 #include "json_handler.h"
+#include "Config/ComponentRegistry.h"
 
 #include <RAPIDJSON/filewritestream.h>
 #include <RAPIDJSON/istreamwrapper.h>
@@ -178,7 +179,7 @@ namespace Serialization {
 	}
 
 	void SaveEntity(ecs::EntityID entityId, rapidjson::Value& parentArray, rapidjson::Document::AllocatorType& allocator, std::unordered_set<ecs::EntityID>& savedEntities) {
-		auto* ecs = ecs::ECS::GetInstance();
+		auto* ecs = ComponentRegistry::GetECSInstance();
 		auto signature = ecs->GetEntitySignature(entityId);
 
 		if (savedEntities.find(entityId) != savedEntities.end()) {
@@ -186,6 +187,25 @@ namespace Serialization {
 		}
 
 		rapidjson::Value entityData(rapidjson::kObjectType);
+
+
+		{//Update entity without GUID
+			ecs::NameComponent* nameComp = ecs->GetComponent<ecs::NameComponent>(entityId);
+			if (nameComp && nameComp->entityGUID.Empty()) {
+				nameComp->entityGUID = utility::GenerateGUID();
+				ecs->InsertGUID(nameComp->entityGUID, entityId);
+			}
+			std::string GUIDString = nameComp->entityGUID.GetToString();
+			rapidjson::Value key("entityGUID", allocator); // key name
+			rapidjson::Value value;
+			value.SetString(GUIDString.c_str(),
+				static_cast<rapidjson::SizeType>(GUIDString.size()),
+				allocator);
+
+			entityData.AddMember(key, value, allocator);
+		}
+
+		
 
 		
 		const auto& componentKey = ecs->GetComponentKeyData();
@@ -195,6 +215,7 @@ namespace Serialization {
 				if (component) {
 					auto& actionInvoker = ecs->componentAction[ComponentName];
 					actionInvoker->Save(component, entityData, allocator);
+					
 				}
 			}
 		}
@@ -219,8 +240,20 @@ namespace Serialization {
 
 	void LoadEntity(const rapidjson::Value& entityData, std::optional<ecs::EntityID> parentID, const std::string& sceneName)
 	{
-		ecs::ECS* ecs = ecs::ECS::GetInstance();
+		ecs::ECS* ecs = ComponentRegistry::GetECSInstance();
 		ecs::EntityID newEntityId = ecs->CreateEntity(sceneName);
+
+		{
+			//Set GUID
+			if (entityData.HasMember("entityGUID") && entityData["entityGUID"].IsString()) {
+				std::string guidStr = entityData["entityGUID"].GetString();
+				ecs::NameComponent* nameComp = ecs->GetComponent<ecs::NameComponent>(newEntityId);
+				if (nameComp) {
+					nameComp->entityGUID.SetFromString(guidStr);
+					ecs->InsertGUID(nameComp->entityGUID, newEntityId);
+				}
+			}
+		}
 
 		const auto& componentKey = ecs->GetComponentKeyData();
 		for (const auto& [ComponentName, key] : componentKey) {

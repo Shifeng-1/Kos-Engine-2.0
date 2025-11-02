@@ -292,6 +292,9 @@ namespace ecs{
 			}
 		}
 
+		//delete guid off map
+		DeleteGUID(GetComponent<NameComponent>(ID)->entityGUID);
+
 		// reset all components
 		for (const auto& [ComponentName, key] : m_componentKey) {
 			if (m_entityMap.find(ID)->second.test(key)) {
@@ -299,8 +302,8 @@ namespace ecs{
 			}
 		}
 
-		//store delete entity
-		m_entityMap.erase(ID);
+		//delete stored entity
+		m_entityMap.erase(ID);		
 		m_availableEntityID.push(ID);
 
 		return true;

@@ -86,6 +86,11 @@ void gui::ImGuiHandler::DrawComponentWindow()
             }
 
             ImGui::TextDisabled(std::string("Entity ID: " + std::to_string(entityID)).c_str());
+            if (!nc->entityGUID.Empty()) {
+				ImGui::SameLine();
+				ImGui::TextDisabled(std::string("GUID: " + nc->entityGUID.GetToString()).c_str());
+            }
+
 
             {
                 //layer selector

@@ -74,6 +74,8 @@ namespace ecs {
 		void ResetComponent(EntityID ID);
 
 
+
+
 		template <typename T>
 		T GetIComponent(const std::string& componentName, EntityID ID);
 
@@ -95,6 +97,23 @@ namespace ecs {
 		}
 
 		//ENTITY DATA GETTERS
+		void InsertGUID(const utility::GUID& guid, ecs::EntityID id) {
+			m_GUIDtoEntityID.insert({ guid, id });
+		}
+
+		void DeleteGUID(const utility::GUID& guid) {
+			if (guid.Empty()) return;
+			m_GUIDtoEntityID.erase(guid);
+		}
+
+		int GetEntityIDFromGUID(const utility::GUID& guid) {
+			if(m_GUIDtoEntityID.find(guid) == m_GUIDtoEntityID.end()) {
+				return -1;
+			}
+			
+			return static_cast<int>(m_GUIDtoEntityID.at(guid));
+		}
+
 		ComponentSignature GetEntitySignature(EntityID ID) {
 			return m_entityMap.at(ID);
 		}
@@ -115,6 +134,7 @@ namespace ecs {
 		}
 
 		std::string GetSceneByEntityID(ecs::EntityID entityID);
+
 
 
 		//SCENE DATA
@@ -166,6 +186,7 @@ namespace ecs {
 		std::unordered_map<EntityID, ComponentSignature> m_entityMap;
 		EntityID m_entityCount{};
 		std::stack<EntityID> m_availableEntityID;
+		std::unordered_map<utility::GUID, ecs::EntityID> m_GUIDtoEntityID;
 
 		static std::shared_ptr<ECS> m_InstancePtr;
 	};
