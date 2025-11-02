@@ -48,6 +48,7 @@ struct BasicDebugData
 {
 	void ConstructMat4(glm::vec3 center, glm::vec3 size);
 	glm::mat4 worldTransform;
+	glm::vec3 color{ 0.f,1.f,0.f };
 };
 
 struct DebugCube :BasicMesh {

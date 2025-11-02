@@ -190,8 +190,9 @@ void GraphicsManager::gm_FillGBuffer(const CameraData& camera)
 	//Render to G buffer 
 	framebufferManager.gBuffer.BindGBuffer();
 	Shader* gBufferPBRShader{ &shaderManager.engineShaders.find("GBufferPBRShader")->second };
+	Shader* gBufferDebugShader{ &shaderManager.engineShaders.find("GBufferDebugShader")->second };
+
 	gBufferPBRShader->Use();
-	gBufferPBRShader->SetFloat("uShaderType", 0.f);
 	gBufferPBRShader->SetTrans("projection", camera.GetPerspMtx()); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	gBufferPBRShader->SetTrans("view", camera.GetViewMtx());
 	gBufferPBRShader->SetVec3("cameraPosition", camera.position);
@@ -201,12 +202,17 @@ void GraphicsManager::gm_FillGBuffer(const CameraData& camera)
 	meshRenderer.Render(camera, *gBufferPBRShader);
 	skinnedMeshRenderer.Render(camera, *gBufferPBRShader);
 	cubeRenderer.Render(camera, *gBufferPBRShader, &this->cube);
-	//Render debug objects if any
 	debugRenderer.RenderPointLightDebug(camera, *gBufferPBRShader, lightRenderer.pointLightsToDraw);
 	debugRenderer.RenderDebugFrustums(camera, *gBufferPBRShader, gameCameras);
-	debugRenderer.RenderDebugCubes(camera, *gBufferPBRShader);
 
 	gBufferPBRShader->Disuse();
+
+	gBufferDebugShader->Use();
+	gBufferDebugShader->SetTrans("view", camera.GetViewMtx());
+	gBufferDebugShader->SetTrans("projection", camera.GetPerspMtx()); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+	//Render debug objects if any
+	debugRenderer.RenderDebugCubes(camera, *gBufferDebugShader);
+	gBufferDebugShader->Disuse();
 
 
 }

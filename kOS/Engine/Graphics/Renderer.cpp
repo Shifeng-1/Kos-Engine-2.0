@@ -169,6 +169,7 @@ void TextRenderer::Clear()
 void MeshRenderer::Render(const CameraData& camera, Shader& shader)
 {
 	shader.SetBool("isNotRigged", true);
+	shader.SetVec3("color", glm::vec3{1.f,1.f,1.f});
 	for (MeshData& mesh : meshesToDraw)
 	{
 		shader.SetTrans("model", mesh.transformation);
@@ -181,6 +182,7 @@ void MeshRenderer::Render(const CameraData& camera, Shader& shader)
 void SkinnedMeshRenderer::Render(const CameraData& camera, Shader& shader)
 {
 	shader.SetBool("isNotRigged", false);
+	shader.SetVec3("color", glm::vec3{ 1.f,1.f,1.f });
 	for (SkinnedMeshData& mesh : skinnedMeshesToDraw)
 	{
 		shader.SetTrans("model", mesh.transformation);
@@ -264,6 +266,8 @@ void SkinnedMeshRenderer::Clear()
 void CubeRenderer::Render(const CameraData& camera, Shader& shader, Cube* cubePtr) {
 	for (CubeData& cd : cubesToDraw) {
 		shader.SetTrans("model", cd.transformation);
+		shader.SetVec3("color", glm::vec3{ 1.f,1.f,1.f });
+
 		shader.SetInt("entityID", cd.entityID + 1);
 		glActiveTexture(GL_TEXTURE0); // activate proper texture unit before binding
 		shader.SetInt("texture_diffuse1", 0);
@@ -416,8 +420,9 @@ void DebugRenderer::RenderDebugCubes(const CameraData& camera, Shader& shader)
 	//model = glm::translate(model, pos) * glm::mat4_cast(rot) * glm::scale(model, sca);
 	for (size_t i = 0; i < basicDebugCubes.size(); i++)
 	{
-		shader.SetTrans("model", basicDebugCubes[i].worldTransform);
 		shader.SetFloat("uShaderType", 2.1f);
+		shader.SetTrans("model", basicDebugCubes[i].worldTransform);
+		shader.SetVec3("color", basicDebugCubes[i].color);
 		debugCube.DrawMesh();
 	}
 }

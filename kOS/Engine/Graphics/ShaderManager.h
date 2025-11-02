@@ -42,6 +42,8 @@ public:
 		engineShaders.insert({ "DefaultDraw",Shader(defaultDrawVS, defaultDrawFS) });
 		engineShaders.insert({ "DeferredPBRShader",Shader(deferredPBRVS, deferredPBRFS) });
 		engineShaders.insert({ "GBufferPBRShader",Shader(gBufferPBRVS, gBufferPBRFS) });
+		engineShaders.insert({ "GBufferDebugShader",Shader(gBufferDebugVS, gBufferDebugFS) });
+
 		engineShaders.insert({ "DepthMapShader",Shader(depthMapVS, depthMapFS) });
 		engineShaders.insert({ "SkyBoxShader",Shader(skyBoxVS, skyBoxFS) });
 		engineShaders.insert({ "ScreenFontShader",Shader(screenFontVS, screenFontFS) });
@@ -121,6 +123,14 @@ private:
 	const char* gBufferPBRFS
 	{
 		#include "CoreEngineShaders/Shaders/GBuffPBRShader/GBuffPBRShader.fs"
+	};
+	const char* gBufferDebugVS
+	{
+		#include "CoreEngineShaders/Shaders/GBufferDebugShader/GBufferDebugShader.vs"
+	};
+	const char* gBufferDebugFS
+	{
+		#include "CoreEngineShaders/Shaders/GBufferDebugShader/GBufferDebugShader.fs"
 	};
 	const char* depthMapVS
 	{

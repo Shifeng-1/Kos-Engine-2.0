@@ -1,0 +1,84 @@
+[
+    {
+        "SceneData": {
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
+        "AudioComponent": {
+            "audioFiles": [
+                {
+                    "audioGUID": "24a5edf7-efac-9bb6-0644-ef7909f212bc",
+                    "volume": 5.0,
+                    "loop": true,
+                    "playOnStart": true,
+                    "hasPlayed": false,
+                    "pan": 0.0,
+                    "isBGM": false,
+                    "isSFX": true
+                }
+            ]
+        },
+        "MeshFilterComponent": {
+            "meshGUID": "ee1ad3b9-e869-074a-fe25-b15ac13d76d0"
+        },
+        "MeshRendererComponent": {
+            "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+            "specularMaterialGUID": "3835eca5-ca41-66f9-c046-aae5ed607e56",
+            "normalMaterialGUID": "dc87b22b-a90f-e566-c503-d27ea05bc74a",
+            "ambientOcclusionMaterialGUID": "7e3bc79c-83cb-41b9-aa01-6076a018d1e8",
+            "roughnessMaterialGUID": "21e73a5d-3a17-aa8c-8e08-2ec4d5ae7320"
+        },
+        "NameComponent": {
+            "entityName": "BackpackTest",
+            "Layer": 0,
+            "entityTag": "Default",
+            "isPrefab": true,
+            "prefabName": "BackpackTest.prefab",
+            "hide": false
+        },
+        "PlayerScript": {
+            "health": 50,
+            "shield": 10,
+            "healthbool": false,
+            "shield2": ""
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": 12.817800521850586,
+                    "y": 0.8654597997665405,
+                    "z": -31.58481788635254
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 0.08212702721357346,
+                    "y": 0.06410853564739227,
+                    "z": 0.1000412255525589
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": 12.817800521850586,
+                    "y": 0.8654597997665405,
+                    "z": -31.58481788635254
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 0.08212702721357346,
+                    "y": 0.06410853564739227,
+                    "z": 0.1000412255525589
+                }
+            }
+        }
+    }
+]
