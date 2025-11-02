@@ -49,7 +49,8 @@ namespace Octrees {
 	};
 
 	struct Edge {
-		Node a, b;
+		//Node a, b;
+		Node* a, *b;
 
 		//Edge& operator=(Edge const& other);
 		bool operator==(Edge const& other) const;

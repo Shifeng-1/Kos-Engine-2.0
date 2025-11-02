@@ -25,10 +25,11 @@ namespace Octrees {
 	Octree::Octree(float minNodeSize, Graph _graph) {
 		graph = _graph;
 
+		graph.nodes.reserve(1000);
+
 		CalculateBounds();
 		CreateTree(minNodeSize);
 		GetEmptyLeaves(&root);
-		std::cout << "TESTSTSTSTST\n";
 		//for (Edge edge : graph.edges) {
 		//	std::cout << "EDGE2: from " << edge.a->octreeNode.bounds.center.x << ", "
 		//		<< edge.a->octreeNode.bounds.center.y << ", "
