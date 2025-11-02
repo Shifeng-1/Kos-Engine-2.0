@@ -63,7 +63,9 @@ namespace ecs {
 
                 if (skeleton)
                 {
+                    // fix this
                     skeleton->m_CurrentTime += skeleton->GetTicksPerSecond() * ecs->m_GetDeltaTime();
+                    float wtf = skeleton->GetDuration();
                     skeleton->m_CurrentTime = fmod(skeleton->m_CurrentTime, skeleton->GetDuration());
                 }
 

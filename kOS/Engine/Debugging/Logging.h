@@ -396,7 +396,7 @@ namespace logging {
     template <typename... Args>
     void Logger::m_Info(const std::string_view message, Args&&... args)
     {
-        assert(m_bInitialized && "The logger must be initialized before it is used!");
+        //assert(m_bInitialized && "The logger must be initialized before it is used!");
 
         if (!m_bInitialized)
         {
@@ -424,7 +424,7 @@ namespace logging {
     void Logger::m_Warn(const std::string_view message, Args&&... args)
     {
 #ifdef _WIN32
-        assert(m_bInitialized && "The logger must be initialized before it is used!");
+        //assert(m_bInitialized && "The logger must be initialized before it is used!");
 
         if (!m_bInitialized)
         {
@@ -456,7 +456,7 @@ namespace logging {
     void Logger::m_Error(std::source_location location, const std::string_view message, Args&&... args)
     {
 #ifdef _WIN32
-        assert(m_bInitialized && "The logger must be initialized before it is used!");
+        //assert(m_bInitialized && "The logger must be initialized before it is used!");
 
         if (!m_bInitialized)
         {
@@ -512,7 +512,7 @@ namespace logging {
     void Logger::m_Error(const std::string_view message , Args&&... args)
     {
 #ifdef _WIN32
-        assert(m_bInitialized && "The logger must be initialized before it is used!");
+        //assert(m_bInitialized && "The logger must be initialized before it is used!");
 
         if (!m_bInitialized)
         {
@@ -562,7 +562,7 @@ namespace logging {
     template <typename... Args>
     void Logger::m_Crash(const std::string_view message, Args&&... args)
     {
-        assert(m_bInitialized && "The logger must be initialized before it is used!");
+        //assert(m_bInitialized && "The logger must be initialized before it is used!");
 
         if (!m_bInitialized)
         {
@@ -592,7 +592,7 @@ namespace logging {
     void Logger::m_Assert(std::source_location location, const std::string_view message, Args&&... args)
     {
 #ifdef _WIN32
-        assert(m_bInitialized && "The logger must be initialized before it is used!");
+        //assert(m_bInitialized && "The logger must be initialized before it is used!");
 
         if (!m_bInitialized)
         {
@@ -644,7 +644,7 @@ namespace logging {
     template <typename... Args>
     void Logger::m_Debug( const std::string_view message, Args&&... args)
     {
-        assert(m_bInitialized && "The logger must be initialized before it is used!");
+        //assert(m_bInitialized && "The logger must be initialized before it is used!");
 
         if (!m_bInitialized)
         {
@@ -673,7 +673,7 @@ namespace logging {
     void Logger::m_Popup(const std::string_view message, Args&&... args)
     {
 #ifdef _WIN32
-        assert(m_bInitialized && "The logger must be initialized before it is used!");
+        //assert(m_bInitialized && "The logger must be initialized before it is used!");
 
         if (!m_bInitialized)
         {

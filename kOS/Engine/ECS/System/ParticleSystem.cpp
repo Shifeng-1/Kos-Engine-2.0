@@ -1,6 +1,7 @@
 #include "Config/pch.h"
 #include "ParticleSystem.h"
 #include "glm/glm.hpp"
+#include "Graphics/GraphicsManager.h"
 
 
 namespace ecs {
@@ -189,6 +190,7 @@ namespace ecs {
 
     void ParticleSystem::Update() {
         ECS* ecs = ECS::GetInstance();
+        std::shared_ptr<GraphicsManager> gm = GraphicsManager::GetInstance();
         const auto& entities = m_entities.Data();
         float dt = ecs->m_GetDeltaTime();
        
@@ -271,6 +273,9 @@ namespace ecs {
 
             // --- PERFORMANCE OPTIMIZATION: Unmap position buffer ONCE at the end ---
             NvFlexUnmap((NvFlexBuffer*)particle->pointers[0]);
+
+            
+            gm->gm_PushBasicParticleData(BasicParticleData{ sending.positions_Particle, sending.color, {sending.scale.x, sending.scale.y}, sending.rotate });
         }
     }
 

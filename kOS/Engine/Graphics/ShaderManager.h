@@ -52,6 +52,7 @@ public:
 		engineShaders.insert({ "FBOCompositeShader",Shader(fboCompositeVS, fboCompositeFS) });
 		engineShaders.insert({ "MaterialShader",Shader(materialVS, materialFS) });
 		engineShaders.insert({ "PointShadowShader",Shader(pointShadowVS, pointShadowFS,pointShadowGS) });
+		engineShaders.insert({ "BasicParticleShader", Shader(basicParticleVS,basicParticleFS) });
 
 	}
 
@@ -163,6 +164,14 @@ private:
 	const char* screenSpriteFS
 	{
 		#include "CoreEngineShaders/Shaders/ScreenSpriteShader/ScreenSpriteShader.fs"
+	};
+	const char* basicParticleVS
+	{
+		#include "CoreEngineShaders/Shaders/BasicParticleShader/BasicParticleShader.vs"
+	};
+	const char* basicParticleFS
+	{
+		#include "CoreEngineShaders/Shaders/BasicParticleShader/BasicParticleShader.fs"
 	};
 
 };

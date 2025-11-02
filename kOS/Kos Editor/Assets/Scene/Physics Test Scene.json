@@ -6,6 +6,7 @@
         }
     },
     {
+        "entityGUID": "410e3113-8e02-3709-2148-ab8dd490421b",
         "BoxColliderComponent": {
             "isTrigger": false,
             "box": {
@@ -24,17 +25,18 @@
         "CubeRendererComponent": {},
         "MeshRendererComponent": {
             "diffuseMaterialGUID": "3835eca5-ca41-66f9-c046-aae5ed607e56",
-            "specularMaterialGUID": "",
+            "specularMaterialGUID": "00000000-0000-0000-0000-000000000000",
             "normalMaterialGUID": "dc87b22b-a90f-e566-c503-d27ea05bc74a",
-            "ambientOcclusionMaterialGUID": "",
-            "roughnessMaterialGUID": ""
+            "ambientOcclusionMaterialGUID": "00000000-0000-0000-0000-000000000000",
+            "roughnessMaterialGUID": "00000000-0000-0000-0000-000000000000"
         },
         "NameComponent": {
             "entityName": "Test Ground",
             "Layer": 0,
             "entityTag": "Default",
             "isPrefab": false,
-            "prefabName": ""
+            "prefabName": "",
+            "hide": false
         },
         "TransformComponent": {
             "WorldTransformation": {
@@ -74,6 +76,7 @@
         }
     },
     {
+        "entityGUID": "bb0dcf2b-3846-f347-eb7f-b9f2411b6f95",
         "LightComponent": {
             "lightType": 0,
             "color": {
@@ -99,14 +102,19 @@
                 "z": 1.0
             },
             "cutOff": 5.5,
-            "outerCutOff": 10.5
+            "outerCutOff": 10.5,
+            "intesnity": 1.0,
+            "shadowCast": false,
+            "bakedLighting": false,
+            "depthMapGUID": "00000000-0000-0000-0000-000000000000"
         },
         "NameComponent": {
             "entityName": "Light",
             "Layer": 0,
             "entityTag": "Default",
             "isPrefab": false,
-            "prefabName": ""
+            "prefabName": "",
+            "hide": false
         },
         "TransformComponent": {
             "WorldTransformation": {
@@ -146,6 +154,7 @@
         }
     },
     {
+        "entityGUID": "cb87ec32-0272-bf9a-9c0b-b8fe55537ffa",
         "BoxColliderComponent": {
             "isTrigger": false,
             "box": {
@@ -164,17 +173,18 @@
         "CubeRendererComponent": {},
         "MeshRendererComponent": {
             "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
-            "specularMaterialGUID": "",
+            "specularMaterialGUID": "00000000-0000-0000-0000-000000000000",
             "normalMaterialGUID": "dc87b22b-a90f-e566-c503-d27ea05bc74a",
-            "ambientOcclusionMaterialGUID": "",
-            "roughnessMaterialGUID": ""
+            "ambientOcclusionMaterialGUID": "00000000-0000-0000-0000-000000000000",
+            "roughnessMaterialGUID": "00000000-0000-0000-0000-000000000000"
         },
         "NameComponent": {
             "entityName": "Test Box",
             "Layer": 0,
             "entityTag": "Default",
             "isPrefab": false,
-            "prefabName": ""
+            "prefabName": "",
+            "hide": false
         },
         "RigidbodyComponent": {
             "mass": 1.0,
@@ -224,6 +234,7 @@
         }
     },
     {
+        "entityGUID": "e7dd646c-fae0-b996-b652-19e5492a181e",
         "BoxColliderComponent": {
             "isTrigger": false,
             "box": {
@@ -242,17 +253,18 @@
         "CubeRendererComponent": {},
         "MeshRendererComponent": {
             "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
-            "specularMaterialGUID": "",
+            "specularMaterialGUID": "00000000-0000-0000-0000-000000000000",
             "normalMaterialGUID": "dc87b22b-a90f-e566-c503-d27ea05bc74a",
-            "ambientOcclusionMaterialGUID": "",
-            "roughnessMaterialGUID": ""
+            "ambientOcclusionMaterialGUID": "00000000-0000-0000-0000-000000000000",
+            "roughnessMaterialGUID": "00000000-0000-0000-0000-000000000000"
         },
         "NameComponent": {
             "entityName": "Test Box",
             "Layer": 1,
             "entityTag": "Default",
             "isPrefab": false,
-            "prefabName": ""
+            "prefabName": "",
+            "hide": false
         },
         "RigidbodyComponent": {
             "mass": 1.0,
@@ -302,6 +314,7 @@
         }
     },
     {
+        "entityGUID": "4fd5c070-7e16-cea2-74ef-36b83925bd4d",
         "BoxColliderComponent": {
             "isTrigger": false,
             "box": {
@@ -320,23 +333,26 @@
         "CubeRendererComponent": {},
         "MeshRendererComponent": {
             "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
-            "specularMaterialGUID": "",
+            "specularMaterialGUID": "00000000-0000-0000-0000-000000000000",
             "normalMaterialGUID": "dc87b22b-a90f-e566-c503-d27ea05bc74a",
-            "ambientOcclusionMaterialGUID": "",
-            "roughnessMaterialGUID": ""
+            "ambientOcclusionMaterialGUID": "00000000-0000-0000-0000-000000000000",
+            "roughnessMaterialGUID": "00000000-0000-0000-0000-000000000000"
         },
         "NameComponent": {
             "entityName": "Test Box",
             "Layer": 0,
             "entityTag": "Default",
             "isPrefab": false,
-            "prefabName": ""
+            "prefabName": "",
+            "hide": false
         },
         "PlayerScript": {
             "health": 10,
             "shield": 20,
             "healthbool": false,
-            "shield2": ""
+            "shield2": "",
+            "Targetguid": "00000000-0000-0000-0000-000000000000",
+            "prefabGUID": "0fe47783-12e1-8efe-096a-08a883539bb6"
         },
         "RigidbodyComponent": {
             "mass": 1.0,
@@ -351,12 +367,12 @@
         "TransformComponent": {
             "WorldTransformation": {
                 "position": {
-                    "x": -5.534801959991455,
-                    "y": -3.6088719367980957,
-                    "z": -99.9999771118164
+                    "x": -9.826226234436035,
+                    "y": -4.659512996673584,
+                    "z": -101.99201202392578
                 },
                 "rotation": {
-                    "x": -0.000017580590792931616,
+                    "x": -0.00001758052167133428,
                     "y": 19.071998596191406,
                     "z": 0.0006158283795230091
                 },
@@ -368,12 +384,12 @@
             },
             "LocalTransformation": {
                 "position": {
-                    "x": -5.534801959991455,
-                    "y": -3.6088719367980957,
-                    "z": -99.9999771118164
+                    "x": -9.826226234436035,
+                    "y": -4.659512996673584,
+                    "z": -101.99201202392578
                 },
                 "rotation": {
-                    "x": -0.000017580594430910423,
+                    "x": -0.000017580528947291896,
                     "y": 19.071998596191406,
                     "z": 0.0006158283213153481
                 },
@@ -386,6 +402,7 @@
         }
     },
     {
+        "entityGUID": "2aa1ad74-4ded-5892-726f-72b7418fb693",
         "BoxColliderComponent": {
             "isTrigger": false,
             "box": {
@@ -404,17 +421,18 @@
         "CubeRendererComponent": {},
         "MeshRendererComponent": {
             "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
-            "specularMaterialGUID": "",
+            "specularMaterialGUID": "00000000-0000-0000-0000-000000000000",
             "normalMaterialGUID": "dc87b22b-a90f-e566-c503-d27ea05bc74a",
-            "ambientOcclusionMaterialGUID": "",
-            "roughnessMaterialGUID": ""
+            "ambientOcclusionMaterialGUID": "00000000-0000-0000-0000-000000000000",
+            "roughnessMaterialGUID": "00000000-0000-0000-0000-000000000000"
         },
         "NameComponent": {
             "entityName": "Test Box",
             "Layer": 0,
             "entityTag": "Default",
             "isPrefab": false,
-            "prefabName": ""
+            "prefabName": "",
+            "hide": false
         },
         "RigidbodyComponent": {
             "mass": 1.0,
@@ -464,6 +482,7 @@
         }
     },
     {
+        "entityGUID": "761c9464-edfa-83ba-5ea8-b5557b111220",
         "BoxColliderComponent": {
             "isTrigger": false,
             "box": {
@@ -482,17 +501,18 @@
         "CubeRendererComponent": {},
         "MeshRendererComponent": {
             "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
-            "specularMaterialGUID": "",
+            "specularMaterialGUID": "00000000-0000-0000-0000-000000000000",
             "normalMaterialGUID": "dc87b22b-a90f-e566-c503-d27ea05bc74a",
-            "ambientOcclusionMaterialGUID": "",
-            "roughnessMaterialGUID": ""
+            "ambientOcclusionMaterialGUID": "00000000-0000-0000-0000-000000000000",
+            "roughnessMaterialGUID": "00000000-0000-0000-0000-000000000000"
         },
         "NameComponent": {
             "entityName": "Test Box",
             "Layer": 0,
             "entityTag": "Default",
             "isPrefab": true,
-            "prefabName": "Test Box.prefab"
+            "prefabName": "Test Box.prefab",
+            "hide": false
         },
         "RigidbodyComponent": {
             "mass": 1.0,
@@ -542,6 +562,7 @@
         }
     },
     {
+        "entityGUID": "04a35c7e-874b-ed37-e6eb-eb3bfbdd37da",
         "BoxColliderComponent": {
             "isTrigger": false,
             "box": {
@@ -560,17 +581,18 @@
         "CubeRendererComponent": {},
         "MeshRendererComponent": {
             "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
-            "specularMaterialGUID": "",
+            "specularMaterialGUID": "00000000-0000-0000-0000-000000000000",
             "normalMaterialGUID": "dc87b22b-a90f-e566-c503-d27ea05bc74a",
-            "ambientOcclusionMaterialGUID": "",
-            "roughnessMaterialGUID": ""
+            "ambientOcclusionMaterialGUID": "00000000-0000-0000-0000-000000000000",
+            "roughnessMaterialGUID": "00000000-0000-0000-0000-000000000000"
         },
         "NameComponent": {
             "entityName": "Test Box",
             "Layer": 0,
             "entityTag": "Default",
             "isPrefab": true,
-            "prefabName": "Test Box.prefab"
+            "prefabName": "Test Box.prefab",
+            "hide": false
         },
         "RigidbodyComponent": {
             "mass": 1.0,

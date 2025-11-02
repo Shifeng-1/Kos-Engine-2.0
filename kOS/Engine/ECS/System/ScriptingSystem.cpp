@@ -36,11 +36,17 @@ namespace ecs {
 			try {
 				auto& entityList = ecs->GetComponentsEnties(scriptName);
 				for (const EntityID id : entityList) {
+
+					//TODO - find better way to go about this
+					SceneData sceneData = ecs->GetSceneData(ecs->GetSceneByEntityID(id));
+					if (!sceneData.isActive) continue;
+
 					auto script = static_cast<ScriptClass*>(ecs->GetIComponent<void*>(scriptName, id));
 
 					if (!script->isStart) {
-						script->Start();
 						script->isStart = true;
+						script->Start();
+						
 					}
 
 					script->Update();

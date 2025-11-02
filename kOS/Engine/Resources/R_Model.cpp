@@ -159,7 +159,7 @@ void R_Model::LoadModel(std::string path)
 void R_Model::LoadMesh(std::string meshFile) {
     std::ifstream inputFile(meshFile.c_str(), std::ios::binary);
     if (!inputFile) {
-        LOGGING_ASSERT("Failed to open mesh file");
+        LOGGING_ERROR("Failed to open mesh file");
     }
     std::string serialized((std::istreambuf_iterator<char>(inputFile)),
         std::istreambuf_iterator<char>());

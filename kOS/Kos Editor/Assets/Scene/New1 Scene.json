@@ -6,6 +6,7 @@
         }
     },
     {
+        "entityGUID": "72b65d58-3b52-bc5d-c796-ccb0f9ee6179",
         "NameComponent": {
             "entityName": "testing123",
             "Layer": 0,
@@ -13,6 +14,14 @@
             "isPrefab": false,
             "prefabName": "",
             "hide": false
+        },
+        "PlayerScript": {
+            "health": 0,
+            "shield": 0,
+            "healthbool": false,
+            "shield2": "",
+            "Targetguid": "00000000-0000-0000-0000-000000000000",
+            "prefabGUID": "0fe47783-12e1-8efe-096a-08a883539bb6"
         },
         "TransformComponent": {
             "WorldTransformation": {
@@ -52,6 +61,7 @@
         }
     },
     {
+        "entityGUID": "400a52ad-b8df-f203-49f0-319c77a066bc",
         "LightComponent": {
             "lightType": 0,
             "color": {
@@ -129,6 +139,7 @@
         }
     },
     {
+        "entityGUID": "9046057a-7433-3c52-b7b3-c6b032e14f65",
         "CameraComponent": {
             "cameraType": 0,
             "fov": 45.0,
@@ -191,6 +202,7 @@
         }
     },
     {
+        "entityGUID": "f9681c4f-4baf-1bfb-1f17-f3ee418f781c",
         "BoxColliderComponent": {
             "isTrigger": false,
             "box": {
@@ -270,6 +282,7 @@
         },
         "children": [
             {
+                "entityGUID": "9fc6b975-8217-fa61-1d0c-37a49050a3b7",
                 "BoxColliderComponent": {
                     "isTrigger": false,
                     "box": {
@@ -349,6 +362,7 @@
                 },
                 "children": [
                     {
+                        "entityGUID": "af63518e-6919-43ce-fab5-46c9cd74e644",
                         "BoxColliderComponent": {
                             "isTrigger": false,
                             "box": {
@@ -432,6 +446,7 @@
         ]
     },
     {
+        "entityGUID": "0eec62b7-ea95-e4a4-2cf5-8505be955ce6",
         "CanvasRendererComponent": {
             "isScreenSpace": true
         },
@@ -481,6 +496,7 @@
         },
         "children": [
             {
+                "entityGUID": "7c372a7e-a705-9807-86e5-cf3d1111cea5",
                 "NameComponent": {
                     "entityName": "text",
                     "Layer": 0,
@@ -537,6 +553,7 @@
                 }
             },
             {
+                "entityGUID": "eaef118b-8eee-e160-70e4-e0fc2636f28f",
                 "NameComponent": {
                     "entityName": "sprite test",
                     "Layer": 0,
@@ -594,6 +611,7 @@
         ]
     },
     {
+        "entityGUID": "6e296c54-2341-cf3e-ac7d-2f6b011f0e24",
         "NameComponent": {
             "entityName": "Backpack Holder",
             "Layer": 0,
@@ -640,6 +658,7 @@
         },
         "children": [
             {
+                "entityGUID": "73c6f98e-4090-98d1-8cdf-4216bc8e64e1",
                 "AudioComponent": {
                     "audioFiles": [
                         {
@@ -676,7 +695,9 @@
                     "health": 0,
                     "shield": 0,
                     "healthbool": false,
-                    "shield2": ""
+                    "shield2": "",
+                    "Targetguid": "00000000-0000-0000-0000-000000000000",
+                    "prefabGUID": "00000000-0000-0000-0000-000000000000"
                 },
                 "TransformComponent": {
                     "WorldTransformation": {
@@ -716,6 +737,7 @@
                 }
             },
             {
+                "entityGUID": "5c897002-06bf-7e19-f907-f4b75b2ba9d1",
                 "AudioComponent": {
                     "audioFiles": [
                         {
@@ -752,7 +774,9 @@
                     "health": 10,
                     "shield": 20,
                     "healthbool": false,
-                    "shield2": ""
+                    "shield2": "",
+                    "Targetguid": "00000000-0000-0000-0000-000000000000",
+                    "prefabGUID": "00000000-0000-0000-0000-000000000000"
                 },
                 "TransformComponent": {
                     "WorldTransformation": {
@@ -792,6 +816,7 @@
                 }
             },
             {
+                "entityGUID": "c6830430-da48-140d-0f75-bb3de3532746",
                 "AudioComponent": {
                     "audioFiles": [
                         {
@@ -828,7 +853,9 @@
                     "health": 10,
                     "shield": 20,
                     "healthbool": false,
-                    "shield2": ""
+                    "shield2": "",
+                    "Targetguid": "00000000-0000-0000-0000-000000000000",
+                    "prefabGUID": "00000000-0000-0000-0000-000000000000"
                 },
                 "TransformComponent": {
                     "WorldTransformation": {

@@ -17,7 +17,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************/
 #pragma once
 #include "config/pch.h"
-#include "AssetManager/AssetDatabase.h"
+#include "Editor/Payload.h"
 
 constexpr float sameLineParam = 200.0f; //Padding for the slider
 
@@ -210,8 +210,8 @@ struct DrawComponents {
 
         if (ImGui::BeginDragDropTarget()) {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("file")) {
-                IM_ASSERT(payload->DataSize == sizeof(AssetPathGUID));
-                const AssetPathGUID* data = static_cast<const AssetPathGUID*>(payload->Data);
+                IM_ASSERT(payload->DataSize == sizeof(AssetPayload));
+                const AssetPayload* data = static_cast<const AssetPayload*>(payload->Data);
 
                 _args = data->path;
 
@@ -243,12 +243,17 @@ struct DrawComponents {
 
         if (ImGui::BeginDragDropTarget()) {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("file")) {
-                IM_ASSERT(payload->DataSize == sizeof(AssetPathGUID));
-                const AssetPathGUID* data = static_cast<const AssetPathGUID*>(payload->Data);
+                IM_ASSERT(payload->DataSize == sizeof(AssetPayload));
+                const AssetPayload* data = static_cast<const AssetPayload*>(payload->Data);
 
-                _args = data->GUID;
-                    
+                _args = data->GUID;    
             }
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("EntityPayload")) {
+                IM_ASSERT(payload->DataSize == sizeof(EntityPayload));
+
+                _args = static_cast<const EntityPayload*>(payload->Data)->guid;
+            }
+
             ImGui::EndDragDropTarget();
         }
     }

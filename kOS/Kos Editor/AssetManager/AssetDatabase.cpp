@@ -6,7 +6,7 @@
 utility::GUID AssetDatabase::ImportAsset(std::filesystem::path filePath, const std::string& type)
 {
 	if (!std::filesystem::exists(filePath)) {
-		LOGGING_ASSERT_WITH_MSG(filePath.string() + " , filepath does not exist");
+		LOGGING_ERROR(filePath.string() + " , filepath does not exist");
 	}
 
 	//check if file meta exist

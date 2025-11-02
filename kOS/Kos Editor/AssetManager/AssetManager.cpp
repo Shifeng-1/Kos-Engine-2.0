@@ -52,7 +52,6 @@ void AssetManager::Init(const std::string& assetDirectory, const std::string& re
                     const auto& map = m_compilerMap.at(entry.path().filename().extension().string());
                     for (const auto& compilerData : map)
                     {
-                        std::string type = compilerData.type;
                         std::string outputResourcePath = std::filesystem::absolute(m_resourceDirectory).string() + "/" + data.GUID.GetToString() + compilerData.outputExtension;
                         if (!std::filesystem::exists(outputResourcePath)) {
                             std::cout << ++count << std::endl;

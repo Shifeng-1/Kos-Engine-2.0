@@ -23,7 +23,7 @@
           ]
         },
         "fontCompiler": {
-          "path": "../Kos Editor/Compilers/Executable/Font Compiler/FontCompiler.exe",
+          "path": "Kos Editor/Compilers/Executable/Font Compiler/FontCompiler.exe",
           "outputExtension": ".fntc",
           "inputExtensions": [
             {
@@ -37,13 +37,7 @@
           "inputExtensions": [
             {
               "inputExtensions": ".json"
-            }
-          ]
-        },
-        "prefabCompiler": {
-          "path": "null",
-          "outputExtension": ".prefab",
-          "inputExtensions": [
+            },
             {
               "inputExtensions": ".prefab"
             }

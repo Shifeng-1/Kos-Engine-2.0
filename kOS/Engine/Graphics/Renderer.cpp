@@ -162,7 +162,6 @@ void TextRenderer::RenderScreenFonts(const CameraData& camera, Shader& shader)
 
 void TextRenderer::Clear()
 {
-	///std::cout << "CLEARING DATA\n";
 	screenTextToDraw.clear();
 }
 
@@ -332,6 +331,7 @@ void DebugRenderer::InitializeDebugRendererMeshes() {
 	debugFrustum.CreateMesh();
 	debugCircle.CreateMesh();
 	debugCube.CreateMesh();
+	debugCapsule.CreateMesh();
 }
 void DebugRenderer::Render(const CameraData& camera, Shader& shader) {
 
@@ -427,6 +427,159 @@ void DebugRenderer::RenderDebugCubes(const CameraData& camera, Shader& shader)
 	}
 }
 
+void DebugRenderer::RenderDebugSpheres(const CameraData& camera, Shader& shader) {
+	for (size_t i = 0; i < basicDebugSpheres.size(); ++i) {
+		glm::vec3 pos = glm::vec3{ basicDebugSpheres[i].worldTransform[3] };
+		float radius = glm::length(glm::vec3{ basicDebugSpheres[i].worldTransform[0] });
+		glm::mat4 model{ 1.0f };
+		model = glm::translate(model, pos) * glm::scale(model, glm::vec3{ radius });
+		shader.SetTrans("model", model);
+		shader.SetFloat("uShaderType", 2.1f);
+		debugCircle.DrawMesh();
+		glm::mat4 trY = model * glm::rotate(glm::mat4{ 1.0f }, glm::radians(90.0f), glm::vec3{ 0.0f, 1.0f, 0.0f });
+		shader.SetTrans("model", trY);
+		shader.SetFloat("uShaderType", 2.1f);
+		debugCircle.DrawMesh();
+		glm::mat4 trX = model * glm::rotate(glm::mat4{ 1.0f }, glm::radians(90.0f), glm::vec3{ 1.0f, 0.0f, 0.0f });
+		shader.SetTrans("model", trX);
+		shader.SetFloat("uShaderType", 2.1f);
+		debugCircle.DrawMesh();
+		glm::vec3 viewDirection = camera.position - pos;
+		glm::mat4 trS = glm::translate(glm::mat4{ 1.0f }, pos) * glm::scale(glm::mat4{ 1.0f }, glm::vec3{ radius }) * DebugCircle::RotateZtoV(viewDirection);
+		shader.SetTrans("model", trS);
+		shader.SetFloat("uShaderType", 2.1f);
+		debugCircle.DrawMesh();
+	}
+}
+
+void DebugRenderer::RenderDebugCapsules(const CameraData& camera, Shader& shader) {
+	for (size_t i = 0; i < basicDebugCapsules.size(); i++) {
+		shader.SetTrans("model", basicDebugCapsules[i].worldTransform);
+		shader.SetFloat("uShaderType", 2.1f);
+		debugCapsule.DrawMesh();
+	}
+}
+
 void DebugRenderer::Clear() {
 	basicDebugCubes.clear();
+	basicDebugSpheres.clear();
+	basicDebugCapsules.clear();
+}
+
+void ParticleRenderer::InitializeParticleRendererMeshes()
+{
+	// Quad vertex data (triangle strip)
+	static const float quadVertices[] = {
+		//  X,     Y,    Z
+		-0.5f, -0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		-0.5f,  0.5f, 0.0f,
+		 0.5f,  0.5f, 0.0f
+	};
+
+	GLuint quadVBO;
+	glGenVertexArrays(1, &basicParticleMesh.vaoid);
+	glGenBuffers(1, &quadVBO);
+	glGenBuffers(1, &basicParticleMesh.vboid);
+
+	glBindVertexArray(basicParticleMesh.vaoid);
+	// Set up base vertex buffer (quad geometry)
+	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, basicParticleMesh.vboid);
+
+	constexpr int MAX_PARTICLES = 100000;
+	glBufferData(GL_ARRAY_BUFFER, MAX_PARTICLES * sizeof(BasicParticleInstance), nullptr, GL_DYNAMIC_DRAW);
+
+	GLsizei stride = sizeof(BasicParticleInstance);
+
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (void*)offsetof(BasicParticleInstance, position));
+
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, stride, (void*)offsetof(BasicParticleInstance, scale));
+
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, stride, (void*)offsetof(BasicParticleInstance, color));
+
+	glEnableVertexAttribArray(5);
+	glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, stride, (void*)offsetof(BasicParticleInstance, rotation));
+
+	// Tell OpenGL this is per-instance data
+	glVertexAttribDivisor(2, 1);
+	glVertexAttribDivisor(3, 1);
+	glVertexAttribDivisor(4, 1);
+	glVertexAttribDivisor(5, 1);
+
+}
+
+void ParticleRenderer::Render(const CameraData& camera, Shader& shader)
+{
+	if (!particlesToDraw.empty())
+	{
+		instancedBasicParticles.reserve(std::accumulate(particlesToDraw.begin(), particlesToDraw.end(), size_t(0),
+			[](size_t sum, const BasicParticleData& p) { return sum + p.particlePositions.size(); }));
+
+		for (const auto& p : particlesToDraw)
+		{
+			std::transform(p.particlePositions.begin(), p.particlePositions.end(),
+				std::back_inserter(instancedBasicParticles),
+				[&](const glm::vec3& pos) {
+					return BasicParticleInstance{ pos,p.scale, p.color, p.rotate };
+				});
+		}
+		particlesToDraw.clear();
+	}
+	shader.Use();
+	shader.SetTrans("projection", camera.GetPerspMtx());
+	shader.SetTrans("view", camera.GetViewMtx());
+	if (!instancedBasicParticles.empty())
+	{
+		GLenum err = glGetError();
+		if (err != GL_NO_ERROR) {
+			//LOGGING_ERROR("First OpenGL Error: 0x%X", err);h
+			std::cout << "before OpenGL Error: " << err << std::endl;
+		}
+		glEnable(GL_DEPTH_TEST);
+
+
+		glBindVertexArray(basicParticleMesh.vaoid);
+		glBindBuffer(GL_ARRAY_BUFFER, basicParticleMesh.vboid);
+
+
+		GLint boundBuffer = 0;
+		glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &boundBuffer);
+		///std::cout << "Bound VBO ID: " << boundBuffer
+		///	<< " expected: " << basicParticleMesh.vboid << std::endl;
+
+		err = glGetError();
+		if (err != GL_NO_ERROR) {
+			//LOGGING_ERROR("First OpenGL Error: 0x%X", err);h
+		std::cout << "after 1 OpenGL Error: " << err << std::endl;
+		}
+		glBufferSubData(GL_ARRAY_BUFFER, 0, instancedBasicParticles.size() * sizeof(BasicParticleInstance), instancedBasicParticles.data());
+		err = glGetError();
+		if (err != GL_NO_ERROR) {
+			//LOGGING_ERROR("First OpenGL Error: 0x%X", err);h
+			std::cout << "after 2 OpenGL Error: " << err << std::endl;
+		}
+		glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, instancedBasicParticles.size());
+		glDisable(GL_DEPTH_TEST);
+
+		err = glGetError();
+		if (err != GL_NO_ERROR) {
+			//LOGGING_ERROR("First OpenGL Error: 0x%X", err);h
+			std::cout << "after 3 OpenGL Error: " << err << std::endl;
+		}
+	}
+		
+}
+
+void ParticleRenderer::Clear()
+{
+	instancedBasicParticles.clear();
+	particlesToDraw.clear();
 }

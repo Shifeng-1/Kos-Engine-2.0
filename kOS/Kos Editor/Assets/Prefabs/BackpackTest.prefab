@@ -6,6 +6,7 @@
         }
     },
     {
+        "entityGUID": "fceb06c9-78fe-0076-e813-3a263630e3be",
         "AudioComponent": {
             "audioFiles": [
                 {
@@ -45,7 +46,9 @@
             "health": 0,
             "shield": 0,
             "healthbool": false,
-            "shield2": ""
+            "shield2": "",
+            "Targetguid": "00000000-0000-0000-0000-000000000000",
+            "prefabGUID": "00000000-0000-0000-0000-000000000000"
         },
         "TransformComponent": {
             "WorldTransformation": {

@@ -45,7 +45,7 @@ namespace hierachy {
 
 	void m_RemoveParent(EntityID child, bool updateTransform) {
 		// removes id from both the child and the parents vector
-		ECS* ecs = ECS::GetInstance();
+		ECS* ecs = ComponentRegistry::GetECSInstance();
 
 		if (!GetParent(child).has_value()) {
 			// does not have parrent
@@ -75,7 +75,7 @@ namespace hierachy {
 
 	std::optional<EntityID> GetParent(EntityID child)
 	{
-		ECS* ecs = ECS::GetInstance();
+		ECS* ecs = ComponentRegistry::GetECSInstance();
 		TransformComponent* childTransform = ecs->GetComponent<TransformComponent>(child);
 		if (!childTransform || !childTransform->m_haveParent) {
 			return std::optional<EntityID>();
@@ -87,7 +87,7 @@ namespace hierachy {
 
 	std::optional<std::vector<EntityID>>m_GetChild(EntityID parent)
 	{
-		ECS* ecs = ECS::GetInstance();
+		ECS* ecs = ComponentRegistry::GetECSInstance();
 		TransformComponent* parentTransform = ecs->GetComponent<TransformComponent>(parent);
 		if (parentTransform->m_childID.size() <= 0) {
 			return std::optional<std::vector<EntityID>>();
@@ -99,7 +99,7 @@ namespace hierachy {
 
 	void m_UpdateChildScene(EntityID parent)
 	{
-		ECS* ecs = ECS::GetInstance();
+		ECS* ecs = ComponentRegistry::GetECSInstance();
 		scenes::SceneManager* scenemanager = scenes::SceneManager::m_GetInstance();
 		std::string parentscene = ecs->GetSceneByEntityID(parent);
 		const auto& child = m_GetChild(parent);

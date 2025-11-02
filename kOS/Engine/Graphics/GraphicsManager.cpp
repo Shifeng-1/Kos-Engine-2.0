@@ -112,6 +112,7 @@ void GraphicsManager::gm_Clear()
 	gameCameras.clear();
 	cubeRenderer.Clear();
 	skinnedMeshRenderer.Clear();
+	particleRenderer.Clear();
 	//editorCameraActive = false;
 }
 
@@ -127,6 +128,7 @@ void GraphicsManager::gm_InitializeMeshes()
 	textRenderer.InitializeTextRendererMeshes();
 	spriteRenderer.InitializeSpriteRendererMeshes();
 	debugRenderer.InitializeDebugRendererMeshes();
+	particleRenderer.InitializeParticleRendererMeshes();
 }
 
 
@@ -141,11 +143,11 @@ void GraphicsManager::gm_RenderToEditorFrameBuffer()
 	gm_RenderCubeMap(editorCamera);
 	gm_RenderDeferredObjects(editorCamera);
 	gm_RenderDebugObjects(editorCamera);
-
+	gm_RenderParticles(editorCamera);
 	//Particle buffer
 
 	framebufferManager.UIBuffer.BindForDrawing();
-
+	gm_RenderParticles(editorCamera);
 	gm_RenderUIObjects(editorCamera);
 
 	Shader* fboCompositeShader{ &shaderManager.engineShaders.find("FBOCompositeShader")->second };
@@ -204,7 +206,7 @@ void GraphicsManager::gm_FillGBuffer(const CameraData& camera)
 	cubeRenderer.Render(camera, *gBufferPBRShader, &this->cube);
 	debugRenderer.RenderPointLightDebug(camera, *gBufferPBRShader, lightRenderer.pointLightsToDraw);
 	debugRenderer.RenderDebugFrustums(camera, *gBufferPBRShader, gameCameras);
-
+	
 	gBufferPBRShader->Disuse();
 
 	gBufferDebugShader->Use();
@@ -212,6 +214,8 @@ void GraphicsManager::gm_FillGBuffer(const CameraData& camera)
 	gBufferDebugShader->SetTrans("projection", camera.GetPerspMtx()); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	//Render debug objects if any
 	debugRenderer.RenderDebugCubes(camera, *gBufferDebugShader);
+	debugRenderer.RenderDebugSpheres(camera, *gBufferDebugShader);
+	debugRenderer.RenderDebugCapsules(camera, *gBufferDebugShader);
 	gBufferDebugShader->Disuse();
 
 
@@ -513,6 +517,12 @@ void GraphicsManager::gm_RenderUIObjects(const CameraData& camera)
 	spriteRenderer.RenderScreenSprites(camera, *screenSpriteShader);
 	Shader* fontShader{ &shaderManager.engineShaders.find("ScreenFontShader")->second };
 	textRenderer.RenderScreenFonts(camera, *fontShader);
+}
+
+void GraphicsManager::gm_RenderParticles(const CameraData& camera)
+{
+	Shader* basicParticleShader{ &shaderManager.engineShaders.find("BasicParticleShader")->second };
+	particleRenderer.Render(camera, *basicParticleShader);
 }
 
 void GraphicsManager::gm_ClearGBuffer()

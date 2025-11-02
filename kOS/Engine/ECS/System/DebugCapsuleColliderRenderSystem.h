@@ -1,17 +1,17 @@
-#pragma once
+#ifndef DEBUGCAPSULESYSTEM_H
+#define DEBUGCAPSULESYSTEM_H
+
+#include "ECS/ECS.h"
 #include "System.h"
-#include "ECS/ECSList.h"
 
 namespace ecs {
-
-    class  DebugCapsuleColliderRenderSystem : public ISystem {
-
+    class DebugCapsuleColliderRenderSystem : public ISystem {
     public:
-
         void Init() override;
         void Update() override;
-
+        
         REFLECTABLE(DebugCapsuleColliderRenderSystem)
     };
-
 }
+
+#endif

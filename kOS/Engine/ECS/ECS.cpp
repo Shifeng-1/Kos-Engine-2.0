@@ -60,6 +60,8 @@ namespace ecs{
 		RegisterSystem<AnimatorSystem, TransformComponent, AnimatorComponent>();
 		RegisterSystem<LightingSystem, TransformComponent, LightComponent>();
 		RegisterSystem<DebugBoxColliderRenderSystem, TransformComponent, BoxColliderComponent>();
+		RegisterSystem<DebugCapsuleColliderRenderSystem, TransformComponent, CapsuleColliderComponent>();
+		RegisterSystem<DebugSphereColliderRenderSystem, TransformComponent, SphereColliderComponent>();
 		RegisterSystem<AudioSystem, TransformComponent, AudioComponent>();
 		RegisterSystem<PathfindingSystem, TransformComponent, OctreeGeneratorComponent>();
 		RegisterSystem<ParticleSystem, TransformComponent, ParticleComponent>();
@@ -197,13 +199,13 @@ namespace ecs{
 		if (scene.empty()) {
 			const auto& result = GetSceneByEntityID(DuplicatesID);
 			if (result.empty()) {
-				LOGGING_ASSERT_WITH_MSG("Scene does not exits");
+				LOGGING_ERROR("Scene does not exits");
 			}
 			scene = result;
 		}
 		else {
 			if (sceneMap.find(scene) == sceneMap.end()) {
-				LOGGING_ASSERT_WITH_MSG("Scene does not exits");
+				LOGGING_ERROR("Scene does not exits");
 			}
 		}
 
@@ -292,6 +294,9 @@ namespace ecs{
 			}
 		}
 
+		//delete guid off map
+		DeleteGUID(GetComponent<NameComponent>(ID)->entityGUID);
+
 		// reset all components
 		for (const auto& [ComponentName, key] : m_componentKey) {
 			if (m_entityMap.find(ID)->second.test(key)) {
@@ -299,8 +304,8 @@ namespace ecs{
 			}
 		}
 
-		//store delete entity
-		m_entityMap.erase(ID);
+		//delete stored entity
+		m_entityMap.erase(ID);		
 		m_availableEntityID.push(ID);
 
 		return true;

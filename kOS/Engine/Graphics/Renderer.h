@@ -35,6 +35,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "UIElements.h"
 #include "Model.h"
 #include "Camera.h"
+#include "Particle.h"
 #include <vector>
 #include "CubeMap.h"
 
@@ -111,14 +112,29 @@ struct DebugRenderer : BasicRenderer {
 	void RenderPointLightDebug(const CameraData& camera, Shader& shader, std::vector<PointLightData> pointLights);
 	void RenderDebugFrustums(const CameraData& camera, Shader& shader, const std::vector<CameraData>& debugFrustums);
 	void RenderDebugCubes(const CameraData& camera, Shader& shader);
+	void RenderDebugCapsules(const CameraData& camera, Shader& shader);
+	void RenderDebugSpheres(const CameraData& camera, Shader& shader);
 	void Clear() override;
 
 	std::vector<BasicDebugData> basicDebugCubes{};
 	std::vector<BasicDebugData> basicDebugCapsules{};
-	std::vector<BasicDebugData> basicDebugSpherers{};
+	std::vector<BasicDebugData> basicDebugSpheres{};
 
 private:
 	DebugCircle debugCircle;
 	DebugFrustum debugFrustum;
 	DebugCube debugCube;
+	DebugCapsule debugCapsule;
 };
+
+struct ParticleRenderer : BasicRenderer {
+	void InitializeParticleRendererMeshes();
+	void Render(const CameraData& camera, Shader& shader);
+	void Clear() override;
+	std::vector<BasicParticleData> particlesToDraw{};
+	std::vector<BasicParticleInstance> instancedBasicParticles{};
+
+private:
+	BasicParticleMesh basicParticleMesh;
+};
+
