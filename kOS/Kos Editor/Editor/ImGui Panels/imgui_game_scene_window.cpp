@@ -61,7 +61,7 @@ namespace gui
                 //    ImVec2(pos.x + testSize.x, pos.y + testSize.y),
                 //    ImVec2(0, 1), ImVec2(1, 0));
         ImGui::GetWindowDrawList()->AddImage(
-            reinterpret_cast<void*>(static_cast<uintptr_t>(GraphicsManager::GetInstance()->gm_GetEditorBuffer().texID)),
+            reinterpret_cast<void*>(static_cast<uintptr_t>(GraphicsManager::GetInstance()->gm_GetGameBuffer().texID)),
             pos, ImVec2(pos.x + testSize.x, pos.y + testSize.y),
             ImVec2(0, 1), ImVec2(1, 0));
 
