@@ -1403,8 +1403,8 @@
             "hide": false
         },
         "OctreeGeneratorComponent": {
-            "drawWireframe": true,
-            "drawNodes": true,
+            "drawWireframe": false,
+            "drawNodes": false,
             "drawBound": false
         },
         "TransformComponent": {
@@ -1454,8 +1454,8 @@
                     "y": 0.0,
                     "z": 0.0
                 },
-                "radius": 2.0,
-                "height": 2.0,
+                "radius": 1.0,
+                "height": 1.0,
                 "capsuleDirection": 1
             }
         },
@@ -1470,8 +1470,9 @@
         "PathfinderTargetComponent": {},
         "PlayerManagerScript": {
             "playerHealth": 10,
-            "playerMovementSpeed": 10.0,
-            "playerJumpForce": 20.0,
+            "playerMovementSpeed": 6.0,
+            "playerCrouchingSpeed": 2.5,
+            "playerJumpForce": 15.0,
             "playerCameraSpeedX": 1.0,
             "playerCameraSpeedY": 1.0,
             "creationPoint": "078673f7-6daa-11fb-1361-f118cb3d62db",
@@ -1486,7 +1487,7 @@
             "starfallPrefab": "4c9702d6-127d-fc41-6704-bc63dc2b0998"
         },
         "RigidbodyComponent": {
-            "mass": 3.0,
+            "mass": 7.5,
             "drag": 0.0,
             "angularDrag": 0.05000000074505806,
             "useGravity": true,
@@ -1562,7 +1563,7 @@
                     "WorldTransformation": {
                         "position": {
                             "x": -78.39502716064453,
-                            "y": 1.0,
+                            "y": 0.5,
                             "z": -46.568992614746094
                         },
                         "rotation": {
@@ -1579,7 +1580,7 @@
                     "LocalTransformation": {
                         "position": {
                             "x": 0.0,
-                            "y": 1.0,
+                            "y": 0.5,
                             "z": 0.0
                         },
                         "rotation": {
@@ -1609,7 +1610,7 @@
                     "WorldTransformation": {
                         "position": {
                             "x": -78.39502716064453,
-                            "y": 1.0,
+                            "y": 0.5,
                             "z": -46.568992614746094
                         },
                         "rotation": {
@@ -1626,7 +1627,7 @@
                     "LocalTransformation": {
                         "position": {
                             "x": 0.0,
-                            "y": 1.0,
+                            "y": 0.5,
                             "z": 0.0
                         },
                         "rotation": {
@@ -1662,7 +1663,7 @@
                             "WorldTransformation": {
                                 "position": {
                                     "x": -78.50984954833984,
-                                    "y": -0.5,
+                                    "y": -1.0,
                                     "z": -45.31490707397461
                                 },
                                 "rotation": {
@@ -1709,7 +1710,7 @@
                             "WorldTransformation": {
                                 "position": {
                                     "x": -78.39501190185547,
-                                    "y": 0.8500000238418579,
+                                    "y": 0.3500000238418579,
                                     "z": -43.85899353027344
                                 },
                                 "rotation": {
@@ -1780,7 +1781,7 @@
                     "WorldTransformation": {
                         "position": {
                             "x": -78.39502716064453,
-                            "y": -2.0,
+                            "y": -1.0,
                             "z": -46.568992614746094
                         },
                         "rotation": {
@@ -1797,7 +1798,7 @@
                     "LocalTransformation": {
                         "position": {
                             "x": 0.0,
-                            "y": -2.0,
+                            "y": -1.0,
                             "z": 0.0
                         },
                         "rotation": {
@@ -1845,7 +1846,7 @@
             "hide": false
         },
         "PathfinderComponent": {
-            "pathfinderMovementSpeed": 1.0,
+            "pathfinderMovementSpeed": 2.5,
             "chase": false
         },
         "TransformComponent": {
@@ -3042,6 +3043,72 @@
                     "x": 0.019999999552965164,
                     "y": 0.019999999552965164,
                     "z": 0.019999999552965164
+                }
+            }
+        }
+    },
+    {
+        "entityGUID": "cc75197e-5d14-0b79-12f7-02c1458f70e8",
+        "BoxColliderComponent": {
+            "isTrigger": false,
+            "box": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "size": {
+                    "x": 3.0,
+                    "y": 3.0,
+                    "z": 3.0
+                }
+            }
+        },
+        "CubeRendererComponent": {},
+        "MaterialComponent": {
+            "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+        },
+        "NameComponent": {
+            "entityName": "Obstacle",
+            "Layer": 0,
+            "entityTag": "Default",
+            "isPrefab": false,
+            "prefabName": "",
+            "hide": false
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": -78.92591094970703,
+                    "y": -3.552464485168457,
+                    "z": -51.47554397583008
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": -78.92591094970703,
+                    "y": -3.552464485168457,
+                    "z": -51.47554397583008
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
                 }
             }
         }

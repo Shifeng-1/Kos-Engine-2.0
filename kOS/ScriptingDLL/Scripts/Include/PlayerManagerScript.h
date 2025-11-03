@@ -5,6 +5,7 @@ class PlayerManagerScript : public TemplateSC {
 public:
 	int playerHealth;
 	float playerMovementSpeed;
+	float playerCrouchingSpeed;
 	float playerJumpForce;
 
 	float playerCameraSpeedX;
@@ -38,6 +39,14 @@ public:
 	ecs::TransformComponent* cameraTransform;
 	bool isGrounded = false;
 
+	float cameraStandingHeight, cameraCrouchingHeight, cameraSlidingHeight;
+
+	bool playerIsRunning = false, playerIsSliding = false;
+	float playerCurrentMovementSpeed;
+
+	// JUST FOR TESTING, DELETE AFTERWARDS
+
+
 	void Start() override {
 		creationPointID = ecsPtr->GetEntityIDFromGUID(creationPoint);
 		cameraObjectID = ecsPtr->GetEntityIDFromGUID(cameraObject);
@@ -45,6 +54,11 @@ public:
 		groundCheckID = ecsPtr->GetEntityIDFromGUID(groundCheck);
 
 		cameraTransform = ecsPtr->GetComponent<ecs::TransformComponent>(cameraObjectID);
+		cameraStandingHeight = cameraTransform->LocalTransformation.position.y;
+		cameraCrouchingHeight = cameraStandingHeight * 0.5f;
+		cameraSlidingHeight = cameraStandingHeight * 0.3f;
+
+		playerCurrentMovementSpeed = playerMovementSpeed;
 	}
 
 	void Update() override {
@@ -62,27 +76,51 @@ public:
 			// Movement Inputs
 			if (Input->IsKeyPressed(keys::W)) {
 				if (Input->IsKeyPressed(keys::LeftShift)) {
-					tc->LocalTransformation.position += glm::normalize(forward) * playerMovementSpeed * ecsPtr->m_GetDeltaTime() * 1.75f;
+					tc->LocalTransformation.position += glm::normalize(forward) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime() * 1.75f;
+					//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, glm::normalize(forward) * playerCurrentMovementSpeed * 1.45f, ForceMode::VelocityChange);
+					playerIsRunning = true;
 				}
 				else {
-					tc->LocalTransformation.position += glm::normalize(forward) * playerMovementSpeed * ecsPtr->m_GetDeltaTime();
+					tc->LocalTransformation.position += glm::normalize(forward) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
+					//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, glm::normalize(forward) * playerCurrentMovementSpeed, ForceMode::VelocityChange);
 				}
+			}
+
+			if (Input->IsKeyReleased(keys::LeftShift)) {
+				playerIsRunning = false;
 			}
 
 			if (Input->IsKeyPressed(keys::S)) {
-				tc->LocalTransformation.position -= glm::normalize(forward) * playerMovementSpeed * ecsPtr->m_GetDeltaTime();
+				tc->LocalTransformation.position -= glm::normalize(forward) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
+				//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, -glm::normalize(forward) * playerCurrentMovementSpeed);
 			}
 
 			if (Input->IsKeyPressed(keys::D)) {
-				tc->LocalTransformation.position -= glm::normalize(right) * playerMovementSpeed * ecsPtr->m_GetDeltaTime();
+				tc->LocalTransformation.position -= glm::normalize(right) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
+				//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, -glm::normalize(right) * playerCurrentMovementSpeed);
 			}
 
 			if (Input->IsKeyPressed(keys::A)) {
-				tc->LocalTransformation.position += glm::normalize(right) * playerMovementSpeed * ecsPtr->m_GetDeltaTime();
+				tc->LocalTransformation.position += glm::normalize(right) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
+				//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, glm::normalize(right) * playerCurrentMovementSpeed);
 			}
 
 			if (Input->IsKeyTriggered(keys::SPACE) && isGrounded) {
 				physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, { 0.f, playerJumpForce, 0.f }, ForceMode::Impulse);
+			}
+
+			if (Input->IsKeyPressed(keys::LeftControl) && isGrounded) {
+				if (playerIsRunning) {
+					cameraTransform->LocalTransformation.position.y = cameraSlidingHeight;
+				}
+				else {
+					cameraTransform->LocalTransformation.position.y = cameraCrouchingHeight;
+					playerCurrentMovementSpeed = playerCrouchingSpeed;
+				}
+			}
+			else if (Input->IsKeyReleased(keys::LeftControl)) {
+				cameraTransform->LocalTransformation.position.y = cameraStandingHeight;
+				playerCurrentMovementSpeed = playerMovementSpeed;
 			}
 			
 			// First Person Camera
@@ -175,40 +213,21 @@ public:
 			}
 
 			// Shooting Inputs
-			if (Input->IsKeyTriggered(keys::LMB)) {
-				std::shared_ptr<R_Scene> bullet = resource->GetResource<R_Scene>(bulletPrefab);
-
-				if (bullet) {
-					std::string currentScene = ecsPtr->GetSceneByEntityID(entity);
-					ecs::EntityID bulletID = bullet->DuplicatePrefabIntoScene(currentScene);
-
-					if (auto* bulletTransform = ecsPtr->GetComponent<TransformComponent>(bulletID)) {
-						bulletTransform->LocalTransformation.position = ecsPtr->GetComponent<TransformComponent>(creationPointID)->WorldTransformation.position;
-					}
-
-					if (auto* bulletScript = ecsPtr->GetComponent<BulletLogic>(bulletID)) {
-						bulletScript->direction = GetCameraFacingDirection();
-					}
-				}
-			}
 			//if (Input->IsKeyTriggered(keys::LMB)) {
-			//	ecs::EntityID bullet = ecsPtr->CreateEntity(ecsPtr->GetSceneByEntityID(entity));
-			//	ecsPtr->GetComponent<NameComponent>(bullet)->entityName = "Bullet";
-			//	ecsPtr->AddComponent<BoxColliderComponent>(bullet);
-			//	ecsPtr->AddComponent<RigidbodyComponent>(bullet);
-			//	ecsPtr->AddComponent<BulletLogic>(bullet);
+			//	std::shared_ptr<R_Scene> bullet = resource->GetResource<R_Scene>(bulletPrefab);
 
-			//	if (auto* bulletTransform = ecsPtr->GetComponent<TransformComponent>(bullet)) {
-			//		bulletTransform->LocalTransformation.position = tc->LocalTransformation.position;
-			//		bulletTransform->LocalTransformation.rotation = glm::vec3(360.f - rotationX, 360.f - rotationY, 0.f);
-			//	}
+			//	if (bullet) {
+			//		std::string currentScene = ecsPtr->GetSceneByEntityID(entity);
+			//		//ecs::EntityID bulletID = bullet->DuplicatePrefabIntoScene(currentScene);
+			//		ecs::EntityID bulletID = DuplicatePrefabIntoScene<R_Scene>(currentScene, bulletPrefab);
 
-			//	if (auto* bulletCol = ecsPtr->GetComponent<BoxColliderComponent>(bullet)) {
-			//		bulletCol->isTrigger = true;
-			//	}
+			//		if (auto* bulletTransform = ecsPtr->GetComponent<TransformComponent>(bulletID)) {
+			//			bulletTransform->LocalTransformation.position = ecsPtr->GetComponent<TransformComponent>(creationPointID)->WorldTransformation.position;
+			//		}
 
-			//	if (auto* bulletRb = ecsPtr->GetComponent<RigidbodyComponent>(bullet)) {
-			//		bulletRb->useGravity = false;
+			//		if (auto* bulletScript = ecsPtr->GetComponent<BulletLogic>(bulletID)) {
+			//			bulletScript->direction = GetCameraFacingDirection();
+			//		}
 			//	}
 			//}
 
@@ -219,7 +238,8 @@ public:
 
 					if (fireball) {
 						std::string currentScene = ecsPtr->GetSceneByEntityID(entity);
-						ecs::EntityID fireballID = fireball->DuplicatePrefabIntoScene(currentScene);
+						//ecs::EntityID fireballID = fireball->DuplicatePrefabIntoScene(currentScene);
+						ecs::EntityID fireballID = DuplicatePrefabIntoScene<R_Scene>(currentScene, fireballPrefab);
 
 						if (auto* fireballTransform = ecsPtr->GetComponent<TransformComponent>(fireballID)) {
 							fireballTransform->LocalTransformation.position = ecsPtr->GetComponent<TransformComponent>(creationPointID)->WorldTransformation.position;
@@ -237,7 +257,8 @@ public:
 
 					if (lightningStrike) {
 						std::string currentScene = ecsPtr->GetSceneByEntityID(entity);
-						ecs::EntityID lightningStrikeID = lightningStrike->DuplicatePrefabIntoScene(currentScene);
+						//ecs::EntityID lightningStrikeID = lightningStrike->DuplicatePrefabIntoScene(currentScene);
+						ecs::EntityID lightningStrikeID = DuplicatePrefabIntoScene<R_Scene>(currentScene, lightningStrikePrefab);
 
 						if (auto* lightningStrikeTransform = ecsPtr->GetComponent<TransformComponent>(lightningStrikeID)) {
 							RaycastHit hit;
@@ -261,7 +282,8 @@ public:
 
 					if (acidBlast) {
 						std::string currentScene = ecsPtr->GetSceneByEntityID(entity);
-						ecs::EntityID acidBlastID = acidBlast->DuplicatePrefabIntoScene(currentScene);
+						//ecs::EntityID acidBlastID = acidBlast->DuplicatePrefabIntoScene(currentScene);
+						ecs::EntityID acidBlastID = DuplicatePrefabIntoScene<R_Scene>(currentScene, acidBlastPrefab);
 
 						if (auto* acidBlastTransform = ecsPtr->GetComponent<TransformComponent>(acidBlastID)) {
 							acidBlastTransform->LocalTransformation.position = ecsPtr->GetComponent<TransformComponent>(creationPointID)->WorldTransformation.position;
@@ -279,7 +301,8 @@ public:
 
 					if (groundSpikes) {
 						std::string currentScene = ecsPtr->GetSceneByEntityID(entity);
-						ecs::EntityID groundSpikesID = groundSpikes->DuplicatePrefabIntoScene(currentScene);
+						//ecs::EntityID groundSpikesID = groundSpikes->DuplicatePrefabIntoScene(currentScene);
+						ecs::EntityID groundSpikesID = DuplicatePrefabIntoScene<R_Scene>(currentScene, groundSpikesPrefab);
 
 						if (auto* groundSpikesTransform = ecsPtr->GetComponent<TransformComponent>(groundSpikesID)) {
 							groundSpikesTransform->LocalTransformation.position = ecsPtr->GetComponent<TransformComponent>(entity)->WorldTransformation.position;
@@ -293,7 +316,8 @@ public:
 
 					if (flamethrower) {
 						std::string currentScene = ecsPtr->GetSceneByEntityID(entity);
-						ecs::EntityID flamethrowerID = flamethrower->DuplicatePrefabIntoScene(currentScene);
+						//ecs::EntityID flamethrowerID = flamethrower->DuplicatePrefabIntoScene(currentScene);
+						ecs::EntityID flamethrowerID = DuplicatePrefabIntoScene<R_Scene>(currentScene, flamethrowerPrefab);
 
 						if (auto* flamethrowerTransform = ecsPtr->GetComponent<TransformComponent>(flamethrowerID)) {
 							flamethrowerTransform->LocalTransformation.position = ecsPtr->GetComponent<TransformComponent>(creationPointID)->WorldTransformation.position;
@@ -309,7 +333,8 @@ public:
 
 					if (starfall) {
 						std::string currentScene = ecsPtr->GetSceneByEntityID(entity);
-						ecs::EntityID starfallID = starfall->DuplicatePrefabIntoScene(currentScene);
+						//ecs::EntityID starfallID = starfall->DuplicatePrefabIntoScene(currentScene);
+						ecs::EntityID starfallID = DuplicatePrefabIntoScene<R_Scene>(currentScene, starfallPrefab);
 
 						if (auto* starfallTransform = ecsPtr->GetComponent<TransformComponent>(starfallID)) {
 							starfallTransform->LocalTransformation.position = ecsPtr->GetComponent<TransformComponent>(creationPointID)->WorldTransformation.position;
@@ -335,6 +360,11 @@ public:
 					cursorIsHidden = true;
 				}
 			}
+
+			// Spawn another enemy
+			if (Input->IsKeyTriggered(keys::Z)) {
+
+			}
 		}
 	}
 
@@ -352,7 +382,7 @@ public:
 		return dir;
 	}
 
-	REFLECTABLE(PlayerManagerScript, playerHealth, playerMovementSpeed, playerJumpForce, playerCameraSpeedX, playerCameraSpeedY, 
-		creationPoint, cameraObject, armModel, groundCheck, bulletPrefab, fireballPrefab, lightningStrikePrefab, groundSpikesPrefab, 
-		acidBlastPrefab, starfallPrefab);
+	REFLECTABLE(PlayerManagerScript, playerHealth, playerMovementSpeed, playerCrouchingSpeed, playerJumpForce, playerCameraSpeedX,
+		playerCameraSpeedY, creationPoint, cameraObject, armModel, groundCheck, bulletPrefab, fireballPrefab, lightningStrikePrefab,
+		groundSpikesPrefab, acidBlastPrefab, starfallPrefab);
 };
