@@ -57,7 +57,7 @@
                 "CubeRendererComponent": {},
                 "LightningAcidPowerupManagerScript": {
                     "starfallDamage": 2.0,
-                    "starfallForce": 10.0
+                    "starfallForce": 60.0
                 },
                 "MaterialComponent": {
                     "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
@@ -71,7 +71,311 @@
                     "hide": false
                 },
                 "RigidbodyComponent": {
-                    "mass": 1.0,
+                    "mass": 10.0,
+                    "drag": 0.0,
+                    "angularDrag": 0.05000000074505806,
+                    "useGravity": true,
+                    "isKinematic": false,
+                    "interpolation": 0,
+                    "collisionDetection": 0,
+                    "constraints": 0
+                },
+                "SphereColliderComponent": {
+                    "isTrigger": true,
+                    "sphere": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 0.75
+                    }
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -0.25790560245513916,
+                            "y": 0.07520190626382828,
+                            "z": -0.1921333223581314
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224,
+                            "z": 0.20000000298023224
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": -0.25790560245513916,
+                            "y": 0.07520190626382828,
+                            "z": -0.1921333223581314
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224,
+                            "z": 0.20000000298023224
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "3115d2b5-ad98-9b5c-7289-890f5a30b21d",
+                "CubeRendererComponent": {},
+                "LightningAcidPowerupManagerScript": {
+                    "starfallDamage": 2.0,
+                    "starfallForce": 60.0
+                },
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Starfall",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "RigidbodyComponent": {
+                    "mass": 10.0,
+                    "drag": 0.0,
+                    "angularDrag": 0.05000000074505806,
+                    "useGravity": true,
+                    "isKinematic": false,
+                    "interpolation": 0,
+                    "collisionDetection": 0,
+                    "constraints": 0
+                },
+                "SphereColliderComponent": {
+                    "isTrigger": true,
+                    "sphere": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 0.75
+                    }
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": 0.23644492030143738,
+                            "y": 0.05138011276721954,
+                            "z": -0.12478327751159668
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224,
+                            "z": 0.20000000298023224
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 0.23644492030143738,
+                            "y": 0.05138011276721954,
+                            "z": -0.12478327751159668
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224,
+                            "z": 0.20000000298023224
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "bb37f7b2-46b7-308c-ffa3-7dc9fb3d2df0",
+                "CubeRendererComponent": {},
+                "LightningAcidPowerupManagerScript": {
+                    "starfallDamage": 2.0,
+                    "starfallForce": 60.0
+                },
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Starfall",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "RigidbodyComponent": {
+                    "mass": 10.0,
+                    "drag": 0.0,
+                    "angularDrag": 0.05000000074505806,
+                    "useGravity": true,
+                    "isKinematic": false,
+                    "interpolation": 0,
+                    "collisionDetection": 0,
+                    "constraints": 0
+                },
+                "SphereColliderComponent": {
+                    "isTrigger": true,
+                    "sphere": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 0.75
+                    }
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -0.1182798445224762,
+                            "y": 0.2769176959991455,
+                            "z": 0.013213979080319405
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224,
+                            "z": 0.20000000298023224
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": -0.1182798445224762,
+                            "y": 0.2769176959991455,
+                            "z": 0.013213979080319405
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224,
+                            "z": 0.20000000298023224
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "df7436c5-1724-ad7e-6ef9-4252f143a333",
+                "CubeRendererComponent": {},
+                "LightningAcidPowerupManagerScript": {
+                    "starfallDamage": 2.0,
+                    "starfallForce": 60.0
+                },
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Starfall",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "RigidbodyComponent": {
+                    "mass": 10.0,
+                    "drag": 0.0,
+                    "angularDrag": 0.05000000074505806,
+                    "useGravity": true,
+                    "isKinematic": false,
+                    "interpolation": 0,
+                    "collisionDetection": 0,
+                    "constraints": 0
+                },
+                "SphereColliderComponent": {
+                    "isTrigger": true,
+                    "sphere": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "radius": 0.75
+                    }
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": 0.16865815222263336,
+                            "y": -0.23835337162017822,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224,
+                            "z": 0.20000000298023224
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 0.16865815222263336,
+                            "y": -0.23835337162017822,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224,
+                            "z": 0.20000000298023224
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "f64a7e0e-7bf8-f8de-0153-7a64d714ecd4",
+                "CubeRendererComponent": {},
+                "LightningAcidPowerupManagerScript": {
+                    "starfallDamage": 2.0,
+                    "starfallForce": 60.0
+                },
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Starfall",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "RigidbodyComponent": {
+                    "mass": 10.0,
                     "drag": 0.0,
                     "angularDrag": 0.05000000074505806,
                     "useGravity": true,
@@ -104,9 +408,9 @@
                             "z": 0.0
                         },
                         "scale": {
-                            "x": 0.30000001192092896,
-                            "y": 0.30000001192092896,
-                            "z": 0.30000001192092896
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224,
+                            "z": 0.20000000298023224
                         }
                     },
                     "LocalTransformation": {
@@ -121,9 +425,9 @@
                             "z": 0.0
                         },
                         "scale": {
-                            "x": 0.30000001192092896,
-                            "y": 0.30000001192092896,
-                            "z": 0.30000001192092896
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224,
+                            "z": 0.20000000298023224
                         }
                     }
                 }

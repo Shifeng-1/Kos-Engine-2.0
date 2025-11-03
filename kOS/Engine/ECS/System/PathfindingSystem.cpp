@@ -32,7 +32,7 @@ namespace ecs {
 
 	bool test = true;
 
-	float maxTimer = 5.f;
+	float maxTimer = 3.f;
 	float currentTimer = 0.f;
 
 	// REMOVE THIS AFTER M2
@@ -70,6 +70,9 @@ namespace ecs {
 				auto* pathfinderTrans = m_ecs.GetComponent<TransformComponent>(id);
 				auto* pathfinderTargetTrans = m_ecs.GetComponent<TransformComponent>(otherId);
 
+				Octrees::OctreeNode closestNodeFrom;
+				Octrees::OctreeNode closestNodeTarget;
+
 				if (!pathfinderTarget || !pathfinderComp || !pathfinderTrans || !pathfinderTargetTrans || !pathfinderComp->chase) {
 					continue;
 				}
@@ -77,48 +80,66 @@ namespace ecs {
 				if (currentTimer >= maxTimer) {
 					//octree = Octrees::Octree(1.f, waypoints);
 
-					Octrees::OctreeNode closestNodeFrom = octree.FindClosestNode(pathfinderTrans->LocalTransformation.position);
-					Octrees::OctreeNode closestNodeTarget = octree.FindClosestNode(pathfinderTargetTrans->LocalTransformation.position);
+					closestNodeFrom = octree.FindClosestNode(pathfinderTrans->LocalTransformation.position);
+					closestNodeTarget = octree.FindClosestNode(pathfinderTargetTrans->LocalTransformation.position);
 					octree.graph.AStar(&closestNodeFrom, &closestNodeTarget);
 					currentPathCount = 0;
 
-					for (int i = 0; i < octree.graph.pathList.size(); ++i) {
-						std::cout << "PATH " << i << ": " << octree.graph.pathList[i].octreeNode.bounds.center.x << ", " <<
-							octree.graph.pathList[i].octreeNode.bounds.center.y << ", " <<
-							octree.graph.pathList[i].octreeNode.bounds.center.z << std::endl;
-					}
+					//for (int i = 0; i < octree.graph.pathList.size(); ++i) {
+					//	std::cout << "PATH " << i << ": " << octree.graph.pathList[i].octreeNode.bounds.center.x << ", " <<
+					//		octree.graph.pathList[i].octreeNode.bounds.center.y << ", " <<
+					//		octree.graph.pathList[i].octreeNode.bounds.center.z << std::endl;
+					//}
 
 					currentTimer = 0.f;
 				}
-				
-				if (octree.graph.pathList.size() > 0 && currentPathCount >= octree.graph.pathList.size()) {
-					break;
-				}
 
-				if (std::abs(pathfinderTrans->LocalTransformation.position.x - pathfinderTargetTrans->LocalTransformation.position.x) >= proximityCheck ||
-					std::abs(pathfinderTrans->LocalTransformation.position.y - pathfinderTargetTrans->LocalTransformation.position.y) >= proximityCheck ||
-					std::abs(pathfinderTrans->LocalTransformation.position.z - pathfinderTargetTrans->LocalTransformation.position.z) >= proximityCheck) {
-					glm::vec3 directionToMove;
+				if (octree.graph.pathList.size() && currentPathCount < octree.graph.pathList.size()) {
+					glm::vec3 direction = octree.graph.pathList[currentPathCount].octreeNode.bounds.center - pathfinderTrans->WorldTransformation.position;
+					direction = glm::normalize(direction);
 
-					if (!octree.graph.pathList.size() || currentPathCount == octree.graph.pathList.size() - 1) {
-						directionToMove = pathfinderTargetTrans->LocalTransformation.position - pathfinderTrans->LocalTransformation.position;
-					}
-					else {
-						directionToMove = octree.graph.pathList[currentPathCount].octreeNode.bounds.center - pathfinderTrans->LocalTransformation.position;
-					}
-
-					pathfinderTrans->LocalTransformation.position += glm::normalize(directionToMove) * m_ecs.m_GetDeltaTime() * pathfinderComp->pathfinderMovementSpeed;
-
-					if (!octree.graph.pathList.size()) {
-						break;
-					}
-
-					if (std::abs(pathfinderTrans->LocalTransformation.position.x - octree.graph.pathList[currentPathCount].octreeNode.bounds.center.x) < proximityCheck &&
-						std::abs(pathfinderTrans->LocalTransformation.position.y - octree.graph.pathList[currentPathCount].octreeNode.bounds.center.y) < proximityCheck &&
-						std::abs(pathfinderTrans->LocalTransformation.position.z - octree.graph.pathList[currentPathCount].octreeNode.bounds.center.z) < proximityCheck) {
+					pathfinderTrans->LocalTransformation.position += direction * pathfinderComp->pathfinderMovementSpeed * m_ecs.m_GetDeltaTime();
+					if (glm::distance(pathfinderTrans->WorldTransformation.position, octree.graph.pathList[currentPathCount].octreeNode.bounds.center) <= proximityCheck) {
 						++currentPathCount;
 					}
 				}
+				else {
+					if (closestNodeFrom == closestNodeTarget) {
+
+					}
+				}
+				
+
+
+				//if (octree.graph.pathList.size() > 0 && currentPathCount >= octree.graph.pathList.size()) {
+				//	break;
+				//}
+
+				//if (std::abs(pathfinderTrans->LocalTransformation.position.x - pathfinderTargetTrans->LocalTransformation.position.x) >= proximityCheck ||
+				//	std::abs(pathfinderTrans->LocalTransformation.position.y - pathfinderTargetTrans->LocalTransformation.position.y) >= proximityCheck ||
+				//	std::abs(pathfinderTrans->LocalTransformation.position.z - pathfinderTargetTrans->LocalTransformation.position.z) >= proximityCheck) {
+				//	glm::vec3 directionToMove;
+
+				//	//if ((!octree.graph.pathList.size() && closestNodeFrom == closestNodeTarget) || currentPathCount == octree.graph.pathList.size() - 1) {
+				//	//	directionToMove = pathfinderTargetTrans->LocalTransformation.position - pathfinderTrans->LocalTransformation.position;
+				//	//}
+				//	//else {
+				//	//	directionToMove = octree.graph.pathList[currentPathCount].octreeNode.bounds.center - pathfinderTrans->LocalTransformation.position;
+				//	//}
+				//	directionToMove = octree.graph.pathList[currentPathCount].octreeNode.bounds.center - pathfinderTrans->LocalTransformation.position;
+
+				//	pathfinderTrans->LocalTransformation.position += glm::normalize(directionToMove) * m_ecs.m_GetDeltaTime() * pathfinderComp->pathfinderMovementSpeed;
+
+				//	if (!octree.graph.pathList.size()) {
+				//		break;
+				//	}
+
+				//	if (std::abs(pathfinderTrans->LocalTransformation.position.x - octree.graph.pathList[currentPathCount].octreeNode.bounds.center.x) < proximityCheck &&
+				//		std::abs(pathfinderTrans->LocalTransformation.position.y - octree.graph.pathList[currentPathCount].octreeNode.bounds.center.y) < proximityCheck &&
+				//		std::abs(pathfinderTrans->LocalTransformation.position.z - octree.graph.pathList[currentPathCount].octreeNode.bounds.center.z) < proximityCheck) {
+				//		++currentPathCount;
+				//	}
+				//}
 
 				break;
 			}

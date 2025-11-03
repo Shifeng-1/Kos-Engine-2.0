@@ -23,7 +23,7 @@ public:
 			}
 		});
 
-		direction.y *= 2.f;
+		direction.y += 1.f;
 		direction = glm::normalize(direction) * starfallForce;
 		physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, direction, ForceMode::Impulse);
 	}
