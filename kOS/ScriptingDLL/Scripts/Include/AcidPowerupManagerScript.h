@@ -1,0 +1,30 @@
+#pragma once
+#include "ScriptAdapter/TemplateSC.h"
+#include "EnemyManagerScript.h"
+
+class AcidPowerupManagerScript : public TemplateSC {
+public:
+	int acidDamage = 5;
+
+	void Start() override {
+		physicsPtr->OnTriggerEnter.Add([this](const physics::Collision& col) {
+			//if (col.thisEntityID != this->entity) { return; }
+			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Enemy") {
+				if (auto* enemyScript = ecsPtr->GetComponent<EnemyManagerScript>(col.otherEntityID)) {
+					enemyScript->enemyHealth -= acidDamage;
+
+					if (enemyScript->enemyHealth <= 0) {
+						//ecsPtr->DeleteEntity(col.otherEntityID);
+					}
+				}
+			}
+			});
+	}
+
+	void Update() override {
+
+	}
+
+
+	REFLECTABLE(AcidPowerupManagerScript)
+};

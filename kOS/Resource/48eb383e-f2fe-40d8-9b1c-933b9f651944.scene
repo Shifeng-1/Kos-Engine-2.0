@@ -378,378 +378,6 @@
         }
     },
     {
-        "entityGUID": "ee65e840-dd56-328f-3b70-f8433011a1bb",
-        "BoxColliderComponent": {
-            "isTrigger": false,
-            "box": {
-                "center": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                }
-            }
-        },
-        "NameComponent": {
-            "entityName": "Wall Collider 18",
-            "Layer": 0,
-            "entityTag": "Default",
-            "isPrefab": false,
-            "prefabName": "",
-            "hide": false
-        },
-        "TransformComponent": {
-            "WorldTransformation": {
-                "position": {
-                    "x": -54.5,
-                    "y": -2.5,
-                    "z": -55.0
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 6.0,
-                    "y": 6.0,
-                    "z": 6.0
-                }
-            },
-            "LocalTransformation": {
-                "position": {
-                    "x": -54.5,
-                    "y": -2.5,
-                    "z": -55.0
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 6.0,
-                    "y": 6.0,
-                    "z": 6.0
-                }
-            }
-        }
-    },
-    {
-        "entityGUID": "dac697d2-4afa-71f5-21e7-635b85e8ef28",
-        "BoxColliderComponent": {
-            "isTrigger": false,
-            "box": {
-                "center": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                }
-            }
-        },
-        "NameComponent": {
-            "entityName": "Wall Collider 15",
-            "Layer": 0,
-            "entityTag": "Default",
-            "isPrefab": false,
-            "prefabName": "",
-            "hide": false
-        },
-        "TransformComponent": {
-            "WorldTransformation": {
-                "position": {
-                    "x": -52.59223556518555,
-                    "y": -2.5,
-                    "z": -47.84959030151367
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -45.000003814697266,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 6.0,
-                    "y": 6.0,
-                    "z": 6.0
-                }
-            },
-            "LocalTransformation": {
-                "position": {
-                    "x": -52.59223556518555,
-                    "y": -2.5,
-                    "z": -47.84959030151367
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -45.000003814697266,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 6.0,
-                    "y": 6.0,
-                    "z": 6.0
-                }
-            }
-        }
-    },
-    {
-        "entityGUID": "279a4b04-ddf1-82da-c128-76014c14c654",
-        "BoxColliderComponent": {
-            "isTrigger": false,
-            "box": {
-                "center": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                }
-            }
-        },
-        "NameComponent": {
-            "entityName": "Wall Collider 15",
-            "Layer": 0,
-            "entityTag": "Default",
-            "isPrefab": false,
-            "prefabName": "",
-            "hide": false
-        },
-        "TransformComponent": {
-            "WorldTransformation": {
-                "position": {
-                    "x": -61.78462600708008,
-                    "y": -2.5,
-                    "z": -38.657203674316406
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -45.000003814697266,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 6.0,
-                    "y": 6.0,
-                    "z": 6.0
-                }
-            },
-            "LocalTransformation": {
-                "position": {
-                    "x": -61.78462600708008,
-                    "y": -2.5,
-                    "z": -38.657203674316406
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -45.000003814697266,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 6.0,
-                    "y": 6.0,
-                    "z": 6.0
-                }
-            }
-        }
-    },
-    {
-        "entityGUID": "d139980b-6a1a-a6ec-2cb4-94a323149d9c",
-        "BoxColliderComponent": {
-            "isTrigger": false,
-            "box": {
-                "center": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                }
-            }
-        },
-        "NameComponent": {
-            "entityName": "Wall Collider 16",
-            "Layer": 0,
-            "entityTag": "Default",
-            "isPrefab": false,
-            "prefabName": "",
-            "hide": false
-        },
-        "TransformComponent": {
-            "WorldTransformation": {
-                "position": {
-                    "x": -57.0,
-                    "y": -3.5,
-                    "z": -35.80902862548828
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 3.0,
-                    "y": 3.0,
-                    "z": 3.0
-                }
-            },
-            "LocalTransformation": {
-                "position": {
-                    "x": -57.0,
-                    "y": -3.5,
-                    "z": -35.80902862548828
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 3.0,
-                    "y": 3.0,
-                    "z": 3.0
-                }
-            }
-        }
-    },
-    {
-        "entityGUID": "33458bef-d84d-8716-b29b-0bc94803e53f",
-        "BoxColliderComponent": {
-            "isTrigger": false,
-            "box": {
-                "center": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                }
-            }
-        },
-        "NameComponent": {
-            "entityName": "Wall Collider 17",
-            "Layer": 0,
-            "entityTag": "Default",
-            "isPrefab": false,
-            "prefabName": "",
-            "hide": false
-        },
-        "TransformComponent": {
-            "WorldTransformation": {
-                "position": {
-                    "x": -49.76754379272461,
-                    "y": -3.313319206237793,
-                    "z": -43.80902862548828
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
-                }
-            },
-            "LocalTransformation": {
-                "position": {
-                    "x": -49.76754379272461,
-                    "y": -3.313319206237793,
-                    "z": -43.80902862548828
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
-                }
-            }
-        }
-    },
-    {
-        "entityGUID": "e26d2268-205e-6bc0-8ff0-3cb7d840bb1f",
-        "BoxColliderComponent": {
-            "isTrigger": false,
-            "box": {
-                "center": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                }
-            }
-        },
-        "NameComponent": {
-            "entityName": "Wall Collider 19",
-            "Layer": 0,
-            "entityTag": "Default",
-            "isPrefab": false,
-            "prefabName": "",
-            "hide": false
-        },
-        "TransformComponent": {
-            "WorldTransformation": {
-                "position": {
-                    "x": -57.0,
-                    "y": -2.0,
-                    "z": -51.0
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
-                }
-            },
-            "LocalTransformation": {
-                "position": {
-                    "x": -57.0,
-                    "y": -2.0,
-                    "z": -51.0
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 2.0,
-                    "y": 2.0,
-                    "z": 2.0
-                }
-            }
-        }
-    },
-    {
         "entityGUID": "e14717f0-2e7b-f639-c767-f4ebce084828",
         "BoxColliderComponent": {
             "isTrigger": false,
@@ -769,7 +397,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 20",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -831,7 +459,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 21",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -893,7 +521,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 22",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -955,7 +583,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 23",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1017,7 +645,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 23",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1079,7 +707,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 24",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1141,7 +769,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 24",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1203,7 +831,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 25",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1265,7 +893,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 26",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1327,7 +955,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 26",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1389,7 +1017,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 26",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1451,7 +1079,7 @@
         "NameComponent": {
             "entityName": "Wall Collider 27",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1522,7 +1150,7 @@
             "WorldTransformation": {
                 "position": {
                     "x": -73.45791625976563,
-                    "y": -10.036088943481445,
+                    "y": -10.5,
                     "z": -53.47578048706055
                 },
                 "rotation": {
@@ -1539,7 +1167,7 @@
             "LocalTransformation": {
                 "position": {
                     "x": -73.45791625976563,
-                    "y": -10.036088943481445,
+                    "y": -10.5,
                     "z": -53.47578048706055
                 },
                 "rotation": {
@@ -1566,14 +1194,14 @@
             "hide": false
         },
         "OctreeGeneratorComponent": {
-            "drawWireframe": false
+            "drawWireframe": true
         },
         "TransformComponent": {
             "WorldTransformation": {
                 "position": {
-                    "x": 0.0,
+                    "x": -80.26811981201172,
                     "y": 0.0,
-                    "z": 0.0
+                    "z": -45.29220962524414
                 },
                 "rotation": {
                     "x": 0.0,
@@ -1588,13 +1216,13 @@
             },
             "LocalTransformation": {
                 "position": {
-                    "x": 0.0,
+                    "x": -80.26811981201172,
                     "y": 0.0,
-                    "z": 0.0
+                    "z": -45.29220962524414
                 },
                 "rotation": {
                     "x": 0.0,
-                    "y": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 },
                 "scale": {
@@ -1781,7 +1409,7 @@
         },
         "PathfinderComponent": {
             "pathfinderMovementSpeed": 1.0,
-            "chase": true
+            "chase": false
         },
         "TransformComponent": {
             "WorldTransformation": {
@@ -1902,7 +1530,7 @@
         "NameComponent": {
             "entityName": "Ground1",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1911,7 +1539,7 @@
             "WorldTransformation": {
                 "position": {
                     "x": -73.45887756347656,
-                    "y": -10.036088943481445,
+                    "y": -10.5,
                     "z": -33.479156494140625
                 },
                 "rotation": {
@@ -1928,7 +1556,7 @@
             "LocalTransformation": {
                 "position": {
                     "x": -73.45887756347656,
-                    "y": -10.036088943481445,
+                    "y": -10.5,
                     "z": -33.479156494140625
                 },
                 "rotation": {
@@ -1964,7 +1592,7 @@
         "NameComponent": {
             "entityName": "Ground1",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -1973,7 +1601,7 @@
             "WorldTransformation": {
                 "position": {
                     "x": -83.45671844482422,
-                    "y": -10.036088943481445,
+                    "y": -10.5,
                     "z": -53.47578048706055
                 },
                 "rotation": {
@@ -1990,7 +1618,7 @@
             "LocalTransformation": {
                 "position": {
                     "x": -83.45671844482422,
-                    "y": -10.036088943481445,
+                    "y": -10.5,
                     "z": -53.47578048706055
                 },
                 "rotation": {
@@ -2026,7 +1654,7 @@
         "NameComponent": {
             "entityName": "Ground1",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -2035,7 +1663,7 @@
             "WorldTransformation": {
                 "position": {
                     "x": -83.45671844482422,
-                    "y": -10.036088943481445,
+                    "y": -10.5,
                     "z": -43.48093032836914
                 },
                 "rotation": {
@@ -2052,7 +1680,7 @@
             "LocalTransformation": {
                 "position": {
                     "x": -83.45671844482422,
-                    "y": -10.036088943481445,
+                    "y": -10.5,
                     "z": -43.48093032836914
                 },
                 "rotation": {
@@ -2088,7 +1716,7 @@
         "NameComponent": {
             "entityName": "Ground1",
             "Layer": 0,
-            "entityTag": "Default",
+            "entityTag": "Obstacle",
             "isPrefab": false,
             "prefabName": "",
             "hide": false
@@ -2097,7 +1725,7 @@
             "WorldTransformation": {
                 "position": {
                     "x": -73.45887756347656,
-                    "y": -10.036088943481445,
+                    "y": -10.5,
                     "z": -43.48093032836914
                 },
                 "rotation": {
@@ -2114,8 +1742,120 @@
             "LocalTransformation": {
                 "position": {
                     "x": -73.45887756347656,
-                    "y": -10.036088943481445,
+                    "y": -10.5,
                     "z": -43.48093032836914
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            }
+        }
+    },
+    {
+        "entityGUID": "ae1c497f-71a7-9a1f-d18f-57da360b78cf",
+        "NameComponent": {
+            "entityName": "test",
+            "Layer": 0,
+            "entityTag": "Default",
+            "isPrefab": false,
+            "prefabName": "",
+            "hide": false
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": -145.5,
+                    "y": 0.5,
+                    "z": -148.5
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": -145.5,
+                    "y": 0.5,
+                    "z": -148.5
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            }
+        }
+    },
+    {
+        "entityGUID": "8366060e-753c-186a-213e-1a6bb79df911",
+        "BoxColliderComponent": {
+            "isTrigger": false,
+            "box": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "size": {
+                    "x": 2.0,
+                    "y": 2.0,
+                    "z": 2.0
+                }
+            }
+        },
+        "NameComponent": {
+            "entityName": "Powerup",
+            "Layer": 0,
+            "entityTag": "Powerup",
+            "isPrefab": false,
+            "prefabName": "",
+            "hide": false
+        },
+        "PowerupManagerScript": {
+            "powerupType": ""
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": -85.53070068359375,
+                    "y": -3.99017071723938,
+                    "z": -44.57454299926758
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": -85.53070068359375,
+                    "y": -3.99017071723938,
+                    "z": -44.57454299926758
                 },
                 "rotation": {
                     "x": 0.0,

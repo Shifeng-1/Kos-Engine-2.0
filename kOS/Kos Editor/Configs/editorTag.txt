@@ -44,3 +44,5 @@ PropGlassWall
 LaserWall
 GameController
 UIPauseConfirmation
+Obstacle
+Powerup

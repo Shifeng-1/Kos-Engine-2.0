@@ -66,7 +66,8 @@ namespace physics {
 		void AddForce(void*, const glm::vec3&, ForceMode mode = ForceMode::Force);
 		void AddTorque(void*, const glm::vec3&, ForceMode mode = ForceMode::Force);
 
-		bool Raycast(const glm::vec3&, const glm::vec3&, float, RaycastHit&);
+		//bool Raycast(const glm::vec3&, const glm::vec3&, float, RaycastHit&);
+		bool Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, RaycastHit& outHit, void* actorToIgnore);
 
 		Delegate<const Collision&> OnCollisionEnter;
 		Delegate<const Collision&> OnCollisionStay;

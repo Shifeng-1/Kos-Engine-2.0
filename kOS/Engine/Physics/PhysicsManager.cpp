@@ -136,10 +136,52 @@ namespace physics {
 		}
 	}
 
-	bool PhysicsManager::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, RaycastHit& outHit) {
+	//bool PhysicsManager::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, RaycastHit& outHit) {
+	//	if (!m_scene) { return false; }
+	//	PxRaycastBuffer hit;
+	//	bool isHit = m_scene->raycast(PxVec3{ origin.x, origin.y, origin.z }, PxVec3{ direction.x, direction.y, direction.z }.getNormalized(), maxDistance, hit);
+	//	if (isHit && hit.hasBlock) {
+	//		outHit.point = glm::vec3{ hit.block.position.x, hit.block.position.y, hit.block.position.z };
+	//		outHit.normal = glm::vec3{ hit.block.normal.x, hit.block.normal.y, hit.block.normal.z };
+	//		outHit.distance = hit.block.distance;
+	//		if (hit.block.actor && hit.block.actor->userData) { outHit.entityID = reinterpret_cast<unsigned int>(hit.block.actor->userData); }
+	//		return true;
+	//	}
+	//	return false;
+	//}
+
+	bool PhysicsManager::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, RaycastHit& outHit, void* actorToIgnore) {
 		if (!m_scene) { return false; }
+
+		PxVec3 pxOrigin{ origin.x, origin.y, origin.z };
+		PxVec3 pxDirection{ direction.x, direction.y, direction.z };
+		pxDirection.normalize();
+
 		PxRaycastBuffer hit;
-		bool isHit = m_scene->raycast(PxVec3{ origin.x, origin.y, origin.z }, PxVec3{ direction.x, direction.y, direction.z }.getNormalized(), maxDistance, hit);
+		PxRigidActor* ignoredActor = static_cast<PxRigidActor*>(actorToIgnore);
+
+		struct IgnoreActorFilter : public PxQueryFilterCallback {
+			PxRigidActor* ignore;
+			IgnoreActorFilter(PxRigidActor* actor) : ignore(actor) {}
+
+			PxQueryHitType::Enum preFilter(const PxFilterData& filterData, const PxShape* shape, const PxRigidActor* actor, PxHitFlags& queryFlags) override {
+				if (actor == ignore) { return PxQueryHitType::eNONE; }
+				return PxQueryHitType::eBLOCK;
+			}
+
+			PxQueryHitType::Enum postFilter(const PxFilterData& filterData, const PxQueryHit& hit, const PxShape* shape, const PxRigidActor* actor) override {
+				PX_UNUSED(filterData);
+				PX_UNUSED(hit);
+				PX_UNUSED(shape);
+				PX_UNUSED(actor);
+				return PxQueryHitType::eBLOCK;
+			}
+		};
+
+		PxQueryFilterData filterData{ PxQueryFlag::eSTATIC | PxQueryFlag::eDYNAMIC | PxQueryFlag::ePREFILTER };
+		IgnoreActorFilter filterCallback{ ignoredActor };
+
+		bool isHit = m_scene->raycast(pxOrigin, pxDirection, maxDistance, hit, PxHitFlag::eDEFAULT, filterData, ignoredActor ? &filterCallback : nullptr);
 		if (isHit && hit.hasBlock) {
 			outHit.point = glm::vec3{ hit.block.position.x, hit.block.position.y, hit.block.position.z };
 			outHit.normal = glm::vec3{ hit.block.normal.x, hit.block.normal.y, hit.block.normal.z };

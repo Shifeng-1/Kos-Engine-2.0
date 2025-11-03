@@ -10,10 +10,18 @@ public:
 	float playerCameraSpeedX;
 	float playerCameraSpeedY;
 
+	float interactPowerupRange = 5.f;
+
+	utility::GUID armModel;
+	ecs::EntityID armModelID;
+
 	float rotationX = 0.f, rotationY = 0.f;
+	bool cursorIsHidden = false;
+
+	std::string currentPowerup = "none";
 
 	void Start() override {
-
+		armModelID = ecsPtr->GetEntityIDFromGUID(armModel);
 	}
 
 	void Update() override {
@@ -57,6 +65,67 @@ public:
 				cameraTransform->LocalTransformation.rotation = glm::vec3(rotationX, rotationY + 90.f, 0.f);
 				//std::cout << "CAMERA: " << cameraTransform->LocalTransformation.rotation.x << ", " << cameraTransform->LocalTransformation.rotation.y << std::endl;
 				tc->LocalTransformation.rotation = glm::vec3(0.f, -rotationY, 0.f);
+
+				//if (auto* armModelTrans = ecsPtr->GetComponent<TransformComponent>(armModelID)) {
+				//	armModelTrans->LocalTransformation.rotation = glm::vec3(0.f, -rotationY, 0.f);
+				//}
+
+				// Interact Inputs
+				if (Input->IsKeyTriggered(keys::E)) {
+					RaycastHit hit;
+					hit.entityID = 9999999;
+
+					//glm::vec3 dir = glm::vec3(rotationX, rotationY, 0.f) * forward;
+					float yaw = glm::radians(rotationY + 90.f);
+					float pitch = glm::radians(rotationX);
+
+					glm::vec3 dir;
+					dir.x = std::cos(pitch) * std::cos(yaw);
+					dir.y = std::sin(pitch);
+					dir.z = cos(pitch) * std::sin(yaw);
+
+					dir = glm::normalize(dir);
+					
+					physicsPtr->Raycast(tc->LocalTransformation.position, dir, 5.f, hit, ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor);
+
+					if (hit.entityID != 9999999 && ecsPtr->GetComponent<NameComponent>(hit.entityID)->entityTag == "Powerup") {
+						if (auto* powerupComp = ecsPtr->GetComponent<PowerupManagerScript>(hit.entityID)) {
+							if (powerupComp->powerupType == "fire") {
+								if (currentPowerup == "lightning") {
+									currentPowerup = "firelightning";
+								}
+								else if (currentPowerup == "acid") {
+									currentPowerup = "fireacid";
+								}
+								else {
+									currentPowerup = "fire";
+								}
+							}
+							else if (powerupComp->powerupType == "lightning") {
+								if (currentPowerup == "fire") {
+									currentPowerup = "firelightning";
+								}
+								else if (currentPowerup == "acid") {
+									currentPowerup = "lightningacid";
+								}
+								else {
+									currentPowerup = "lightning";
+								}
+							}
+							else if (powerupComp->powerupType == "acid") {
+								if (currentPowerup == "fire") {
+									currentPowerup = "fireacid";
+								}
+								else if (currentPowerup == "lightning") {
+									currentPowerup = "lightningacid";
+								}
+								else {
+									currentPowerup = "acid";
+								}
+							}
+						}
+					}
+				}
 			}
 
 			// Shooting Inputs
@@ -79,18 +148,60 @@ public:
 				if (auto* bulletRb = ecsPtr->GetComponent<RigidbodyComponent>(bullet)) {
 					bulletRb->useGravity = false;
 				}
+			}
 
-				if (auto* bulletScript = ecsPtr->GetComponent<BulletLogic>(bullet)) {
-					bulletScript->direction = forward;
+			// Powerup shooting
+			if (Input->IsKeyTriggered(keys::RMB)) {
+				if (currentPowerup == "fire") {
+					ecs::EntityID fireball = ecsPtr->CreateEntity(ecsPtr->GetSceneByEntityID(entity));
+					ecsPtr->GetComponent<NameComponent>(fireball)->entityName = "Fireball";
+					ecsPtr->AddComponent<SphereColliderComponent>(fireball);
+					ecsPtr->AddComponent<RigidbodyComponent>(fireball);
+					ecsPtr->AddComponent<FirePowerupManagerScript>(fireball);
+
+					if (auto* fireballTransform = ecsPtr->GetComponent<TransformComponent>(fireball)) {
+						fireballTransform->LocalTransformation.position = tc->LocalTransformation.position;
+						fireballTransform->LocalTransformation.rotation = glm::vec3(360.f - rotationX, 360.f - rotationY, 0.f);
+					}
+
+					if (auto* fireballCol = ecsPtr->GetComponent<SphereColliderComponent>(fireball)) {
+						fireballCol->isTrigger = true;
+					}
+
+					if (auto* fireballRb = ecsPtr->GetComponent<RigidbodyComponent>(fireball)) {
+						fireballRb->useGravity = false;
+					}
+				}
+				else if (currentPowerup == "lightning") {
+
+				}
+				else if (currentPowerup == "acid") {
+
+				}
+				else if (currentPowerup == "firelightning") {
+
+				}
+				else if (currentPowerup == "fireacid") {
+
+				}
+				else if (currentPowerup == "lightningacid") {
+
 				}
 			}
 
-			// Interact Inputs
-			if (Input->IsKeyTriggered(keys::E)) {
-
+			// Hide Cursor
+			if (Input->IsKeyTriggered(keys::X)) {
+				if (cursorIsHidden) {
+					Input->HideCursor(false);
+					cursorIsHidden = false;
+				}
+				else {
+					Input->HideCursor(true);
+					cursorIsHidden = true;
+				}
 			}
 		}
 	}
 
-	REFLECTABLE(PlayerManagerScript, playerHealth, playerMovementSpeed, playerJumpForce, playerCameraSpeedX, playerCameraSpeedY);
+	REFLECTABLE(PlayerManagerScript, playerHealth, playerMovementSpeed, playerJumpForce, playerCameraSpeedX, playerCameraSpeedY, armModel);
 };

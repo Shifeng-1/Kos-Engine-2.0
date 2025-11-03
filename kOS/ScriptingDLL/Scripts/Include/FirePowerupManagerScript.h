@@ -2,24 +2,24 @@
 #include "ScriptAdapter/TemplateSC.h"
 #include "EnemyManagerScript.h"
 
-class BulletLogic : public TemplateSC {
+class FirePowerupManagerScript : public TemplateSC {
 public:
-	int bulletDamage = 1;
-	float bulletSpeed = 5.f;
+	float fireballSpeed = 10.f;
+	int fireballDamage = 5;
 
 	void Start() override {
 		physicsPtr->OnTriggerEnter.Add([this](const physics::Collision& col) {
 			//if (col.thisEntityID != this->entity) { return; }
 			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Enemy") {
 				if (auto* enemyScript = ecsPtr->GetComponent<EnemyManagerScript>(col.otherEntityID)) {
-					enemyScript->enemyHealth -= bulletDamage;
+					enemyScript->enemyHealth -= fireballDamage;
 
 					if (enemyScript->enemyHealth <= 0) {
 						//ecsPtr->DeleteEntity(col.otherEntityID);
 					}
 				}
 			}
-		});
+			});
 	}
 
 	void Update() override {
@@ -31,10 +31,10 @@ public:
 			glm::vec3 forward = q * glm::vec3(0.f, 0.f, 1.f);
 			glm::vec3 right = q * glm::vec3(1.f, 0.f, 0.f);
 
-			tc->LocalTransformation.position += forward * bulletSpeed * ecsPtr->m_GetDeltaTime();
+			tc->LocalTransformation.position += forward * fireballSpeed * ecsPtr->m_GetDeltaTime();
 		}
 	}
 
 
-	REFLECTABLE(BulletLogic, bulletSpeed)
+	REFLECTABLE(FirePowerupManagerScript, fireballSpeed, fireballDamage)
 };

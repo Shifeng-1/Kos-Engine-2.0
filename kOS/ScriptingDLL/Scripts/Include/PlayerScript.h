@@ -47,10 +47,10 @@ public:
             if (Input->IsKeyPressed(keys::SPACE)) physicsPtr->AddForce(rb->actor, glm::vec3{ 0.0f, 100.0f, 0.0f });
         }
 
-        RaycastHit hit;
-        if (physicsPtr->Raycast({ 0.f, 0.f, 0.f }, { 1.f, 0.f, 0.f }, 10.f, hit)) {
-            hit.entityID;
-        }
+        //RaycastHit hit;
+        //if (physicsPtr->Raycast({ 0.f, 0.f, 0.f }, { 1.f, 0.f, 0.f }, 10.f, hit)) {
+        //    hit.entityID;
+        //}
     }
 
     REFLECTABLE(PlayerScript, health, shield, healthbool, shield2, Targetguid, prefabGUID);

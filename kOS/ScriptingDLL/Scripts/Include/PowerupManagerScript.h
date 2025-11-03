@@ -1,10 +1,9 @@
 #pragma once
 #include "ScriptAdapter/TemplateSC.h"
 
-class EnemyManagerScript : public TemplateSC {
+class PowerupManagerScript : public TemplateSC {
 public:
-	int enemyHealth;
-	float enemyMovementSpeed;
+	std::string powerupType;
 
 	void Start() override {
 
@@ -16,5 +15,5 @@ public:
 		}
 	}
 
-	REFLECTABLE(EnemyManagerScript, enemyHealth, enemyMovementSpeed);
+	REFLECTABLE(PowerupManagerScript, powerupType);
 };

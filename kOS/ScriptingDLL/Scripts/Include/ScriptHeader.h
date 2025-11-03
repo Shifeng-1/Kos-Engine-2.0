@@ -6,5 +6,14 @@
 
 #include "BulletLogic.h"
 #include "EnemyManagerScript.h"
+#include "PowerupManagerScript.h"
+
+#include "FirePowerupManagerScript.h"
+#include "LightningPowerupManagerScript.h"
+#include "AcidPowerupManagerScript.h"
+#include "FireLightningPowerupManagerScript.h"
+#include "FireAcidPowerupManagerScript.h"
+#include "LightningAcidPowerupManagerScript.h"
+
 #include "PlayerManagerScript.h"
 #include "GunScript.h"
