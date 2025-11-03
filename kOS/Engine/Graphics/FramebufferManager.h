@@ -52,6 +52,13 @@ public:
 
 	void Update(unsigned int windowWidth, unsigned int windowHeight) {
 		//Update frame buffer details
+		sceneBuffer.Update(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
+		frameBuffer.Update(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
+		editorBuffer.Update(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
+		gameBuffer.Update(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
+		gBuffer.Clear();
+		gBuffer.InitializeGBuffer(static_cast<int>(windowWidth), static_cast<int>(windowHeight));
+		UIBuffer.Update(static_cast<int>(windowWidth), static_cast<int>(windowHeight), gBuffer.gMaterial);
 
 	}
 

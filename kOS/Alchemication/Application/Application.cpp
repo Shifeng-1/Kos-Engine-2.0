@@ -199,6 +199,11 @@ namespace Application {
                 input->InputExitFrame(deltaTime);
 
 
+               //Get window size
+                int width, height;
+                glfwGetWindowSize(lvWindow.window, &width, &height);
+                //std::cout << width << ' ' << height << '\n';
+                graphicsManager->gm_UpdateBuffers(width, height);
                 /*--------------------------------------------------------------
                     UPDATE Render Pipeline
                 --------------------------------------------------------------*/
