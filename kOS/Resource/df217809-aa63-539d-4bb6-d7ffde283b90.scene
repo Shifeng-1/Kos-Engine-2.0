@@ -1,0 +1,76 @@
+[
+    {
+        "SceneData": {
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
+        "entityGUID": "885e4ec9-1423-f6d7-995c-0645eab33504",
+        "AcidPowerupManagerScript": {
+            "acidDamage": 5,
+            "lingerTime": 1.0,
+            "growthRate": 1.0299999713897705,
+            "acidBlastSpeed": 5.0
+        },
+        "CubeRendererComponent": {},
+        "MaterialComponent": {
+            "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+        },
+        "NameComponent": {
+            "entityName": "AcidBlastPrefan",
+            "Layer": 0,
+            "entityTag": "Default",
+            "isPrefab": true,
+            "prefabName": "AcidBlastPrefan.prefab",
+            "hide": false
+        },
+        "SphereColliderComponent": {
+            "isTrigger": true,
+            "sphere": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 0.5
+            }
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                }
+            }
+        }
+    }
+]

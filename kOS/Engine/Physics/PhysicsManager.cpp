@@ -189,7 +189,7 @@ namespace physics {
 			outHit.point = glm::vec3{ hit.block.position.x, hit.block.position.y, hit.block.position.z };
 			outHit.normal = glm::vec3{ hit.block.normal.x, hit.block.normal.y, hit.block.normal.z };
 			outHit.distance = hit.block.distance;
-			if (hit.block.actor && hit.block.actor->userData) { outHit.entityID = *(unsigned int*)hit.block.actor->userData; }
+			if (hit.block.actor && hit.block.actor->userData) { outHit.entityID = reinterpret_cast<unsigned int>(hit.block.actor->userData); }
 			return true;
 		}
 		return false;

@@ -15,5 +15,6 @@
 #include "FireAcidPowerupManagerScript.h"
 #include "LightningAcidPowerupManagerScript.h"
 
+#include "GroundCheckScript.h"
 #include "PlayerManagerScript.h"
 #include "GunScript.h"

@@ -1,0 +1,124 @@
+[
+    {
+        "SceneData": {
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
+        "entityGUID": "6eccd0dd-0748-2903-db9b-c175cbf98f24",
+        "NameComponent": {
+            "entityName": "Acid Prop Holder",
+            "Layer": 0,
+            "entityTag": "Powerup",
+            "isPrefab": true,
+            "prefabName": "Acid Prop Holder.prefab",
+            "hide": false
+        },
+        "PowerupManagerScript": {
+            "powerupType": "acid"
+        },
+        "SphereColliderComponent": {
+            "isTrigger": false,
+            "sphere": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 75.0
+            }
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": -85.0,
+                    "y": -5.0,
+                    "z": -42.88677978515625
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 0.019999999552965164,
+                    "y": 0.019999999552965164,
+                    "z": 0.019999999552965164
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": -85.0,
+                    "y": -5.0,
+                    "z": -42.88677978515625
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 0.019999999552965164,
+                    "y": 0.019999999552965164,
+                    "z": 0.019999999552965164
+                }
+            }
+        },
+        "children": [
+            {
+                "entityGUID": "55d986f6-250d-876d-6b09-f6ed54032156",
+                "MaterialComponent": {
+                    "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                },
+                "MeshFilterComponent": {
+                    "meshGUID": "660b9bb0-6212-77a4-c1f4-dc40ea8cce28"
+                },
+                "NameComponent": {
+                    "entityName": "Acid Canister 1",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -85.0,
+                            "y": -5.0,
+                            "z": -42.88677978515625
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 0.019999999552965164,
+                            "y": 0.019999999552965164,
+                            "z": 0.019999999552965164
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                }
+            }
+        ]
+    }
+]

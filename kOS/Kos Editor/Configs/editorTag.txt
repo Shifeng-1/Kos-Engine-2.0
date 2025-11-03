@@ -46,3 +46,4 @@ GameController
 UIPauseConfirmation
 Obstacle
 Powerup
+Ground

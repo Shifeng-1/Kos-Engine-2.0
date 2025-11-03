@@ -1,0 +1,480 @@
+[
+    {
+        "SceneData": {
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
+        "entityGUID": "4f721fd0-01e9-c580-0f40-fd048664d3a0",
+        "FireLightningPowerupManagerScript": {
+            "groundSpikesDamage": 5,
+            "lingerTime": 0.3499999940395355
+        },
+        "NameComponent": {
+            "entityName": "GroundSpikesPrefab",
+            "Layer": 0,
+            "entityTag": "Default",
+            "isPrefab": true,
+            "prefabName": "GroundSpikesPrefab.prefab",
+            "hide": false
+        },
+        "SphereColliderComponent": {
+            "isTrigger": true,
+            "sphere": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 5.0
+            }
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": -78.52689361572266,
+                    "y": 0.0,
+                    "z": -46.24297332763672
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": -78.52689361572266,
+                    "y": 0.0,
+                    "z": -46.24297332763672
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            }
+        },
+        "children": [
+            {
+                "entityGUID": "4aa2d530-d5d0-b13e-bd79-dbca4731b2ef",
+                "CubeRendererComponent": {},
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Spikes",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -78.52689361572266,
+                            "y": -4.0,
+                            "z": -50.24297332763672
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 0.0,
+                            "y": -4.0,
+                            "z": -4.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "b065f351-6dbd-90b7-a357-e5123a43daa8",
+                "CubeRendererComponent": {},
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Spikes",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -78.52689361572266,
+                            "y": -3.5,
+                            "z": -42.24297332763672
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 0.0,
+                            "y": -3.5,
+                            "z": 4.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "0b610f59-0837-7e41-67f0-0df77cce887c",
+                "CubeRendererComponent": {},
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Spikes",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -74.52689361572266,
+                            "y": -3.234642267227173,
+                            "z": -46.24297332763672
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 4.0,
+                            "y": -3.234642267227173,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "f3d820e4-d5d9-1dd5-7fe8-114795bd275e",
+                "CubeRendererComponent": {},
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Spikes",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -82.52689361572266,
+                            "y": -3.234642267227173,
+                            "z": -46.24297332763672
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": -4.0,
+                            "y": -3.234642267227173,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "6c4a20ef-b536-257b-a3ba-3136a2143c51",
+                "CubeRendererComponent": {},
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Spikes",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -75.52689361572266,
+                            "y": -3.5,
+                            "z": -43.24297332763672
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 3.0,
+                            "y": -3.5,
+                            "z": 3.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "6eefa636-734c-b394-134f-06bfee10b247",
+                "CubeRendererComponent": {},
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Spikes",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -75.52689361572266,
+                            "y": -3.234642267227173,
+                            "z": -49.24297332763672
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 3.0,
+                            "y": -3.234642267227173,
+                            "z": -3.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "7882858f-6e33-3464-8991-9c62e6cc0466",
+                "CubeRendererComponent": {},
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Spikes",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -81.52689361572266,
+                            "y": -3.4000000953674316,
+                            "z": -43.24297332763672
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": -3.0,
+                            "y": -3.4000000953674316,
+                            "z": 3.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "87312fdf-7e68-aa61-559a-b32edd314283",
+                "CubeRendererComponent": {},
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "Spikes",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -81.52689361572266,
+                            "y": -3.700000047683716,
+                            "z": -49.24297332763672
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": -3.0,
+                            "y": -3.700000047683716,
+                            "z": -3.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.0,
+                            "z": 2.0
+                        }
+                    }
+                }
+            }
+        ]
+    }
+]

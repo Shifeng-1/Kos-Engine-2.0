@@ -4,14 +4,17 @@
 
 class FireAcidPowerupManagerScript : public TemplateSC {
 public:
-	int fireAcidDamage = 1;
+	int flamethrowerDamage = 1;
+	float lingerTime;
+
+	float currentTimer = 0.f;
 
 	void Start() override {
 		physicsPtr->GetEventCallback()->OnTriggerEnter.Add([this](const physics::Collision& col) {
 			//if (col.thisEntityID != this->entity) { return; }
 			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Enemy") {
 				if (auto* enemyScript = ecsPtr->GetComponent<EnemyManagerScript>(col.otherEntityID)) {
-					enemyScript->enemyHealth -= 1;
+					enemyScript->enemyHealth -= flamethrowerDamage;
 
 					if (enemyScript->enemyHealth <= 0) {
 						//ecsPtr->DeleteEntity(col.otherEntityID);
@@ -22,7 +25,13 @@ public:
 	}
 
 	void Update() override {
+		if (currentTimer <= lingerTime) {
+			currentTimer += ecsPtr->m_GetDeltaTime();
 
+			if (currentTimer >= lingerTime) {
+				ecsPtr->DeleteEntity(entity);
+			}
+		}
 	}
 
 
