@@ -225,10 +225,10 @@ int main(int argc, char* argv[])
 	}
 	auto& bm=ourModel.GetBoneMap();
 	serializedVertex += br.EncodeBinary(bm.size());
-	std::cout <<"BM size: " << bm.size() << '\n';
+	//std::cout <<"BM size: " << bm.size() << '\n';
 	for (auto& pair : bm) {
 		serializedVertex += br.EncodeBinary(pair.first.size());
-		std::cout << "Key info" << pair.first.size() << '\n';
+		//std::cout << "Key info" << pair.first.size() << '\n';
 		for (char ch: pair.first) {
 			serializedVertex += br.EncodeBinary(ch);
 			//std::cout << "CHAR " << ch;
@@ -238,7 +238,7 @@ int main(int argc, char* argv[])
 	}
 
 	auto& bim = ourModel.GetBoneInfo();
-	std::cout << "Bim size: " << bim.size() << '\n';
+	//std::cout << "Bim size: " << bim.size() << '\n';
 
 	serializedVertex += br.EncodeBinary(bim.size());
 	for (BoneInfo bi : bim) {

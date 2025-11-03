@@ -97,6 +97,7 @@ private:
 	void gm_RenderToEditorFrameBuffer();
 	void gm_RenderToGameFrameBuffer();
 	void gm_FillDataBuffers(const CameraData& camera);
+	void gm_FillDataBuffersGame(const CameraData& camera);
 	void gm_FillGBuffer(const CameraData& camera);
 	void gm_FillDepthBuffer(const CameraData& camera);
 	void gm_FillDepthCube(const CameraData& camera);
@@ -104,6 +105,8 @@ private:
 	void gm_RenderDebugObjects(const CameraData& camera);
 	void gm_RenderParticles(const CameraData& camera);
 	void gm_RenderUIObjects(const CameraData& camera);
+
+	void gm_FillGBufferGame(const CameraData& camera);
 	//Cameras
 	CameraData editorCamera{};
 	std::vector<CameraData> gameCameras{};

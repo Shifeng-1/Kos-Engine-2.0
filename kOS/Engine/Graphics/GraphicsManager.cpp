@@ -162,7 +162,7 @@ void GraphicsManager::gm_RenderToEditorFrameBuffer()
 void GraphicsManager::gm_RenderToGameFrameBuffer()
 {
 	//Render deffered rendering
-	gm_FillDataBuffers(gameCameras[currentGameCameraIndex]);
+	gm_FillDataBuffersGame(gameCameras[currentGameCameraIndex]);
 
 	framebufferManager.sceneBuffer.BindForDrawing();
 
@@ -186,7 +186,12 @@ void GraphicsManager::gm_FillDataBuffers(const CameraData& camera)
 	gm_FillDepthBuffer(camera);
 	gm_FillDepthCube(camera);
 }
-
+void GraphicsManager::gm_FillDataBuffersGame(const CameraData& camera)
+{
+	gm_FillGBufferGame(camera);
+	gm_FillDepthBuffer(camera);
+	gm_FillDepthCube(camera);
+}
 void GraphicsManager::gm_FillGBuffer(const CameraData& camera)
 {
 	glDisable(GL_BLEND);
@@ -223,7 +228,28 @@ void GraphicsManager::gm_FillGBuffer(const CameraData& camera)
 
 
 }
+void GraphicsManager::gm_FillGBufferGame(const CameraData& camera) {
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	//Render to G buffer 
+	framebufferManager.gBuffer.BindGBuffer();
+	Shader* gBufferPBRShader{ &shaderManager.engineShaders.find("GBufferPBRShader")->second };
+	Shader* gBufferDebugShader{ &shaderManager.engineShaders.find("GBufferDebugShader")->second };
 
+	gBufferPBRShader->Use();
+	gBufferPBRShader->SetTrans("projection", camera.GetPerspMtx()); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+	gBufferPBRShader->SetTrans("view", camera.GetViewMtx());
+	gBufferPBRShader->SetVec3("cameraPosition", camera.position);
+	gBufferPBRShader->SetFloat("uShaderType", 0.f);
+
+	//Render all meshes
+	meshRenderer.Render(camera, *gBufferPBRShader);
+	skinnedMeshRenderer.Render(camera, *gBufferPBRShader);
+	cubeRenderer.Render(camera, *gBufferPBRShader, &this->cube);
+	sphereRenderer.Render(camera, *gBufferPBRShader, &this->sphere);
+	gBufferPBRShader->Disuse();
+
+}
 void GraphicsManager::gm_FillDepthBuffer(const CameraData& camera)
 {
 	//Render to Depth buffer
