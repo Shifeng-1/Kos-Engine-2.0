@@ -6,7 +6,6 @@
         }
     },
     {
-        "entityGUID": "123869f5-79fa-ec05-4c1f-3fc5b2db3454",
         "BoxColliderComponent": {
             "isTrigger": false,
             "box": {
@@ -86,7 +85,6 @@
         },
         "children": [
             {
-                "entityGUID": "b02fa01e-fd81-c741-471b-3894013775f6",
                 "BoxColliderComponent": {
                     "isTrigger": false,
                     "box": {
@@ -166,7 +164,6 @@
                 },
                 "children": [
                     {
-                        "entityGUID": "07681274-41c7-cbe9-3992-7ee2f31a4ada",
                         "BoxColliderComponent": {
                             "isTrigger": false,
                             "box": {
@@ -248,7 +245,6 @@
                 ]
             },
             {
-                "entityGUID": "4092f298-c18d-fb39-dcc1-74c0d37d5368",
                 "BoxColliderComponent": {
                     "isTrigger": false,
                     "box": {
@@ -328,7 +324,6 @@
                 },
                 "children": [
                     {
-                        "entityGUID": "9066d171-130c-8ea2-c368-bae04d3fa642",
                         "BoxColliderComponent": {
                             "isTrigger": false,
                             "box": {

@@ -143,25 +143,26 @@ void gui::ImGuiHandler::DrawComponentWindow()
                     if (!tc->m_haveParent || !m_ecs->GetComponent<ecs::NameComponent>(tc->m_parentID)->isPrefab) {
                         static bool isHeaderOpen = false;
                         static std::vector<std::string> diffComp;
+                        //static std::map<ecs::EntityID, std::vector<std::string>> diffComp;
                         bool open = false;
                         std::string headerName = nc->prefabName + " [Changed]";
                         int IMGUI_ID = 0;
                         float pos = ImGui::GetCursorPosX() + ImGui::GetWindowSize().x - 200;
 
                         if (open = ImGui::BeginCombo("##PrefabChanges", headerName.c_str())) {
-                            for (const auto& compName : diffComp) {
-                                if (compName == ecs::NameComponent::classname()) continue;
+                            for (auto&compName : diffComp) { // Will do it such that it will show children changes too
+                                if (compName == ecs::NameComponent::classname() || compName == ecs::TransformComponent::classname()) continue;
                                 ImGui::TextDisabled(compName.c_str());
                                 ImGui::SameLine();
                                 ImGui::PushID(IMGUI_ID++);
                                 ImGui::SetCursorPosX(pos);
-                                if (ImGui::Button("Revert")) {
+                                if (ImGui::Button("Revert back")) {
                                     // Look for component of prefab and set data into me
                                     prefab::RevertToPrefab_Component(entityID, compName, nc->prefabName);
                                     prefab::RefreshComponentDifferenceList(diffComp, entityID);
                                 }
                                 ImGui::SameLine();
-                                if (ImGui::Button("Overwrite")) {
+                                if (ImGui::Button("Overwrite Prefab")) {
                                     // Look for component of prefab and set data from me
                                     prefab::OverwritePrefab_Component(entityID, compName, nc->prefabName);
                                     prefab::RefreshComponentDifferenceList(diffComp, entityID);

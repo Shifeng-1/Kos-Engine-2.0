@@ -148,7 +148,7 @@ void SerializeProfile(ImGuiStyle* style) {
     SerializeImVec2("TableAngledHeadersTextAlign", style->TableAngledHeadersTextAlign, data, allocator);
     SerializeImVec2("WindowTitleAlign", style->WindowTitleAlign, data, allocator);
     SerializeInt("WindowMenuButtonPosition", style->WindowMenuButtonPosition, data, allocator);
-    SerializeFloat("ColorButtonPosition", style->ColorButtonPosition, data, allocator);
+    SerializeFloat("ColorButtonPosition", static_cast<float>(style->ColorButtonPosition), data, allocator);
     SerializeImVec2("ButtonTextAlign", style->ButtonTextAlign, data, allocator);
     SerializeImVec2("SelectableTextAlign", style->SelectableTextAlign, data, allocator);
     SerializeFloat("SeparatorTextBorderSize", style->SeparatorTextBorderSize, data, allocator);

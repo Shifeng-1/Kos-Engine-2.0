@@ -106,7 +106,7 @@ namespace Application {
            INITIALIZE Start Scene
         --------------------------------------------------------------*/
         //for game only
-        //resourceManager->GetResource<R_Scene>(windowData.startScene);
+        resourceManager->GetResource<R_Scene>(windowData.startScene);
         LOGGING_INFO("Load Asset Successful");
 
         /*--------------------------------------------------------------
@@ -208,11 +208,7 @@ namespace Application {
                     Execute Render Pipeline
                 --------------------------------------------------------------*/
                 graphicsManager->gm_Render();
-
-                /*--------------------------------------------------------------
-
-                --------------------------------------------------------------*/
-                lvWindow.Draw();
+                graphicsManager->gm_RenderGameBuffer();
 
 
                 /*--------------------------------------------------------------

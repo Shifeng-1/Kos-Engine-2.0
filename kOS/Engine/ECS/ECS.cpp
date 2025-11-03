@@ -56,7 +56,7 @@ namespace ecs{
 		RegisterSystem<RenderSystem, TransformComponent, SpriteComponent>();
 		RegisterSystem<MeshRenderSystem, TransformComponent, MaterialComponent, MeshFilterComponent>();
 		RegisterSystem<SkinnedMeshRenderSystem, TransformComponent, SkinnedMeshRendererComponent>();
-		RegisterSystem<CubeRenderSystem, TransformComponent, MeshRendererComponent, CubeRendererComponent>();
+		RegisterSystem<CubeRenderSystem, TransformComponent, MaterialComponent, CubeRendererComponent>();
 		RegisterSystem<CanvasTextRenderSystem, TransformComponent, CanvasRendererComponent>();
 		RegisterSystem<CanvasSpriteRenderSystem, TransformComponent, CanvasRendererComponent>();
 		RegisterSystem<AnimatorSystem, TransformComponent, AnimatorComponent>();

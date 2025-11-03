@@ -30,6 +30,10 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 
 using namespace physics;
 
+namespace {
+    constexpr float MINSIZE = 0.01f;
+}
+
 namespace ecs {
 	void ColliderSystem::Init() {
         onDeregister.Add([](EntityID id) {
@@ -109,7 +113,10 @@ namespace ecs {
             PxFilterData filter;
             filter.word0 = name->Layer;
 
-            glm::vec3 scale = trans->WorldTransformation.scale;
+            glm::vec3& scale = trans->LocalTransformation.scale;
+            scale.x = glm::max(scale.x, MINSIZE);
+            scale.y = glm::max(scale.y, MINSIZE);
+            scale.z = glm::max(scale.z, MINSIZE);
 
             if (box) {
                 glm::vec3 halfExtents = box->box.size * scale * 0.5f;

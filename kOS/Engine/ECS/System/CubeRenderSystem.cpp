@@ -21,7 +21,7 @@ namespace ecs {
 
         for (const EntityID id : entities) {
             TransformComponent* transform = ecs->GetComponent<TransformComponent>(id);
-            MeshRendererComponent* meshRenderer = ecs->GetComponent<MeshRendererComponent>(id);
+            MaterialComponent* matRenderer = ecs->GetComponent<MaterialComponent>(id);
             if (!ecs->HasComponent<CubeRendererComponent>(id))continue;
             glm::mat4 model = transform->transformation;
             if (ecs->HasComponent<BoxColliderComponent>(id)) {
@@ -35,12 +35,14 @@ namespace ecs {
                 model = glm::translate(model, center) * glm::mat4_cast(glm::quat(glm::radians(transform->WorldTransformation.rotation))) * glm::scale(model, size);
 
             }
-                std::shared_ptr<R_Texture> albedoTex = rm->GetResource<R_Texture>(meshRenderer->diffuseMaterialGUID);
-                std::shared_ptr<R_Texture> spec = rm->GetResource<R_Texture>(meshRenderer->specularMaterialGUID);
-                std::shared_ptr<R_Texture> norm = rm->GetResource<R_Texture>(meshRenderer->normalMaterialGUID);
-                std::shared_ptr<R_Texture> ao = rm->GetResource<R_Texture>(meshRenderer->ambientOcclusionMaterialGUID);
-                std::shared_ptr<R_Texture> rough = rm->GetResource<R_Texture>(meshRenderer->roughnessMaterialGUID);
-                gm->gm_PushCubeData(CubeRenderer::CubeData{ PBRMaterial(albedoTex,spec,rough,ao,norm),model,id});
+            std::shared_ptr<R_Material> mat = rm->GetResource<R_Material>(matRenderer->materialGUID);
+            if (!mat)return;;
+            std::shared_ptr<R_Texture> diff = rm->GetResource<R_Texture>(mat->md.diffuseMaterialGUID);
+            std::shared_ptr<R_Texture> spec = rm->GetResource<R_Texture>(mat->md.specularMaterialGUID);
+            std::shared_ptr<R_Texture> norm = rm->GetResource<R_Texture>(mat->md.normalMaterialGUID);
+            std::shared_ptr<R_Texture> ao = rm->GetResource<R_Texture>(mat->md.ambientOcclusionMaterialGUID);
+            std::shared_ptr<R_Texture> rough = rm->GetResource<R_Texture>(mat->md.roughnessMaterialGUID);
+            gm->gm_PushCubeData(CubeRenderer::CubeData{ PBRMaterial(diff,spec,rough,ao,norm),model,id});
 
         }
 

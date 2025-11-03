@@ -148,6 +148,7 @@ int main(int argc, char* argv[])
 		std::cout << outputPath << '\n';
 		// Change extension, e.g. ".anim"
 		outPath.replace_extension(".anim");
+		std::cout << outPath.string() << '\n';
 		ParseAnimation(serializedVertex, ourModel.animations[0]);
 
 		std::filesystem::path dir = std::filesystem::path(outputPath).parent_path();
@@ -159,7 +160,7 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		std::ofstream file(outputPath, std::ios::binary);
+		std::ofstream file(outPath, std::ios::binary);
 		if (!file) {
 			std::cerr << "Failed to open file for writing\n";
 			return 0;

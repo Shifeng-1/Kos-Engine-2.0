@@ -167,5 +167,8 @@ namespace Input {
 			delta.y = glm::length2(delta) <= 0.01f ? 0.f : delta.y;
 			return (delta.y * 0.1f);
 		}
+		else {
+			return 0.f;
+		}
 	}
 }

@@ -78,7 +78,6 @@ namespace prefab
 
         DeepUpdatePrefab(ecs->sceneMap.at(prefabscene).prefabID, newId);
 
-
         AssignPrefabToNameComponent(newId, prefabscene);
 
         return newId;
@@ -188,9 +187,9 @@ namespace prefab
         }
     }
 
- 
+    // A = Prefab , B = ID
     void DeepUpdatePrefab(ecs::EntityID idA, ecs::EntityID idB) {
-        ecs::ECS* ecs =ComponentRegistry::GetECSInstance();
+        ecs::ECS* ecs = ComponentRegistry::GetECSInstance();
         if (idA == idB)return;
 
         const auto signatureA = ecs->GetEntitySignature(idA);
@@ -202,26 +201,20 @@ namespace prefab
         for (const auto& [ComponentName, key] : componentKey) {
             auto action = ecs->componentAction[ComponentName];
 
-            {//peform conditions
-
-                //keep position unique to each object
-                if (key == transformKey) {
-                    //auto* tcA = ecs->GetComponent<ecs::TransformComponent>(idA);
-                    //auto* tcB = ecs->GetComponent<ecs::TransformComponent>(idB);
-
-                    //auto deepCopy = DeepCopyComponents<ecs::TransformComponent>();
-
-                    ////skip position and roation
-                    //deepCopy(tcA->WorldTransformation.rotation, tcA->WorldTransformation.rotation);
-                    //deepCopy(tcA->WorldTransformation.scale, tcA->WorldTransformation.scale);
-
-                    continue;
-                }
-            }
-
+            //{ //peform conditions
+            //    //keep position unique to each object
+            //    if (key == transformKey) {
+            //        //auto* tcA = ecs->GetComponent<ecs::TransformComponent>(idA);
+            //        //auto* tcB = ecs->GetComponent<ecs::TransformComponent>(idB);
+            //        //auto deepCopy = DeepCopyComponents<ecs::TransformComponent>();
+            //        ////skip position and roation
+            //        //deepCopy(tcA->WorldTransformation.rotation, tcA->WorldTransformation.rotation);
+            //        //deepCopy(tcA->WorldTransformation.scale, tcA->WorldTransformation.scale);
+            //        continue;
+            //    }
+            //}
 
             if (signatureA.test(key)) {
-
                 if (action->Compare(idA, idB) == false) { // if A != B or B does not exist, call duplicate (Assign and create(if missing) component
                     action->DuplicateComponent(idA, idB);
                 }
@@ -229,28 +222,26 @@ namespace prefab
             else if (signatureB.test(key)) { //if A does not have component, B has, remove B's component
                 action->RemoveComponent(idB);
             }
-
         }
-
 
         //Objective: Make both have the same number of children
         auto childsA = hierachy::m_GetChild(idA);
         auto childsB = hierachy::m_GetChild(idB);
 
-        if (!childsA.has_value() && !childsB.has_value())return; // both id do not have children
+        if (!childsA.has_value() && !childsB.has_value()) return; // both id do not have children
 
         int countA = 0, countB = 0; //number of children both id have
 
         if (childsA.has_value()) {
-            countA = childsA.value().size();
+            countA = static_cast<int>(childsA.value().size());
         }
 
         if (childsB.has_value()) {
-            countB = childsB.value().size();
+            countB = static_cast<int>(childsB.value().size());
         }
 
         //make A == B
-        if (countA > countB) { 
+        if (countA > countB) {
             int diff = countA - countB;
             const auto& scene = ecs->GetSceneByEntityID(idB);
             for (int n{}; n < diff; n++) {
@@ -264,10 +255,7 @@ namespace prefab
             for (int n{}; n < diff; n++) {
                 ecs->DeleteEntity(childsVecB[n]);
             }
-
         }
-
-
 
         const auto childsVecA = hierachy::m_GetChild(idA);
         const auto childsVecB = hierachy::m_GetChild(idB);
@@ -277,13 +265,8 @@ namespace prefab
             for (int n{}; n < childsVecA.value().size(); n++) {
                 DeepUpdatePrefab(childsVecA.value()[n], childsVecB.value()[n]);
             }
-
         }
-
-
-
-   }
-
+    }
 
     void OverwritePrefab_Component(ecs::EntityID entityID, const std::string& componentName, const std::string& prefabSceneName) {
         ecs::ECS* ecs =ComponentRegistry::GetECSInstance();
@@ -294,6 +277,10 @@ namespace prefab
         if (prefabID == entityID) return;
 
         auto action = ecs->componentAction[componentName];
+        auto entitySignature = ecs->GetEntitySignature(entityID);
+        if (entitySignature.test(ecs->GetComponentKey(componentName))) {
+            action->RemoveComponent(prefabID);
+        }
         action->DuplicateComponent(entityID, prefabID);
 
         // Update all Associated Prefabs;
@@ -301,8 +288,8 @@ namespace prefab
             ecs::NameComponent* nc = ecs->GetComponent<ecs::NameComponent>(id);
             if (nc->isPrefab && (nc->prefabName == prefabSceneName)) {
                 // Remove Comp in Revert will already check if it contains comp 
-				action->DuplicateComponent(prefabID, id);
-                /*RevertToPrefab_Component(id.first, componentName, nc->prefabName);*/
+				//action->DuplicateComponent(prefabID, id);
+                RevertToPrefab_Component(id, componentName, nc->prefabName);
             }
         }
 
@@ -319,8 +306,12 @@ namespace prefab
         ecs::EntityID prefabID = iter->second.prefabID;
         if (prefabID == entityID) return;
 
+        auto entitySignature = ecs->GetEntitySignature(entityID);
         auto action = ecs->componentAction[componentName];
-        action->RemoveComponent(entityID);
+        if (entitySignature.test(ecs->GetComponentKey(componentName))) {
+            action->RemoveComponent(entityID);
+        }
+        action->DuplicateComponent(prefabID, entityID);
     }
 
     void LoadPrefab(const std::filesystem::path& filepath) {
@@ -392,13 +383,16 @@ namespace prefab
                     result.set(ecs->GetComponentKey(ComponentName));
                 }
             }
-            else if (prefabSignature.test(componentKey) && (!entitySignature.test(componentKey))) { // if prefab has component, but object does not
-                auto& actionInvoker = ecs->componentAction[ComponentName];
-                actionInvoker->AddComponent(entityID);
-                actionInvoker->DuplicateComponent(prefabId, entityID);
-            };
-
-
+            else if (prefabSignature.test(componentKey) != (entitySignature.test(componentKey))) {
+                result.set(ecs->GetComponentKey(ComponentName));
+            }
+            // if prefab has component, but object does not
+            // for reverting to prefab, component will be readded back through here.
+            //if (prefabSignature.test(componentKey) && (!entitySignature.test(componentKey))) { 
+            //    auto& actionInvoker = ecs->componentAction[ComponentName];
+            //    actionInvoker->AddComponent(entityID);
+            //    actionInvoker->DuplicateComponent(prefabId, entityID);
+            //}
         }
 
         return result;

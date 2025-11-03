@@ -6,7 +6,7 @@
         }
     },
     {
-        "entityGUID": "978d8499-566d-c56d-74db-07f1915e2dd9",
+        "entityGUID": "0778e9bd-b9b1-6fb4-2421-dcddcb208e46",
         "NameComponent": {
             "entityName": "testing123",
             "Layer": 0,
@@ -53,7 +53,7 @@
         }
     },
     {
-        "entityGUID": "60ee2bd8-eefe-d9d9-be2e-b7605da2b744",
+        "entityGUID": "6f429e74-bf05-8401-c837-d9061dde2305",
         "LightComponent": {
             "lightType": 1,
             "color": {
@@ -81,8 +81,8 @@
             "cutOff": 5.5,
             "outerCutOff": 87.5999984741211,
             "intesnity": 150.10000610351563,
-            "shadowCast": true,
-            "bakedLighting": false,
+            "shadowCast": false,
+            "bakedLighting": true,
             "depthMapGUID": "ac7f4064-9a1b-9b28-4c5a-68a755864cbe"
         },
         "NameComponent": {
@@ -98,7 +98,7 @@
                 "position": {
                     "x": 0.0,
                     "y": -6.443936347961426,
-                    "z": 13.263818740844727
+                    "z": 11.300000190734863
                 },
                 "rotation": {
                     "x": 0.0,
@@ -115,7 +115,7 @@
                 "position": {
                     "x": 0.0,
                     "y": -6.443936347961426,
-                    "z": 13.263818740844727
+                    "z": 11.300000190734863
                 },
                 "rotation": {
                     "x": 0.0,
@@ -131,7 +131,7 @@
         }
     },
     {
-        "entityGUID": "cbbbf019-49e5-0051-9f15-2d2f068ddca2",
+        "entityGUID": "9538165b-c2a5-d67d-2221-7bf49bef9305",
         "AudioComponent": {
             "audioFiles": [
                 {
@@ -213,7 +213,7 @@
         }
     },
     {
-        "entityGUID": "4c517708-7bc5-97c5-3e4f-3df53f084315",
+        "entityGUID": "e5d13f28-a200-a75c-eb3a-d295985b1e48",
         "CameraComponent": {
             "cameraType": 0,
             "fov": 45.0,
@@ -276,7 +276,7 @@
         }
     },
     {
-        "entityGUID": "2f2b146a-87ad-22d4-fe32-88d269a42a7a",
+        "entityGUID": "8cd70c5f-2994-1501-a8c0-466b4798702a",
         "BoxColliderComponent": {
             "isTrigger": false,
             "box": {
@@ -356,7 +356,7 @@
         }
     },
     {
-        "entityGUID": "dbaa3909-b963-abce-3a67-216bdf46bf2b",
+        "entityGUID": "b29c2468-7695-8a40-8312-181e7636ecf4",
         "CanvasRendererComponent": {
             "isScreenSpace": true
         },
@@ -406,7 +406,7 @@
         },
         "children": [
             {
-                "entityGUID": "728efec8-6077-dfdf-4450-d6ca27095031",
+                "entityGUID": "5ac71797-3708-53ed-8bdf-d100f7c427bd",
                 "NameComponent": {
                     "entityName": "text",
                     "Layer": 0,
@@ -463,7 +463,7 @@
                 }
             },
             {
-                "entityGUID": "f9702f19-9bb0-3bdb-dd31-e8b309cc4c1f",
+                "entityGUID": "f24b3b8a-339c-a531-b452-46918f3565a9",
                 "NameComponent": {
                     "entityName": "sprite test",
                     "Layer": 0,
@@ -521,7 +521,7 @@
         ]
     },
     {
-        "entityGUID": "49e12cda-8e58-a39e-de9f-f08e9dfad6f9",
+        "entityGUID": "853ef785-7dc8-7dfa-3a13-4fa5c1894e8d",
         "MaterialComponent": {
             "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
         },

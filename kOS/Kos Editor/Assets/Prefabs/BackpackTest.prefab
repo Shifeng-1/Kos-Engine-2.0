@@ -11,7 +11,7 @@
             "audioFiles": [
                 {
                     "audioGUID": "24a5edf7-efac-9bb6-0644-ef7909f212bc",
-                    "volume": 5.0,
+                    "volume": 1.0,
                     "loop": true,
                     "playOnStart": true,
                     "hasPlayed": false,
@@ -20,6 +20,9 @@
                     "isSFX": true
                 }
             ]
+        },
+        "MaterialComponent": {
+            "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
         },
         "MeshFilterComponent": {
             "meshGUID": "ee1ad3b9-e869-074a-fe25-b15ac13d76d0"
@@ -40,8 +43,8 @@
             "hide": false
         },
         "PlayerScript": {
-            "health": 1,
-            "shield": 50,
+            "health": 0,
+            "shield": 0,
             "healthbool": false,
             "shield2": "",
             "Targetguid": "00000000-0000-0000-0000-000000000000",
@@ -50,9 +53,9 @@
         "TransformComponent": {
             "WorldTransformation": {
                 "position": {
-                    "x": 16.49788475036621,
-                    "y": 0.8654597997665405,
-                    "z": -31.58481788635254
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "rotation": {
                     "x": 0.0,
@@ -60,26 +63,26 @@
                     "z": 0.0
                 },
                 "scale": {
-                    "x": 0.08212702721357346,
-                    "y": 0.06410853564739227,
-                    "z": 0.1000412255525589
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
                 }
             },
             "LocalTransformation": {
                 "position": {
-                    "x": 16.49788475036621,
-                    "y": 0.8654597997665405,
-                    "z": -31.58481788635254
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
                 },
                 "rotation": {
                     "x": 0.0,
-                    "y": -0.0,
+                    "y": 0.0,
                     "z": 0.0
                 },
                 "scale": {
-                    "x": 0.08212702721357346,
-                    "y": 0.06410853564739227,
-                    "z": 0.1000412255525589
+                    "x": 0.10000000149011612,
+                    "y": 0.10000000149011612,
+                    "z": 0.10000000149011612
                 }
             }
         }

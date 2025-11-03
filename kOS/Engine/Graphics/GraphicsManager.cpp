@@ -60,6 +60,7 @@ void GraphicsManager::gm_Initialize(float width, float height) {
 
 	//Bind shader to editor buffer
 	framebufferManager.editorBuffer.shader = &shaderManager.engineShaders.find("FrameBufferShader")->second;
+	framebufferManager.gameBuffer.shader = &shaderManager.engineShaders.find("FrameBufferShader")->second;
 
 	lightRenderer.InitializeLightRenderer();
 
@@ -82,8 +83,10 @@ void GraphicsManager::gm_Render()
 
 	//Force only first camera to be active for now
 	currentGameCameraIndex = 0;
-	if (currentGameCameraIndex + 1 <= gameCameras.size())
+	if (currentGameCameraIndex + 1 <= gameCameras.size()) {
 		gm_RenderToGameFrameBuffer();
+		//std::cout << "REDNERED TO GAME BUFFER\n";
+	}
 	if (editorCameraActive) {
 		gm_RenderToEditorFrameBuffer();
 		/*		std::vector<float> alpha(1920 * 1080);
@@ -135,7 +138,7 @@ void GraphicsManager::gm_InitializeMeshes()
 void GraphicsManager::gm_RenderToEditorFrameBuffer()
 {
 	gm_FillDataBuffers(editorCamera);
-	lightRenderer.dcm[0]=lightRenderer.testDCM;
+	//lightRenderer.dcm[0]=lightRenderer.testDCM;
 
 	framebufferManager.sceneBuffer.BindForDrawing();
 
@@ -285,7 +288,7 @@ void GraphicsManager::gm_FillDepthCube(const CameraData& camera) {
 
 	for (int i{ 0 }; i < lightRenderer.pointLightsToDraw.size(); i++) {
 		if (!lightRenderer.pointLightsToDraw[i].shadowCon)continue;;
-		glViewport(0, 0, 1024.f, 1024.f);
+		glViewport(0, 0, static_cast<GLsizei>(1024.f), static_cast<GLsizei>(1024.f));
 		glBindFramebuffer(GL_FRAMEBUFFER, lightRenderer.dcm[i].GetFBO());
 		glClear(GL_DEPTH_BUFFER_BIT);
 		pointShadowShader->Use();
@@ -318,7 +321,7 @@ void GraphicsManager::gm_FillDepthCube(const CameraData& camera, int index) {
 	Shader* pointShadowShader{ &shaderManager.engineShaders.find("PointShadowShader")->second };
 	glCullFace(GL_FRONT);
 
-	glViewport(0, 0, 1024.f, 1024.f);
+	glViewport(0, 0, static_cast<GLsizei>(1024.f), static_cast<GLsizei>(1024.f));
 	glBindFramebuffer(GL_FRAMEBUFFER, lightRenderer.dcm[index].GetFBO());
 	glClear(GL_DEPTH_BUFFER_BIT);
 	pointShadowShader->Use();
@@ -456,12 +459,13 @@ void GraphicsManager::gm_RenderDeferredObjects(const CameraData& camera)
 
 	//Fill point shadow stuff
 	for (int i = 0; i < lightRenderer.pointLightsToDraw.size(); i++) {
-		if (lightRenderer.pointLightsToDraw[i].bakedCon&& !lightRenderer.pointLightsToDraw[i].bakedmapGUID.Empty()) {
-			std::shared_ptr<R_DepthMapCube> dmc = ResourceManager::GetInstance()->GetResource<R_DepthMapCube>(lightRenderer.pointLightsToDraw[i].bakedmapGUID);
-			glActiveTexture(GL_TEXTURE7 + i);
-			glBindTexture(GL_TEXTURE_CUBE_MAP, dmc->dcm.RetrieveID());
-			deferredPBRShader->SetFloat("far_plane", dmc->dcm.far_plane);
-		}
+		//if (lightRenderer.pointLightsToDraw[i].bakedCon&& !lightRenderer.pointLightsToDraw[i].bakedmapGUID.Empty()) {
+		//	std::shared_ptr<R_DepthMapCube> dmc = ResourceManager::GetInstance()->GetResource<R_DepthMapCube>(lightRenderer.pointLightsToDraw[i].bakedmapGUID);
+		//	std::cout << "RENDERING DCM\n";
+		//	glActiveTexture(GL_TEXTURE7 + i);
+		//	glBindTexture(GL_TEXTURE_CUBE_MAP, dmc->dcm.RetrieveID());
+		//	deferredPBRShader->SetFloat("far_plane", dmc->dcm.far_plane);
+		//}
 		if (!lightRenderer.pointLightsToDraw[i].shadowCon&&!lightRenderer.pointLightsToDraw[i].bakedCon)continue;;
 		glActiveTexture(GL_TEXTURE7 + i);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, lightRenderer.dcm[i].RetrieveID());
@@ -532,4 +536,11 @@ void GraphicsManager::gm_ClearGBuffer()
 	glBlitFramebuffer(0, 0, static_cast<GLint>(windowWidth), static_cast<GLint>(windowHeight), 0, 0,
 		static_cast<GLint>(windowWidth), static_cast<GLint>(windowHeight), GL_DEPTH_BUFFER_BIT, GL_NEAREST);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+void GraphicsManager::gm_RenderGameBuffer(){
+	glViewport(0, 0, framebufferManager.gameBuffer.width, framebufferManager.gameBuffer.height);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glClearColor(1.f, 0.0f, 0.f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	framebufferManager.gameBuffer.Render();
 }

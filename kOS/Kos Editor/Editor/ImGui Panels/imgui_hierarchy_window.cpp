@@ -34,7 +34,7 @@ namespace gui {
     unsigned int ImGuiHandler::DrawHierachyWindow()
     {
         //fetch ecs
-        ecs::ECS* ecs =ComponentRegistry::GetECSInstance();
+        ecs::ECS* ecs = ComponentRegistry::GetECSInstance();
         scenes::SceneManager* scenemanager = scenes::SceneManager::m_GetInstance();
         //assetmanager::AssetManager* assetmanager = assetmanager::AssetManager::m_funcGetInstance();
         // Custom window with example widgets
@@ -87,7 +87,7 @@ namespace gui {
             }
         }
 
-        for (auto& sceneentity : ecs->sceneMap) 
+        for (auto& sceneentity : ecs->sceneMap)
         {
             //when prefab mode is on, skip non prefabs, and non active prefabs
             if (m_prefabSceneMode) {
@@ -95,18 +95,18 @@ namespace gui {
                 //create seperator
                 ImGui::SeparatorText("Prefab");
 
-                if (ImGui::Button("Back")){
+                if (ImGui::Button("Back")) {
                     //save "prefab"
                     scenemanager->SaveScene(m_activeScene);
                     std::string prefabName = m_activeScene;
                     //set current prefab back to inactive
                     scenemanager->SetSceneActive(m_activeScene, false);
-                    
+
                     //set back scene's active state
                     for (const auto& [scene, sceneData] : ecs->sceneMap) {
                         if (sceneData.isPrefab == false) {
                             scenemanager->SetSceneActive(scene, m_savedSceneState.find(scene)->second);
-                        }         
+                        }
                     }
 
                     //set back active scene
@@ -122,25 +122,38 @@ namespace gui {
 
                     // Instead of Updating all the time, Differences needs to be checked.
                     // Prompt when leaving prefab mode, 
-                    std::vector<std::string> diffList;
+                    std::map<EntityID, std::vector<std::string>> allDiffList;
                     const auto& prefabscene = ecs->sceneMap.find(prefabName);
-                    prefab::RefreshComponentDifferenceList(diffList, prefabscene->second.prefabID);
-
-                    //m_ecs->DeleteEntity(duppedID); // Dupping Somehow causes us to update all the prefab scenes?
-                    //duppedID = -1;
-
                     for (const auto& id : ecs->GetEntitySignatureData()) {
                         ecs::NameComponent* nc = ecs->GetComponent<ecs::NameComponent>(id.first);
                         if (nc->isPrefab && (nc->prefabName == prefabName)) {
-                            for (const auto& compName : diffList) {
-                                if (compName == ecs::NameComponent::classname()) continue;
-                                prefab::RevertToPrefab_Component(id.first, compName, prefabName);
-                            }
+                            std::vector<std::string> diffList;
+                            prefab::RefreshComponentDifferenceList(diffList, id.first); 
+                            if (diffList.size()) allDiffList.emplace(id.first, diffList);
                         }
                     }
+
+                    for (auto& [id, diffList] : allDiffList) {
+                        for (const auto& compName : diffList) {
+                            if (compName == ecs::NameComponent::classname() || compName == ecs::TransformComponent::classname()) continue;
+                            prefab::RevertToPrefab_Component(id, compName, prefabName);
+                        }
+                    }
+                    //m_ecs->DeleteEntity(duppedID); // Dupping Somehow causes us to update all the prefab scenes?
+                    //duppedID = -1;
+
+                    //for (const auto& id : ecs->GetEntitySignatureData()) {
+                    //    ecs::NameComponent* nc = ecs->GetComponent<ecs::NameComponent>(id.first);
+                    //    if (nc->isPrefab && (nc->prefabName == prefabName)) {
+                    //        for (const auto& compName : diffList) {
+                    //            if (compName == ecs::NameComponent::classname()) continue;
+                    //            prefab::RevertToPrefab_Component(id.first, compName, prefabName);
+                    //        }
+                    //    }
+                    //}
                 }
             }
-            
+
             //skip if prefab is not active 
             if (sceneentity.second.isPrefab == true && sceneentity.second.isActive == false) continue;
 
@@ -189,7 +202,7 @@ namespace gui {
                 }
 
                 if ((sceneentity.second.isActive == false) && ImGui::MenuItem("load Scene")) {
-					scenemanager->SetSceneActive(sceneentity.first, true);
+                    scenemanager->SetSceneActive(sceneentity.first, true);
                     ImGui::EndPopup();
                     break;
                 }
@@ -235,7 +248,7 @@ namespace gui {
                     //IM_ASSERT(payload->DataSize == sizeof(std::filesystem::path));
                     std::filesystem::path filename = static_cast<const char*>(payload->Data);
 
-                    if (filename.filename().extension().string() == ".prefab") {                     
+                    if (filename.filename().extension().string() == ".prefab") {
                         prefab::m_CreatePrefab(filename.filename().string(), sceneentity.first);
                     }
                 }
@@ -265,9 +278,9 @@ namespace gui {
 
                     }
                 }
-            }      
+            }
         }
-          
+
         if (ImGui::GetContentRegionAvail().x > 0 && ImGui::GetContentRegionAvail().y > 0) {
             //std::cout << "x: " << ImGui::GetContentRegionAvail().x << std::endl;
             //std::cout << "y: " << ImGui::GetContentRegionAvail().y << std::endl;
@@ -282,7 +295,7 @@ namespace gui {
 
                     // if in prefab mode and parent does not have parent, reject
                     if (m_prefabSceneMode && hierachy::GetParent(Id).has_value() && (!hierachy::GetParent(hierachy::GetParent(Id).value()).has_value())) {
-                        
+
                     }
                     if (m_prefabSceneMode) {
                         hierachy::m_SetParent(ecs->sceneMap.find(m_activeScene)->second.prefabID, Id);
@@ -299,14 +312,14 @@ namespace gui {
                     const AssetPayload* data = static_cast<const AssetPayload*>(payload->Data);
 
                     std::filesystem::path filePath = data->path;
- 
+
 
                     if (!m_prefabSceneMode && filePath.filename().extension().string() == ".json") {
                         scenemanager->LoadScene(filePath);
                     }
 
                     if (!m_prefabSceneMode && filePath.filename().extension().string() == ".prefab") {
-                       prefab::m_CreatePrefab(filePath.filename().string(), m_activeScene);
+                        prefab::m_CreatePrefab(filePath.filename().string(), m_activeScene);
                     }
                 }
                 ImGui::EndDragDropTarget();
@@ -316,10 +329,9 @@ namespace gui {
         return m_clickedEntityId;
     }
 
-
     bool ImGuiHandler::DrawEntityNode(ecs::EntityID id) {
-        ecs::ECS* ecs =ComponentRegistry::GetECSInstance();
-        
+        ecs::ECS* ecs = ComponentRegistry::GetECSInstance();
+
         ecs::TransformComponent* transCom = ecs->GetComponent<ecs::TransformComponent>(id);
         if (transCom == NULL) return false;
 
@@ -327,7 +339,7 @@ namespace gui {
         if (transCom->m_childID.size() <= 0) {
             flag |= ImGuiTreeNodeFlags_Leaf;
         }
-        
+
         ecs::NameComponent* nc = ecs->GetComponent<ecs::NameComponent>(id);
 
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
@@ -348,7 +360,7 @@ namespace gui {
 
                     auto& _scene = ecs->sceneMap.find(swapScene)->second;
                     const auto& eraseit = std::find(_scene.sceneIDs.begin(), _scene.sceneIDs.end(), SwapId);
-                    
+
                     if (eraseit != _scene.sceneIDs.end()) {
                         _scene.sceneIDs.erase(eraseit);
                     }
@@ -379,7 +391,7 @@ namespace gui {
             m_isUi = false;
             //Check if it houses any ui elements
             if (ecs->HasComponent<ecs::CanvasRendererComponent>(id)
-                ||( hierachy::GetParent(m_clickedEntityId).has_value()&&
+                || (hierachy::GetParent(m_clickedEntityId).has_value() &&
                     ecs->HasComponent<ecs::CanvasRendererComponent>(hierachy::GetParent(m_clickedEntityId).value()))) {
                 // std::cout << "IS UI\n";
                 m_isUi = true;
@@ -388,7 +400,7 @@ namespace gui {
 
         if (ImGui::GetIO().KeysDown[ImGuiKey::ImGuiKey_F] && m_clickedEntityId == id) {
             // EditorCamera::editorCamera.position = transCom->LocalTransformation.position;
-            EditorCamera::editorCamera.target = transCom->LocalTransformation.position;
+            EditorCamera::editorCamera.target = transCom->WorldTransformation.position;
             EditorCamera::editorCamera.r = glm::length(EditorCamera::editorCamera.position - EditorCamera::editorCamera.target);
             EditorCamera::editorCamera.alpha = glm::asin((EditorCamera::editorCamera.position.y - EditorCamera::editorCamera.target.y) / EditorCamera::editorCamera.r);
             EditorCamera::editorCamera.betta = std::atan2(EditorCamera::editorCamera.position.x - EditorCamera::editorCamera.target.x, EditorCamera::editorCamera.position.z - EditorCamera::editorCamera.target.z);
@@ -404,10 +416,10 @@ namespace gui {
         if (ImGui::BeginPopupContextItem()) {
             //disable if the upmost prefab
             if (m_prefabSceneMode && (id == ecs->sceneMap.find(m_activeScene)->second.prefabID)) {
-              
+
             }
             else {
-                if (ImGui::MenuItem("Delete Entity")) {               
+                if (ImGui::MenuItem("Delete Entity")) {
                     ecs->DeleteEntity(id);
                     m_clickedEntityId = -1;
                     ImGui::EndPopup();
@@ -415,11 +427,11 @@ namespace gui {
                     return false;
                 }
             }
-            
+
             if (ImGui::MenuItem("Duplicate Entity")) {
                 ecs::EntityID newid = ecs->DuplicateEntity(id);
 
-                if (m_prefabSceneMode) {                 
+                if (m_prefabSceneMode) {
                     const auto& parent = hierachy::GetParent(id);
                     //if id does not have parent, make it the parent
                     if (!parent.has_value()) {
@@ -427,7 +439,7 @@ namespace gui {
                     }
                     else {
                         hierachy::m_SetParent(parent.value(), newid);
-                    }                 
+                    }
                 }
 
                 ImGui::EndPopup();
@@ -438,14 +450,14 @@ namespace gui {
             if (ImGui::MenuItem("Create Prefab")) {
                 if (!m_prefabSceneMode) {
                     prefab::m_SaveEntitytoPrefab(id);
-                }            
+                }
             }
 
             ImGui::EndPopup();
         }
 
         if (ImGui::BeginDragDropTarget())
-        {           
+        {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("EntityPayload"))
             {
                 IM_ASSERT(payload->DataSize == sizeof(EntityPayload));
@@ -475,7 +487,7 @@ namespace gui {
 
             ImGui::EndDragDropTarget();
         }
-        
+
         //no reordering of child prefabs
         if (!transCom->m_haveParent || !ecs->GetComponent<ecs::NameComponent>(transCom->m_parentID)->isPrefab ||
             ecs->GetComponent<ecs::NameComponent>(transCom->m_parentID)->prefabName != nc->prefabName || m_prefabSceneMode) {
@@ -492,7 +504,7 @@ namespace gui {
                 }
                 ImGui::EndDragDropSource();
             }
-        }        
+        }
 
         if (open) {
             //recursion
