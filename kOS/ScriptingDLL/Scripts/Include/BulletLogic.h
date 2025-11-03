@@ -11,11 +11,9 @@ public:
 		physicsPtr->OnTriggerEnter.Add([this](const physics::Collision& col) {
 			//if (col.thisEntityID != this->entity) { return; }
 			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Enemy") {
-				std::cout << "TESTINTETSTING1\n";
 				if (auto* enemyScript = ecsPtr->GetComponent<EnemyManagerScript>(col.otherEntityID)) {
 					enemyScript->enemyHealth -= bulletDamage;
 
-					std::cout << "TESTINTETSTING2\n";
 					if (enemyScript->enemyHealth <= 0) {
 						//ecsPtr->DeleteEntity(col.otherEntityID);
 					}

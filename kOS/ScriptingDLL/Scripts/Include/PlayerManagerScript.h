@@ -12,13 +12,16 @@ public:
 
 	float interactPowerupRange = 5.f;
 
+	utility::GUID armModel;
+	ecs::EntityID armModelID;
+
 	float rotationX = 0.f, rotationY = 0.f;
 	bool cursorIsHidden = false;
 
 	std::string currentPowerup = "none";
 
 	void Start() override {
-
+		armModelID = ecsPtr->GetEntityIDFromGUID(armModel);
 	}
 
 	void Update() override {
@@ -62,6 +65,10 @@ public:
 				cameraTransform->LocalTransformation.rotation = glm::vec3(rotationX, rotationY + 90.f, 0.f);
 				//std::cout << "CAMERA: " << cameraTransform->LocalTransformation.rotation.x << ", " << cameraTransform->LocalTransformation.rotation.y << std::endl;
 				tc->LocalTransformation.rotation = glm::vec3(0.f, -rotationY, 0.f);
+
+				//if (auto* armModelTrans = ecsPtr->GetComponent<TransformComponent>(armModelID)) {
+				//	armModelTrans->LocalTransformation.rotation = glm::vec3(0.f, -rotationY, 0.f);
+				//}
 
 				// Interact Inputs
 				if (Input->IsKeyTriggered(keys::E)) {
@@ -196,5 +203,5 @@ public:
 		}
 	}
 
-	REFLECTABLE(PlayerManagerScript, playerHealth, playerMovementSpeed, playerJumpForce, playerCameraSpeedX, playerCameraSpeedY);
+	REFLECTABLE(PlayerManagerScript, playerHealth, playerMovementSpeed, playerJumpForce, playerCameraSpeedX, playerCameraSpeedY, armModel);
 };

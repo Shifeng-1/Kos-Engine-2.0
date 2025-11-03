@@ -16,3 +16,4 @@
 #include "LightningAcidPowerupManagerScript.h"
 
 #include "PlayerManagerScript.h"
+#include "GunScript.h"
