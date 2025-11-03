@@ -168,7 +168,7 @@ void GraphicsManager::gm_RenderToGameFrameBuffer()
 
 	gm_RenderCubeMap(gameCameras[currentGameCameraIndex]);
 	gm_RenderDeferredObjects(gameCameras[currentGameCameraIndex]);
-
+	glDisable(GL_DEPTH_TEST);
 	//Render UI
 	framebufferManager.UIBuffer.BindForDrawing();
 	gm_RenderUIObjects(gameCameras[currentGameCameraIndex]);
