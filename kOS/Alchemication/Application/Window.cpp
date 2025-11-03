@@ -134,6 +134,15 @@ namespace Application {
 
     }
 
+    void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+    {
+        auto* app = static_cast<Application::AppWindow*>(glfwGetWindowUserPointer(window));
+        if (!app) return;
+        app->windowHeight = height;
+        app->windowWidth = width;
+        glViewport(0, 0, width, height);
+    }
+
     static void iconifyCallback([[maybe_unused]]GLFWwindow* window, int iconified)
     {
        //// auto& audioManager = assetmanager::AssetManager::GetInstance()->m_audioManager;
@@ -162,7 +171,7 @@ namespace Application {
        // }
     }
 
-	int AppWindow::init(int windowWidth, int windowHeight){
+	int AppWindow::init(int _windowWidth, int _windowHeight){
 
         /* Initialize the library */
         if (!glfwInit())
@@ -174,13 +183,11 @@ namespace Application {
 
 
 
-
-
         /* Create a windowed mode window and its OpenGL context */
 
         monitor = glfwGetPrimaryMonitor();
         mode = glfwGetVideoMode(monitor);
-        window = glfwCreateWindow(windowWidth, windowHeight, "Kos 2.0", enabledFullScreen ? monitor : NULL, NULL);
+        window = glfwCreateWindow(_windowWidth, _windowHeight, "Alchemication", enabledFullScreen ? monitor : NULL, NULL);
 
         m_inputSystem.InputInit(window);
         if (!window)
@@ -205,8 +212,9 @@ namespace Application {
 
         //create icon
         SetWindowIcon(window);
-        windowWidth = static_cast<float>(windowWidth);
-        windowHeight = static_cast<float>(windowHeight);
+        windowWidth = static_cast<float>(_windowWidth);
+        windowHeight = static_cast<float>(_windowHeight);
+        glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
         glfwSetWindowUserPointer(window, this);
         return 0;
