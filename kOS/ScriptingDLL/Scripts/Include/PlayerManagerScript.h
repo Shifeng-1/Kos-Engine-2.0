@@ -145,7 +145,7 @@ public:
 
 				// Interact Inputs
 				if (Input->IsKeyTriggered(keys::E)) {
-					std::cout << "Pressing E\n";
+					//std::cout << "Pressing E\n";
 					RaycastHit hit;
 					hit.entityID = 9999999;
 
@@ -324,8 +324,10 @@ public:
 							ecsPtr->SetParent(creationPointID, flamethrowerID);
 						}
 
-						currentPowerup = "none";
+						
 					}
+
+					currentPowerup = "none";
 				}
 				else if (currentPowerup == "lightningacid") {
 					std::shared_ptr<R_Scene> starfall = resource->GetResource<R_Scene>(starfallPrefab);
@@ -339,8 +341,9 @@ public:
 							starfallTransform->LocalTransformation.position = ecsPtr->GetComponent<TransformComponent>(creationPointID)->WorldTransformation.position;
 						}
 
-						if (auto* starfallScript = ecsPtr->GetComponent<AcidPowerupManagerScript>(starfallID)) {
-							starfallScript->direction = GetCameraFacingDirection();
+						glm::vec3 dir = GetCameraFacingDirection();
+						for (int i = 0; i < ecsPtr->GetComponent<TransformComponent>(starfallID)->m_childID.size(); ++i) {
+							ecsPtr->GetComponent<LightningAcidPowerupManagerScript>(ecsPtr->GetComponent<TransformComponent>(starfallID)->m_childID[i])->direction = dir;
 						}
 
 						currentPowerup = "none";
