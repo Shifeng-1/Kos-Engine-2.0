@@ -350,8 +350,13 @@ namespace scenes {
             LOGGING_WARN("Scene not loaded or FilePath does not exist");
             return;
 		}
+		SceneData sceneData = m_ecs.sceneMap.at(currentScene);
 
         m_serialization.LoadScene(filepath, currentScene);
+
+        SceneData& newSceneData = m_ecs.sceneMap.at(currentScene);
+        newSceneData.sceneIDs.insert(newSceneData.sceneIDs.end(),
+			sceneData.sceneIDs.begin(), sceneData.sceneIDs.end());
     }
 
   

@@ -1,0 +1,77 @@
+[
+    {
+        "SceneData": {
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
+        "entityGUID": "2c20a2b2-46f9-e8a3-bf43-b484432f659b",
+        "CapsuleColliderComponent": {
+            "isTrigger": false,
+            "capsule": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 88.5999984741211,
+                "height": 145.39999389648438,
+                "capsuleDirection": 1
+            }
+        },
+        "MaterialComponent": {
+            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+        },
+        "MeshFilterComponent": {
+            "meshGUID": "824d152d-be2f-bbb9-9482-090d580683ff"
+        },
+        "NameComponent": {
+            "entityName": "Fire Prop",
+            "Layer": 0,
+            "entityTag": "Powerup",
+            "isPrefab": true,
+            "prefabName": "Fire Prop.prefab",
+            "hide": false
+        },
+        "PowerupManagerScript": {
+            "powerupType": "fire"
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": -80.0,
+                    "y": -5.017670631408691,
+                    "z": -38.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 0.019999999552965164,
+                    "y": 0.019999999552965164,
+                    "z": 0.019999999552965164
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": -80.0,
+                    "y": -5.017670631408691,
+                    "z": -38.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 0.019999999552965164,
+                    "y": 0.019999999552965164,
+                    "z": 0.019999999552965164
+                }
+            }
+        }
+    }
+]

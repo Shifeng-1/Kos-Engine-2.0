@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 file(GLOB_RECURSE EDITOR_SOURCES "*.cpp")
 
 # Build a DLL instead of an executable
-add_library(SCRIPTS SHARED ${EDITOR_SOURCES} "Scripts/Include/BulletLogic.h" "Scripts/Include/EnemyManagerScript.h" "Scripts/Include/PowerupManagerScript.h" "Scripts/Include/LightningPowerupManagerScript.h")
+add_library(SCRIPTS SHARED ${EDITOR_SOURCES} "Scripts/Include/BulletLogic.h" "Scripts/Include/EnemyManagerScript.h" "Scripts/Include/PowerupManagerScript.h" "Scripts/Include/LightningPowerupManagerScript.h" "Scripts/Include/GroundCheckScript.h")
 
 # Link against your engine library
 target_link_libraries(SCRIPTS PRIVATE Kos_Engine)

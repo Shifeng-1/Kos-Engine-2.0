@@ -5,6 +5,10 @@
 class LightningPowerupManagerScript : public TemplateSC {
 public:
 	int lightningDamage = 5;
+	float lingerTime;
+	float range = 10.f;
+
+	float currentTimer = 0.f;
 
 	void Start() override {
 		physicsPtr->GetEventCallback()->OnTriggerEnter.Add([this](const physics::Collision& col) {
@@ -22,9 +26,15 @@ public:
 	}
 
 	void Update() override {
+		if (currentTimer <= lingerTime) {
+			currentTimer += ecsPtr->m_GetDeltaTime();
 
+			if (currentTimer >= lingerTime) {
+				ecsPtr->DeleteEntity(entity);
+			}
+		}
 	}
 
 
-	REFLECTABLE(LightningPowerupManagerScript)
+	REFLECTABLE(LightningPowerupManagerScript, lightningDamage, lingerTime, range)
 };

@@ -39,8 +39,7 @@ int DuplicatePrefabIntoScene(const std::string& scene, const utility::GUID guid)
 	ecs::EntityID newID;
 
 	//retrieve the new id that just spawned (the one without parent) - TODO: improve this later
-	for (auto it = sceneData.sceneIDs.rbegin(); it != sceneData.sceneIDs.rend(); ++it) {
-		const auto& entityID = *it;
+	for ( auto entityID : sceneData.sceneIDs) {
 		auto* tc = ecs->GetComponent<ecs::TransformComponent>(entityID);
 		if (tc->m_haveParent == false) {
 			return static_cast<int>(entityID);

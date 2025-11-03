@@ -1,0 +1,77 @@
+[
+    {
+        "SceneData": {
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
+        "entityGUID": "77c4e220-31ca-51d7-0e1c-06e725269946",
+        "CapsuleColliderComponent": {
+            "isTrigger": false,
+            "capsule": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "radius": 61.599998474121094,
+                "height": 161.1999969482422,
+                "capsuleDirection": 1
+            }
+        },
+        "MaterialComponent": {
+            "materialGUID": "d1dc99cf-dde1-ca8b-eeda-2c33d81b557d"
+        },
+        "MeshFilterComponent": {
+            "meshGUID": "d99f9522-9e6b-105a-4ef2-7e2b63bcc074"
+        },
+        "NameComponent": {
+            "entityName": "Electric Prop 1",
+            "Layer": 0,
+            "entityTag": "Powerup",
+            "isPrefab": true,
+            "prefabName": "Electric Prop 1.prefab",
+            "hide": false
+        },
+        "PowerupManagerScript": {
+            "powerupType": "lightning"
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": -87.98426055908203,
+                    "y": -6.0,
+                    "z": -47.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 0.019999995827674866,
+                    "y": 0.019999999552965164,
+                    "z": 0.019999995827674866
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": -87.98426055908203,
+                    "y": -6.0,
+                    "z": -47.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 0.019999995827674866,
+                    "y": 0.019999999552965164,
+                    "z": 0.019999995827674866
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,128 @@
+[
+    {
+        "SceneData": {
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
+        "entityGUID": "f8bcb3d8-1f75-68d3-190e-8f5c0f9350c8",
+        "NameComponent": {
+            "entityName": "LightningStrikePrefab",
+            "Layer": 0,
+            "entityTag": "Default",
+            "isPrefab": true,
+            "prefabName": "LightningStrikePrefab.prefab",
+            "hide": false
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": -80.0,
+                    "y": -5.627684593200684,
+                    "z": -60.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": -80.0,
+                    "y": -5.627684593200684,
+                    "z": -60.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            }
+        },
+        "children": [
+            {
+                "entityGUID": "41b2f9a8-da7b-c098-6aa9-acdb937c6ec4",
+                "BoxColliderComponent": {
+                    "isTrigger": true,
+                    "box": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                },
+                "CubeRendererComponent": {},
+                "LightningPowerupManagerScript": {
+                    "lightningDamage": 5,
+                    "lingerTime": 0.10000000149011612,
+                    "range": 10.0
+                },
+                "MaterialComponent": {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                },
+                "NameComponent": {
+                    "entityName": "LightningStrikePrefab",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": true,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -80.0,
+                            "y": -0.6276845932006836,
+                            "z": -60.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 10.0,
+                            "z": 1.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 5.0,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 10.0,
+                            "z": 1.0
+                        }
+                    }
+                }
+            }
+        ]
+    }
+]

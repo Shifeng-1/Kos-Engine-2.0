@@ -82,7 +82,10 @@ namespace serialization{
 			if (entityData.HasMember(SceneData::classname())) {
 				//load scene data
 				SceneData sceneData;
+
 				LoadComponentreflect(&sceneData, entityData);
+
+				
 				m_ecs.AddScene(scenename, sceneData);
 
 			}

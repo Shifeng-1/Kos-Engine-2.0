@@ -85,7 +85,6 @@ R_Animation::NodeData R_Animation::NodeDataParser(std::string& serialized, int& 
     for (unsigned int i{ 0 }; i < nameSize; i++) {
         node.name += DecodeBinary<char>(serialized, offset);
     }
-    std::cout << "ADDING NODE DATA NAME " << node.name;
     node.transformation = DecodeBinary<glm::mat4>(serialized, offset);
     nameSize = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
     //Add childrean kill me pls hi Sean

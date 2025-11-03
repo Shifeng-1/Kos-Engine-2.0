@@ -1,0 +1,69 @@
+[
+    {
+        "SceneData": {
+            "collisionData": "",
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
+        "NameComponent": {
+            "entityName": "Particle",
+            "Layer": 0,
+            "entityTag": "Default",
+            "isPrefab": false,
+            "prefabName": ""
+        },
+        "ParticleComponent": {
+            "duration": 5.0,
+            "looping": true,
+            "start_Lifetime": 5.0,
+            "start_Velocity": 5.0,
+            "size": 1.0,
+            "rotation": 1.0,
+            "color": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0,
+                "w": 1.0
+            },
+            "play_On_Awake": true
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": 5.0,
+                    "y": 5.0,
+                    "z": 5.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": 5.0,
+                    "y": 5.0,
+                    "z": 5.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            }
+        }
+    }
+]

@@ -6,6 +6,7 @@ class FirePowerupManagerScript : public TemplateSC {
 public:
 	float fireballSpeed = 10.f;
 	int fireballDamage = 5;
+	glm::vec3 direction;
 
 	void Start() override {
 		physicsPtr->GetEventCallback()->OnTriggerEnter.Add([this](const physics::Collision& col) {
@@ -17,6 +18,8 @@ public:
 					if (enemyScript->enemyHealth <= 0) {
 						//ecsPtr->DeleteEntity(col.otherEntityID);
 					}
+
+					//ecsPtr->DeleteEntity(entity);
 				}
 			}
 			});
@@ -24,14 +27,7 @@ public:
 
 	void Update() override {
 		if (auto* tc = ecsPtr->GetComponent<ecs::TransformComponent>(entity)) {
-			glm::vec3 rotationInDegrees(tc->LocalTransformation.rotation);
-			glm::vec3 rotationInRad = glm::radians(rotationInDegrees);
-			glm::quat q = glm::quat(rotationInRad);
-
-			glm::vec3 forward = q * glm::vec3(0.f, 0.f, 1.f);
-			glm::vec3 right = q * glm::vec3(1.f, 0.f, 0.f);
-
-			tc->LocalTransformation.position += forward * fireballSpeed * ecsPtr->m_GetDeltaTime();
+			tc->LocalTransformation.position += direction * fireballSpeed * ecsPtr->m_GetDeltaTime();
 		}
 	}
 

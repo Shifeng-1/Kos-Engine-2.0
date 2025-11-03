@@ -68,20 +68,6 @@ void R_Model::Mesh::SetupMesh()
     // vertex bitangent
     glEnableVertexAttribArray(4);
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
-
-    /* for (int i = 0; i < vertices.size(); i++)
-     {
-         std::cout << "BONE IDSSSSSSSSSSSSSSSSSSSSSSSSSSSS " << vertices[i].m_BoneIDs[0] << std::endl;
-         std::cout << "BONE IDSSSSSSSSSSSSSSSSSSSSSSSSSSSS " << vertices[i].m_BoneIDs[1] << std::endl;
-         std::cout << "BONE IDSSSSSSSSSSSSSSSSSSSSSSSSSSSS " << vertices[i].m_BoneIDs[2] << std::endl;
-         std::cout << "BONE IDSSSSSSSSSSSSSSSSSSSSSSSSSSSS " << vertices[i].m_BoneIDs[3] << std::endl;
-
-         std::cout << "weights " << vertices[i].m_Weights[0] << std::endl;
-         std::cout << "weights " << vertices[i].m_Weights[1] << std::endl;
-         std::cout << "weights " << vertices[i].m_Weights[2] << std::endl;
-         std::cout << "weights " << vertices[i].m_Weights[3] << std::endl;
-     }*/
-
      // ids
     glEnableVertexAttribArray(5);
     glVertexAttribIPointer(5, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, m_BoneIDs));
@@ -222,7 +208,6 @@ void R_Model::LoadMesh(std::string meshFile) {
         this->meshes.push_back(Mesh{ newVert,newIndices,std::vector<Textures>{} });
     }
     unsigned int indicesCount = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
-    std::cout << " FIRST Indicies count is " << indicesCount << '\n';
     for (unsigned int i{ 0 }; i < indicesCount; i++) {
         unsigned int stringSize = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
         //std::cout << "STRING SIZE IS " << stringSize << '\n';
@@ -238,13 +223,9 @@ void R_Model::LoadMesh(std::string meshFile) {
 
     indicesCount = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
 
-    std::cout << " SECOND Indicies count is " << indicesCount << '\n';
     for (unsigned int i{ 0 }; i < indicesCount; i++) {
         glm::mat4 offsetMatrix = DecodeBinary<glm::mat4>(serialized, offset);
         glm::mat4 transformationMatrix = DecodeBinary<glm::mat4>(serialized, offset);
-
-        std::cout << "Bone Matrix Offset " << i << ' ' << std::endl;
-        PrintMat4(offsetMatrix);
         bone_info.push_back(BoneInfo{ offsetMatrix,transformationMatrix });
     }
 }
