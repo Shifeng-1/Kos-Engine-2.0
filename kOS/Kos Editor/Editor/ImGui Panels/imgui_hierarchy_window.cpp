@@ -361,26 +361,10 @@ namespace gui
                         IM_ASSERT(payload->DataSize == sizeof(EntityPayload));
                         ecs::EntityID Id = static_cast<EntityPayload *>(payload->Data)->id;
 
-<<<<<<< HEAD
                         // if in prefab mode and parent does not have parent, reject
                         if (m_prefabSceneMode && m_ecs.GetParent(Id).has_value() && (!m_ecs.GetParent(m_ecs.GetParent(Id).value()).has_value()))
                         {
-                            == == == =
-                                         // if in prefab mode and parent does not have parent, reject
-                                if (m_prefabSceneMode && hierachy::GetParent(Id).has_value() && (!hierachy::GetParent(hierachy::GetParent(Id).value()).has_value()))
-                            {
->>>>>>> upstream/main
-                            }
-                            if (m_prefabSceneMode)
-                            {
-                                hierachy::m_SetParent(m_ecs.sceneMap.find(m_activeScene)->second.prefabID, Id);
-                            }
-                            else
-                            {
-                                hierachy::m_RemoveParent(Id, true);
-                            }
                         }
-<<<<<<< HEAD
                         if (m_prefabSceneMode)
                         {
                             m_ecs.SetParent(m_ecs.sceneMap.find(m_activeScene)->second.prefabID, Id);
@@ -388,303 +372,280 @@ namespace gui
                         else
                         {
                             m_ecs.RemoveParent(Id, true);
-                            == == == =
-
-                                         if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("file"))
-                            {
-                                // IM_ASSERT(payload->DataSize == sizeof(std::filesystem::path));
-                                IM_ASSERT(payload->DataSize == sizeof(AssetPayload));
-                                const AssetPayload *data = static_cast<const AssetPayload *>(payload->Data);
-
-                                std::filesystem::path filePath = data->path;
-
-                                if (!m_prefabSceneMode && filePath.filename().extension().string() == ".json")
-                                {
-                                    scenemanager->LoadScene(filePath);
-                                }
-
-                                if (!m_prefabSceneMode && filePath.filename().extension().string() == ".prefab")
-                                {
-                                    prefab::m_CreatePrefab(filePath.filename().string(), sceneName);
-                                }
->>>>>>> upstream/main
-                            }
-                            ImGui::EndDragDropTarget();
-                        }
-<<<<<<< HEAD
-
-                        if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("file"))
-                        {
-                            // IM_ASSERT(payload->DataSize == sizeof(std::filesystem::path));
-                            IM_ASSERT(payload->DataSize == sizeof(AssetPayload));
-                            const AssetPayload *data = static_cast<const AssetPayload *>(payload->Data);
-
-                            std::filesystem::path filePath = data->path;
-
-                            if (!m_prefabSceneMode && filePath.filename().extension().string() == ".json")
-                            {
-                                m_sceneManager.LoadScene(filePath);
-                            }
-
-                            if (!m_prefabSceneMode && filePath.filename().extension().string() == ".prefab")
-                            {
-                                m_prefabManager.m_CreatePrefab(filePath.filename().string(), m_activeScene);
-                            }
-                        }
-                        ImGui::EndDragDropTarget();
-                        == == == =
->>>>>>> upstream/main
-                    }
-                }
-                ImGui::End();
-                return m_clickedEntityId;
-            }
-
-            bool ImGuiHandler::DrawEntityNode(ecs::EntityID id)
-            {
-
-                std::function<void(EntityID)> updateChildScene = [&](EntityID parent)
-                {
-                    std::string parentscene = m_ecs.GetSceneByEntityID(parent);
-                    const auto &child = m_ecs.GetChild(parent);
-
-                    if (child.has_value())
-                    {
-                        auto &children = child.value();
-                        for (auto &childid : children)
-                        {
-                            // If child scene does not belong to parent scene, swap it
-                            std::string childscene = m_ecs.GetSceneByEntityID(childid);
-                            if (parentscene != childscene)
-                            {
-                                m_sceneManager.SwapScenes(childscene, parentscene, childid);
-                            }
-
-                            // Recursive call
-                            if (m_ecs.GetChild(childid).has_value())
-                            {
-                                updateChildScene(childid);
-                            }
                         }
                     }
-                };
 
-                ecs::TransformComponent *transCom = m_ecs.GetComponent<ecs::TransformComponent>(id);
-                if (transCom == NULL)
-                    return false;
-
-                ImGuiTreeNodeFlags flag = ((static_cast<unsigned int>(m_clickedEntityId) == id) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
-                if (transCom->m_childID.size() <= 0)
-                {
-                    flag |= ImGuiTreeNodeFlags_Leaf;
-                }
-
-                ecs::NameComponent *nc = m_ecs.GetComponent<ecs::NameComponent>(id);
-
-                ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
-                ImGui::InvisibleButton(std::string{"##invireorderbutton" + std::to_string(id)}.c_str(), ImVec2{ImGui::GetContentRegionAvail().x, 1.f});
-                ImGui::PopStyleVar();
-
-                if (ImGui::BeginDragDropTarget())
-                {
-                    if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("EntityPayload"))
+                    if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("file"))
                     {
-                        IM_ASSERT(payload->DataSize == sizeof(EntityPayload));
-                        ecs::EntityID SwapId = static_cast<EntityPayload *>(payload->Data)->id;
+                        // IM_ASSERT(payload->DataSize == sizeof(std::filesystem::path));
+                        IM_ASSERT(payload->DataSize == sizeof(AssetPayload));
+                        const AssetPayload *data = static_cast<const AssetPayload *>(payload->Data);
 
-                        const std::string swapScene = m_ecs.GetSceneByEntityID(SwapId);
-                        const std::string idScene = m_ecs.GetSceneByEntityID(id);
+                        std::filesystem::path filePath = data->path;
 
-                        if (SwapId != id && swapScene == idScene)
+                        if (!m_prefabSceneMode && filePath.filename().extension().string() == ".json")
                         {
+                            m_sceneManager.LoadScene(filePath);
+                        }
 
-                            auto &_scene = m_ecs.sceneMap.find(swapScene)->second;
-                            const auto &eraseit = std::find(_scene.sceneIDs.begin(), _scene.sceneIDs.end(), SwapId);
-
-                            if (eraseit != _scene.sceneIDs.end())
-                            {
-                                _scene.sceneIDs.erase(eraseit);
-                            }
-
-                            const auto &IDit = std::find(_scene.sceneIDs.begin(), _scene.sceneIDs.end(), id);
-
-                            if (IDit != _scene.sceneIDs.end())
-                            {
-                                _scene.sceneIDs.insert(IDit, SwapId);
-                            }
+                        if (!m_prefabSceneMode && filePath.filename().extension().string() == ".prefab")
+                        {
+                            m_prefabManager.m_CreatePrefab(filePath.filename().string(), sceneName);
                         }
                     }
                     ImGui::EndDragDropTarget();
                 }
+            }
+        }
+        ImGui::End();
+        return m_clickedEntityId;
+    }
 
-                // create color if prefab
-                if (nc->isPrefab)
-                {
-                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.7f, 0.2f, 0.1f, 1.0f));
-                }
-                else if (nc->hide)
-                {
-                    ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.3f, 0.3f, 0.3f, 1.0f));
-                }
-                bool open = ImGui::TreeNodeEx(std::to_string(id).c_str(), flag, nc->entityName.c_str());
-                if (nc->isPrefab || nc->hide)
-                    ImGui::PopStyleColor();
+    bool ImGuiHandler::DrawEntityNode(ecs::EntityID id)
+    {
 
-                if (ImGui::IsItemClicked())
+        std::function<void(EntityID)> updateChildScene = [&](EntityID parent)
+        {
+            std::string parentscene = m_ecs.GetSceneByEntityID(parent);
+            const auto &child = m_ecs.GetChild(parent);
+
+            if (child.has_value())
+            {
+                auto &children = child.value();
+                for (auto &childid : children)
                 {
-                    m_clickedEntityId = id;
-                    m_isUi = false;
-                    // Check if it houses any ui elements
-                    if (m_ecs.HasComponent<ecs::CanvasRendererComponent>(id) || (m_ecs.GetParent(m_clickedEntityId).has_value() &&
-                                                                                 m_ecs.HasComponent<ecs::CanvasRendererComponent>(m_ecs.GetParent(m_clickedEntityId).value())))
+                    // If child scene does not belong to parent scene, swap it
+                    std::string childscene = m_ecs.GetSceneByEntityID(childid);
+                    if (parentscene != childscene)
                     {
-                        // std::cout << "IS UI\n";
-                        m_isUi = true;
+                        m_sceneManager.SwapScenes(childscene, parentscene, childid);
+                    }
+
+                    // Recursive call
+                    if (m_ecs.GetChild(childid).has_value())
+                    {
+                        updateChildScene(childid);
                     }
                 }
+            }
+        };
 
-                if (ImGui::GetIO().KeysDown[ImGuiKey::ImGuiKey_F] && m_clickedEntityId == id)
+        ecs::TransformComponent *transCom = m_ecs.GetComponent<ecs::TransformComponent>(id);
+        if (transCom == NULL)
+            return false;
+
+        ImGuiTreeNodeFlags flag = ((static_cast<unsigned int>(m_clickedEntityId) == id) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_DefaultOpen;
+        if (transCom->m_childID.size() <= 0)
+        {
+            flag |= ImGuiTreeNodeFlags_Leaf;
+        }
+
+        ecs::NameComponent *nc = m_ecs.GetComponent<ecs::NameComponent>(id);
+
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
+        ImGui::InvisibleButton(std::string{"##invireorderbutton" + std::to_string(id)}.c_str(), ImVec2{ImGui::GetContentRegionAvail().x, 1.f});
+        ImGui::PopStyleVar();
+
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("EntityPayload"))
+            {
+                IM_ASSERT(payload->DataSize == sizeof(EntityPayload));
+                ecs::EntityID SwapId = static_cast<EntityPayload *>(payload->Data)->id;
+
+                const std::string swapScene = m_ecs.GetSceneByEntityID(SwapId);
+                const std::string idScene = m_ecs.GetSceneByEntityID(id);
+
+                if (SwapId != id && swapScene == idScene)
                 {
-                    // EditorCamera::editorCamera.position = transCom->LocalTransformation.position;
-                    EditorCamera::editorCamera.target = transCom->WorldTransformation.position;
-                    EditorCamera::editorCamera.r = glm::length(EditorCamera::editorCamera.position - EditorCamera::editorCamera.target);
-                    EditorCamera::editorCamera.alpha = glm::asin((EditorCamera::editorCamera.position.y - EditorCamera::editorCamera.target.y) / EditorCamera::editorCamera.r);
-                    EditorCamera::editorCamera.betta = std::atan2(EditorCamera::editorCamera.position.x - EditorCamera::editorCamera.target.x, EditorCamera::editorCamera.position.z - EditorCamera::editorCamera.target.z);
-                    EditorCamera::editorCamera.SwitchMode(true);
 
-                    // Recompute position from spherical coordinates
-                    EditorCamera::editorCamera.position.x = EditorCamera::editorCamera.target.x + EditorCamera::editorCamera.r * glm::cos(EditorCamera::editorCamera.alpha) * glm::sin(EditorCamera::editorCamera.betta);
-                    EditorCamera::editorCamera.position.y = EditorCamera::editorCamera.target.y + EditorCamera::editorCamera.r * glm::sin(EditorCamera::editorCamera.alpha);
-                    EditorCamera::editorCamera.position.z = EditorCamera::editorCamera.target.z + EditorCamera::editorCamera.r * glm::cos(EditorCamera::editorCamera.alpha) * glm::cos(EditorCamera::editorCamera.betta);
-                }
+                    auto &_scene = m_ecs.sceneMap.find(swapScene)->second;
+                    const auto &eraseit = std::find(_scene.sceneIDs.begin(), _scene.sceneIDs.end(), SwapId);
 
-                // draw context window
-                if (ImGui::BeginPopupContextItem())
-                {
-                    // disable if the upmost prefab
-                    if (m_prefabSceneMode && (id == m_ecs.sceneMap.find(m_activeScene)->second.prefabID))
+                    if (eraseit != _scene.sceneIDs.end())
                     {
+                        _scene.sceneIDs.erase(eraseit);
+                    }
+
+                    const auto &IDit = std::find(_scene.sceneIDs.begin(), _scene.sceneIDs.end(), id);
+
+                    if (IDit != _scene.sceneIDs.end())
+                    {
+                        _scene.sceneIDs.insert(IDit, SwapId);
+                    }
+                }
+            }
+            ImGui::EndDragDropTarget();
+        }
+
+        // create color if prefab
+        if (nc->isPrefab)
+        {
+            ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.7f, 0.2f, 0.1f, 1.0f));
+        }
+        else if (nc->hide)
+        {
+            ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.3f, 0.3f, 0.3f, 1.0f));
+        }
+        bool open = ImGui::TreeNodeEx(std::to_string(id).c_str(), flag, nc->entityName.c_str());
+        if (nc->isPrefab || nc->hide)
+            ImGui::PopStyleColor();
+
+        if (ImGui::IsItemClicked())
+        {
+            m_clickedEntityId = id;
+            m_isUi = false;
+            // Check if it houses any ui elements
+            if (m_ecs.HasComponent<ecs::CanvasRendererComponent>(id) || (m_ecs.GetParent(m_clickedEntityId).has_value() &&
+                                                                         m_ecs.HasComponent<ecs::CanvasRendererComponent>(m_ecs.GetParent(m_clickedEntityId).value())))
+            {
+                // std::cout << "IS UI\n";
+                m_isUi = true;
+            }
+        }
+
+        if (ImGui::GetIO().KeysDown[ImGuiKey::ImGuiKey_F] && m_clickedEntityId == id)
+        {
+            // EditorCamera::editorCamera.position = transCom->LocalTransformation.position;
+            EditorCamera::editorCamera.target = transCom->WorldTransformation.position;
+            EditorCamera::editorCamera.r = glm::length(EditorCamera::editorCamera.position - EditorCamera::editorCamera.target);
+            EditorCamera::editorCamera.alpha = glm::asin((EditorCamera::editorCamera.position.y - EditorCamera::editorCamera.target.y) / EditorCamera::editorCamera.r);
+            EditorCamera::editorCamera.betta = std::atan2(EditorCamera::editorCamera.position.x - EditorCamera::editorCamera.target.x, EditorCamera::editorCamera.position.z - EditorCamera::editorCamera.target.z);
+            EditorCamera::editorCamera.SwitchMode(true);
+
+            // Recompute position from spherical coordinates
+            EditorCamera::editorCamera.position.x = EditorCamera::editorCamera.target.x + EditorCamera::editorCamera.r * glm::cos(EditorCamera::editorCamera.alpha) * glm::sin(EditorCamera::editorCamera.betta);
+            EditorCamera::editorCamera.position.y = EditorCamera::editorCamera.target.y + EditorCamera::editorCamera.r * glm::sin(EditorCamera::editorCamera.alpha);
+            EditorCamera::editorCamera.position.z = EditorCamera::editorCamera.target.z + EditorCamera::editorCamera.r * glm::cos(EditorCamera::editorCamera.alpha) * glm::cos(EditorCamera::editorCamera.betta);
+        }
+
+        // draw context window
+        if (ImGui::BeginPopupContextItem())
+        {
+            // disable if the upmost prefab
+            if (m_prefabSceneMode && (id == m_ecs.sceneMap.find(m_activeScene)->second.prefabID))
+            {
+            }
+            else
+            {
+                if (ImGui::MenuItem("Delete Entity"))
+                {
+                    m_ecs.DeleteEntity(id);
+                    m_clickedEntityId = -1;
+                    ImGui::EndPopup();
+                    if (open)
+                        ImGui::TreePop();
+                    return false;
+                }
+            }
+
+            if (ImGui::MenuItem("Duplicate Entity"))
+            {
+                ecs::EntityID newid = m_ecs.DuplicateEntity(id);
+
+                if (m_prefabSceneMode)
+                {
+                    const auto &parent = m_ecs.GetParent(id);
+                    // if id does not have parent, make it the parent
+                    if (!parent.has_value())
+                    {
+                        m_ecs.SetParent(id, newid);
                     }
                     else
                     {
-                        if (ImGui::MenuItem("Delete Entity"))
-                        {
-                            m_ecs.DeleteEntity(id);
-                            m_clickedEntityId = -1;
-                            ImGui::EndPopup();
-                            if (open)
-                                ImGui::TreePop();
-                            return false;
-                        }
-                    }
-
-                    if (ImGui::MenuItem("Duplicate Entity"))
-                    {
-                        ecs::EntityID newid = m_ecs.DuplicateEntity(id);
-
-                        if (m_prefabSceneMode)
-                        {
-                            const auto &parent = m_ecs.GetParent(id);
-                            // if id does not have parent, make it the parent
-                            if (!parent.has_value())
-                            {
-                                m_ecs.SetParent(id, newid);
-                            }
-                            else
-                            {
-                                m_ecs.SetParent(parent.value(), newid);
-                            }
-                        }
-
-                        ImGui::EndPopup();
-                        if (open)
-                            ImGui::TreePop();
-                        return false;
-                    }
-
-                    if (ImGui::MenuItem("Create Prefab"))
-                    {
-                        if (!m_prefabSceneMode)
-                        {
-                            m_prefabManager.m_SaveEntitytoPrefab(id);
-                        }
-                    }
-
-                    ImGui::EndPopup();
-                }
-
-                if (ImGui::BeginDragDropTarget())
-                {
-                    if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("EntityPayload"))
-                    {
-                        IM_ASSERT(payload->DataSize == sizeof(EntityPayload));
-                        ecs::EntityID childId = static_cast<EntityPayload *>(payload->Data)->id;
-
-                        // dont allow prefabs to be dragged inside prefab
-                        const auto &childnc = m_ecs.GetComponent<ecs::NameComponent>(childId);
-                        const auto &parent = m_ecs.GetComponent<ecs::NameComponent>(id);
-
-                        if (!m_prefabSceneMode && childnc->isPrefab && (childnc->prefabName == parent->prefabName))
-                        {
-
-                            LOGGING_WARN("Unable to drag prefabs of same type into each other, pls go to prefab editor");
-                        }
-                        else
-                        {
-                            m_ecs.SetParent(id, childId, true);
-                            LOGGING_INFO("Set Parent: %d, Child: %d", id, childId);
-                            // update child's scene
-                            updateChildScene(id);
-
-                            // return
-                            ImGui::EndDragDropTarget();
-                            if (open)
-                                ImGui::TreePop();
-                            return false;
-                        }
-                    }
-
-                    ImGui::EndDragDropTarget();
-                }
-
-                // no reordering of child prefabs
-                if (!transCom->m_haveParent || !m_ecs.GetComponent<ecs::NameComponent>(transCom->m_parentID)->isPrefab ||
-                    m_ecs.GetComponent<ecs::NameComponent>(transCom->m_parentID)->prefabName != nc->prefabName || m_prefabSceneMode)
-                {
-                    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
-                    {
-                        auto *nc = m_ecs.GetComponent<ecs::NameComponent>(id);
-                        if (nc)
-                        {
-                            EntityPayload payload{id, nc->entityGUID};
-
-                            ImGui::SetDragDropPayload("EntityPayload", &payload, sizeof(EntityPayload));
-                            ImGui::Text("%s", nc->entityName.c_str());
-                            if (!nc->entityGUID.Empty())
-                                ImGui::Text("%s", nc->entityGUID.GetToString().c_str());
-                        }
-                        ImGui::EndDragDropSource();
+                        m_ecs.SetParent(parent.value(), newid);
                     }
                 }
 
+                ImGui::EndPopup();
                 if (open)
-                {
-                    // recursion
-                    if (transCom->m_childID.size() > 0)
-                    {
-                        for (auto &ids : transCom->m_childID)
-                        {
-                            if (!DrawEntityNode(ids))
-                            {
-
-                                ImGui::TreePop();
-                                return false;
-                            }
-                        }
-                    }
-                    // m_DrawEntityNode(1);
                     ImGui::TreePop();
+                return false;
+            }
+
+            if (ImGui::MenuItem("Create Prefab"))
+            {
+                if (!m_prefabSceneMode)
+                {
+                    m_prefabManager.m_SaveEntitytoPrefab(id);
                 }
-                return true;
+            }
+
+            ImGui::EndPopup();
+        }
+
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload *payload = ImGui::AcceptDragDropPayload("EntityPayload"))
+            {
+                IM_ASSERT(payload->DataSize == sizeof(EntityPayload));
+                ecs::EntityID childId = static_cast<EntityPayload *>(payload->Data)->id;
+
+                // dont allow prefabs to be dragged inside prefab
+                const auto &childnc = m_ecs.GetComponent<ecs::NameComponent>(childId);
+                const auto &parent = m_ecs.GetComponent<ecs::NameComponent>(id);
+
+                if (!m_prefabSceneMode && childnc->isPrefab && (childnc->prefabName == parent->prefabName))
+                {
+
+                    LOGGING_WARN("Unable to drag prefabs of same type into each other, pls go to prefab editor");
+                }
+                else
+                {
+                    m_ecs.SetParent(id, childId, true);
+                    LOGGING_INFO("Set Parent: %d, Child: %d", id, childId);
+                    // update child's scene
+                    updateChildScene(id);
+
+                    // return
+                    ImGui::EndDragDropTarget();
+                    if (open)
+                        ImGui::TreePop();
+                    return false;
+                }
+            }
+
+            ImGui::EndDragDropTarget();
+        }
+
+        // no reordering of child prefabs
+        if (!transCom->m_haveParent || !m_ecs.GetComponent<ecs::NameComponent>(transCom->m_parentID)->isPrefab ||
+            m_ecs.GetComponent<ecs::NameComponent>(transCom->m_parentID)->prefabName != nc->prefabName || m_prefabSceneMode)
+        {
+            if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+            {
+                auto *nc = m_ecs.GetComponent<ecs::NameComponent>(id);
+                if (nc)
+                {
+                    EntityPayload payload{id, nc->entityGUID};
+
+                    ImGui::SetDragDropPayload("EntityPayload", &payload, sizeof(EntityPayload));
+                    ImGui::Text("%s", nc->entityName.c_str());
+                    if (!nc->entityGUID.Empty())
+                        ImGui::Text("%s", nc->entityGUID.GetToString().c_str());
+                }
+                ImGui::EndDragDropSource();
             }
         }
+
+        if (open)
+        {
+            // recursion
+            if (transCom->m_childID.size() > 0)
+            {
+                for (auto &ids : transCom->m_childID)
+                {
+                    if (!DrawEntityNode(ids))
+                    {
+
+                        ImGui::TreePop();
+                        return false;
+                    }
+                }
+            }
+            // m_DrawEntityNode(1);
+            ImGui::TreePop();
+        }
+        return true;
+    }
+}

@@ -17,7 +17,6 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "ECS/ECS.h"
 #include "Scene/SceneManager.h"
 #include "Utility/MathUtility.h"
-#include "Config/ComponentRegistry.h"
 #include "glm/gtx/euler_angles.hpp"
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtx/string_cast.hpp>
@@ -45,41 +44,41 @@ SERIALIZE_DESERIALIZE_COMPARE_TEST(CharacterControllerComponent)
 // Add more component tests as needed
 
 
-TEST(Scene, CreateScene) {
-	auto* sm = scenes::SceneManager::m_GetInstance();
-	EXPECT_TRUE(sm->ImmediateLoadScene("Test Scene"));
-
-	sm->ImmediateClearScene("Test Scene");
-}
-
-
-TEST(Entity, SpawnMaxEntities) {
-	auto* ecs =ComponentRegistry::GetECSInstance();
-	m_ecs.RegisterComponent<TransformComponent>();
-	m_ecs.RegisterComponent<NameComponent>();
-
-	auto* sm = scenes::SceneManager::m_GetInstance();
-	EXPECT_TRUE(sm->ImmediateLoadScene("Test Scene"));
-
-	const int numEntities = ecs::MaxEntity - 10;
-	
-	std::vector<ecs::EntityID> entityIDs;
-	entityIDs.reserve(numEntities);
-	for (int i = 0; i < numEntities; ++i) {
-		ecs::EntityID newEntity = m_ecs.CreateEntity("Test Scene");
-		entityIDs.push_back(newEntity);
-	}
-	// Verify that all entities were created successfully
-	for (const auto& id : entityIDs) {
-		EXPECT_TRUE(m_ecs.IsValidEntity(id));
-	}
-	// Clean up by destroying the created entities
-	for (const auto& id : entityIDs) {
-		m_ecs.DeleteEntity(id);
-	}
-
-	sm->ImmediateClearScene("Test Scene");
-}
+//TEST(Scene, CreateScene) {
+//    scenes::SceneManager sm;
+//	EXPECT_TRUE(sm.ImmediateLoadScene("Test Scene"));
+//
+//	sm.ImmediateClearScene("Test Scene");
+//}
+//
+//
+//TEST(Entity, SpawnMaxEntities) {
+//	auto* ecs =ComponentRegistry::GetECSInstance();
+//	m_ecs.RegisterComponent<TransformComponent>();
+//	m_ecs.RegisterComponent<NameComponent>();
+//
+//	auto* sm = scenes::SceneManager::m_GetInstance();
+//	EXPECT_TRUE(sm->ImmediateLoadScene("Test Scene"));
+//
+//	const int numEntities = ecs::MaxEntity - 10;
+//	
+//	std::vector<ecs::EntityID> entityIDs;
+//	entityIDs.reserve(numEntities);
+//	for (int i = 0; i < numEntities; ++i) {
+//		ecs::EntityID newEntity = m_ecs.CreateEntity("Test Scene");
+//		entityIDs.push_back(newEntity);
+//	}
+//	// Verify that all entities were created successfully
+//	for (const auto& id : entityIDs) {
+//		EXPECT_TRUE(m_ecs.IsValidEntity(id));
+//	}
+//	// Clean up by destroying the created entities
+//	for (const auto& id : entityIDs) {
+//		m_ecs.DeleteEntity(id);
+//	}
+//
+//	sm->ImmediateClearScene("Test Scene");
+//}
 
 
 

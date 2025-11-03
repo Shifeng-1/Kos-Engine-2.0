@@ -52,7 +52,7 @@ namespace Application {
 			, reflectionField()
 			, resourceManager()
 			, physicsManager()
-			, graphicsManager(resourceManager)
+			, graphicsManager(resourceManager) 
 			, ecs(peformance, graphicsManager, resourceManager, input, physicsManager, scriptManager)
 			, lvWindow(ecs, input)
 			, layersManager(ecs)

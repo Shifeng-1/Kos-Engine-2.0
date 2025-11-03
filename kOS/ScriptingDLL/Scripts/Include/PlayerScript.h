@@ -23,7 +23,11 @@ public:
             std::cout << entity << std::endl;
             std::string currentScene = ecsPtr->GetSceneByEntityID(entity);
             //sceneResource->DuplicatePrefabIntoScene(currentScene);
+
+            DuplicatePrefabIntoScene<R_Scene>(currentScene, prefabGUID);
         }
+
+
 
 
         health = 1;

@@ -20,9 +20,9 @@ namespace ecs
 
         for (const EntityID id : entities)
         {
-            TransformComponent *transform = m_ecs->GetComponent<TransformComponent>(id);
-            MaterialComponent *matRenderer = m_ecs->GetComponent<MaterialComponent>(id);
-            if (!m_ecs->HasComponent<CubeRendererComponent>(id))
+            TransformComponent *transform = m_ecs.GetComponent<TransformComponent>(id);
+            MaterialComponent *matRenderer = m_ecs.GetComponent<MaterialComponent>(id);
+            if (!m_ecs.HasComponent<CubeRendererComponent>(id))
                 continue;
             glm::mat4 model = transform->transformation;
             if (m_ecs.HasComponent<BoxColliderComponent>(id))
@@ -45,7 +45,7 @@ namespace ecs
             std::shared_ptr<R_Texture> norm = m_resourceManager.GetResource<R_Texture>(mat->md.normalMaterialGUID);
             std::shared_ptr<R_Texture> ao = m_resourceManager.GetResource<R_Texture>(mat->md.ambientOcclusionMaterialGUID);
             std::shared_ptr<R_Texture> rough = m_resourceManager.GetResource<R_Texture>(mat->md.roughnessMaterialGUID);
-            gm->gm_PushCubeData(CubeRenderer::CubeData{PBRMaterial(diff, spec, rough, ao, norm), model, id});
+            m_graphicsManager.gm_PushCubeData(CubeRenderer::CubeData{PBRMaterial(diff, spec, rough, ao, norm), model, id});
         }
     }
 

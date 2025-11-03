@@ -30,19 +30,19 @@ extern "C"  __declspec(dllexport) void UpdateStatic(StaticVariableManager* svm) 
 	TemplateSC::physicsPtr = static_cast<physics::PhysicsManager*>(svm->physics);
 	TemplateSC::resource = static_cast<ResourceManager*>(svm->resource);
 
-	RegisterScript<BulletLogic>();
-	RegisterScript<EnemyManagerScript>();
-	RegisterScript<PowerupManagerScript>();
+	RegisterScript<BulletLogic>(TemplateSC::ecsPtr);
+	RegisterScript<EnemyManagerScript>(TemplateSC::ecsPtr);
+	RegisterScript<PowerupManagerScript>(TemplateSC::ecsPtr);
 
-	RegisterScript<FirePowerupManagerScript>();
-	RegisterScript<LightningPowerupManagerScript>();
-	RegisterScript<AcidPowerupManagerScript>();
-	RegisterScript<FireLightningPowerupManagerScript>();
-	RegisterScript<FireAcidPowerupManagerScript>();
-	RegisterScript<LightningAcidPowerupManagerScript>();
+	RegisterScript<FirePowerupManagerScript>(TemplateSC::ecsPtr);
+	RegisterScript<LightningPowerupManagerScript>(TemplateSC::ecsPtr);
+	RegisterScript<AcidPowerupManagerScript>(TemplateSC::ecsPtr);
+	RegisterScript<FireLightningPowerupManagerScript>(TemplateSC::ecsPtr);
+	RegisterScript<FireAcidPowerupManagerScript>(TemplateSC::ecsPtr);
+	RegisterScript<LightningAcidPowerupManagerScript>(TemplateSC::ecsPtr);
 
-	RegisterScript<PlayerManagerScript>();
-	RegisterScript<GunScript>();
+	RegisterScript<PlayerManagerScript>(TemplateSC::ecsPtr);
+	RegisterScript<GunScript>(TemplateSC::ecsPtr);
 
 	RegisterScript<PlayerScript>(TemplateSC::ecsPtr);
 	RegisterScript<EnemyScripts>(TemplateSC::ecsPtr);
