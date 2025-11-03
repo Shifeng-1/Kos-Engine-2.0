@@ -125,13 +125,13 @@ void Sphere::CreateMesh() {
     float nx, ny, nz, lengthInv = 1.0f / radius;    // vertex normal
     float s, t;                                     // vertex texCoord
 
-    float sectorStep = 2 * PI / sectorCount;
-    float stackStep = PI / stackCount;
+    float sectorStep = static_cast<float>(2.f * PI / sectorCount);
+    float stackStep = static_cast<float>(PI / stackCount);
     float sectorAngle, stackAngle;
     std::vector <float>vertexData;
 
     for (int i{ 0 }; i <= stackCount; i++) {
-        stackAngle = PI / 2 - i * stackStep;
+        stackAngle = static_cast<float>(PI / 2 - i * stackStep);
         xy = radius * cosf(stackAngle);
         z = radius * sinf(stackAngle);
 
@@ -269,7 +269,7 @@ void Sphere::CreateMesh() {
     glBindVertexArray(0);
 
     primitiveType = GL_TRIANGLES;
-    drawCount = indices.size();
+    drawCount = static_cast<GLint>(indices.size());
     //std::cout << "CREATED SPHERE\n";
 }
 
@@ -392,7 +392,7 @@ void DebugCapsule::CreateMesh() {
 
     const int segments = 24;     
     const int arcSegments = 12;  
-    const float angleStep = 2.0f * PI / segments;
+    const float angleStep = static_cast<float>(2.0f * PI / segments);
     const float halfHeight = height * 0.5f;
 
     auto AddCircle = [&](float y, float r) {
@@ -426,10 +426,10 @@ void DebugCapsule::CreateMesh() {
         float yCenter = top ? halfHeight : -halfHeight;
         float sign = top ? 1.0f : -1.0f;
         for (int i = 0; i < 4; ++i) {
-            float baseAngle = i * PI / 2.0f;
+            float baseAngle = static_cast<float>(i * PI / 2.0f);
             unsigned short arcStart = static_cast<unsigned short>(vertices.size());
             for (int j = 0; j <= arcSegments; ++j) {
-                float phi = PI / 2.0f * static_cast<float>(j) / arcSegments;
+                float phi = static_cast<float>(PI / 2.0f * static_cast<float>(j) / arcSegments);
                 float y = yCenter + sign * radius * sinf(phi);
                 float r = radius * cosf(phi);
                 float x = r * cosf(baseAngle);

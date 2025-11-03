@@ -223,11 +223,11 @@ void R_Model::LoadMesh(std::string meshFile) {
     }
     unsigned int indicesCount = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
     std::cout << " FIRST Indicies count is " << indicesCount << '\n';
-    for (int i{ 0 }; i < indicesCount; i++) {
+    for (unsigned int i{ 0 }; i < indicesCount; i++) {
         unsigned int stringSize = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
         //std::cout << "STRING SIZE IS " << stringSize << '\n';
         std::string key;
-        for (int j{ 0 }; j < stringSize; j++) {
+        for (unsigned int j{ 0 }; j < stringSize; j++) {
             key += DecodeBinary<char>(serialized, offset);
             //std::cout<<"KEY CHAR: " << key << '\n';
         }
@@ -239,7 +239,7 @@ void R_Model::LoadMesh(std::string meshFile) {
     indicesCount = static_cast<unsigned int>(DecodeBinary<size_t>(serialized, offset));
 
     std::cout << " SECOND Indicies count is " << indicesCount << '\n';
-    for (int i{ 0 }; i < indicesCount; i++) {
+    for (unsigned int i{ 0 }; i < indicesCount; i++) {
         glm::mat4 offsetMatrix = DecodeBinary<glm::mat4>(serialized, offset);
         glm::mat4 transformationMatrix = DecodeBinary<glm::mat4>(serialized, offset);
 

@@ -7,3 +7,4 @@
 #include "BulletLogic.h"
 #include "EnemyManagerScript.h"
 #include "PlayerManagerScript.h"
+#include "GunScript.h"

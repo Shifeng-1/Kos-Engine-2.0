@@ -233,11 +233,11 @@ namespace prefab
         int countA = 0, countB = 0; //number of children both id have
 
         if (childsA.has_value()) {
-            countA = childsA.value().size();
+            countA = static_cast<int>(childsA.value().size());
         }
 
         if (childsB.has_value()) {
-            countB = childsB.value().size();
+            countB = static_cast<int>(childsB.value().size());
         }
 
         //make A == B
