@@ -87,11 +87,13 @@ namespace gui {
             }
         }
 
-        for (auto& sceneentity : ecs->sceneMap)
+        int imguiId = 0;
+        static ImVec2 headerPos, headerEnd;
+        for (auto&[sceneName, sceneentity] : ecs->sceneMap)
         {
             //when prefab mode is on, skip non prefabs, and non active prefabs
             if (m_prefabSceneMode) {
-                if (sceneentity.second.isPrefab == false || sceneentity.second.isActive == false) continue;
+                if (sceneentity.isPrefab == false || sceneentity.isActive == false) continue;
                 //create seperator
                 ImGui::SeparatorText("Prefab");
 
@@ -155,33 +157,34 @@ namespace gui {
             }
 
             //skip if prefab is not active 
-            if (sceneentity.second.isPrefab == true && sceneentity.second.isActive == false) continue;
-
-            std::string headerstr = sceneentity.first.substr(0, sceneentity.first.find_last_of('.'));
+            if (sceneentity.isPrefab == true && sceneentity.isActive == false) continue;
+            headerPos = ImGui::GetCursorPos();
+            std::string headerstr = sceneName.substr(0, sceneName.find_last_of('.'));
             //collapsing header for scene
             bool opens{};
-            if (sceneentity.second.isActive == false) {
+            if (sceneentity.isActive == false) {
                 headerstr += " (Unloaded)";
                 ImGui::CollapsingHeader(headerstr.c_str());
             }
             else {
-                if (sceneentity.first == m_activeScene) {
+                if (sceneName == m_activeScene) {
                     headerstr += " (Active)";
                 }
                 opens = ImGui::CollapsingHeader(headerstr.c_str(), ImGuiTreeNodeFlags_DefaultOpen);
             }
 
+            // Right Click Section
             if (ImGui::BeginPopupContextItem()) {
-                if ((sceneentity.first != m_activeScene) && ImGui::MenuItem("Remove Scene")) {
-                    scenemanager->ClearScene(sceneentity.first);
+                if ((sceneName != m_activeScene) && ImGui::MenuItem("Remove Scene")) {
+                    scenemanager->ClearScene(sceneName);
 
                     //break loop
                     ImGui::EndPopup();
                     break;
                 }
 
-                if ((sceneentity.first != m_activeScene) && (sceneentity.second.isActive == true) && ImGui::MenuItem("Unload Scene")) {
-                    scenemanager->SetSceneActive(sceneentity.first, false);
+                if ((sceneName != m_activeScene) && (sceneentity.isActive == true) && ImGui::MenuItem("Unload Scene")) {
+                    scenemanager->SetSceneActive(sceneName, false);
                     m_clickedEntityId = -1;
 
                     if (!m_prefabSceneMode) {
@@ -201,27 +204,28 @@ namespace gui {
                     break;
                 }
 
-                if ((sceneentity.second.isActive == false) && ImGui::MenuItem("load Scene")) {
-                    scenemanager->SetSceneActive(sceneentity.first, true);
+                if ((sceneentity.isActive == false) && ImGui::MenuItem("load Scene")) {
+                    scenemanager->SetSceneActive(sceneName, true);
                     ImGui::EndPopup();
                     break;
                 }
 
                 if (ImGui::MenuItem("Save Scene")) {
-                    onSaveAll.Invoke(sceneentity.first);
+                    onSaveAll.Invoke(sceneName);
                 }
 
-                if ((sceneentity.first != m_activeScene) && ImGui::MenuItem("Set Active")) {
-                    m_activeScene = sceneentity.first;
+                if ((sceneName != m_activeScene) && ImGui::MenuItem("Set Active")) {
+                    m_activeScene = sceneName;
 
-                    if (sceneentity.second.isActive == false) {
-                        sceneentity.second.isActive = true;
+                    if (sceneentity.isActive == false) {
+                        sceneentity.isActive = true;
                     }
                 }
 
                 ImGui::EndPopup();
             }
 
+            // Covers the Collapsing Header Space
             if (ImGui::BeginDragDropTarget())
             {
                 if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("Entity"))
@@ -231,7 +235,7 @@ namespace gui {
                     const auto& scene = m_ecs->GetSceneByEntityID(Id);
 
                     if (!scene.empty()) {
-                        scenemanager->SwapScenes(scene, sceneentity.first, Id);
+                        scenemanager->SwapScenes(scene, sceneName, Id);
                     }
 
                     //if entity is a child, break from parent
@@ -249,14 +253,14 @@ namespace gui {
                     std::filesystem::path filename = static_cast<const char*>(payload->Data);
 
                     if (filename.filename().extension().string() == ".prefab") {
-                        prefab::m_CreatePrefab(filename.filename().string(), sceneentity.first);
+                        prefab::m_CreatePrefab(filename.filename().string(), sceneName);
                     }
                 }
                 ImGui::EndDragDropTarget();
             }
 
             if (opens) {
-                for (auto entity : sceneentity.second.sceneIDs) {
+                for (auto entity : sceneentity.sceneIDs) {
 
                     const auto& entityMap = m_ecs->GetEntitySignatureData();
                     if (entityMap.find(m_clickedEntityId) == entityMap.end()) {
@@ -275,54 +279,54 @@ namespace gui {
                             //delete is called
                             break;
                         }
-
                     }
                 }
-            }
-        }
+                headerEnd = ImGui::GetCursorPos();
 
-        if (ImGui::GetContentRegionAvail().x > 0 && ImGui::GetContentRegionAvail().y > 0) {
-            //std::cout << "x: " << ImGui::GetContentRegionAvail().x << std::endl;
-            //std::cout << "y: " << ImGui::GetContentRegionAvail().y << std::endl;
-
-            ImGui::InvisibleButton("#invbut", ImVec2{ ImGui::GetContentRegionAvail().x,ImGui::GetContentRegionAvail().y });
-            if (ImGui::BeginDragDropTarget())
-            {
-                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("EntityPayload"))
+                // Covers the Scene TreeNodes + Collapsing Header
+                ImGui::SetCursorPos(headerPos);
+                ImGui::PushID(imguiId++);
+                ImGui::InvisibleButton("#invbut", ImVec2{ ImGui::GetContentRegionMax().x,headerEnd.y - headerPos.y });
+                ImGui::PopID();
+                ImGui::SetCursorPos(headerEnd);
+                if (ImGui::BeginDragDropTarget())
                 {
-                    IM_ASSERT(payload->DataSize == sizeof(EntityPayload));
-                    ecs::EntityID Id = static_cast<EntityPayload*>(payload->Data)->id;
+                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("EntityPayload"))
+                    {
+                        IM_ASSERT(payload->DataSize == sizeof(EntityPayload));
+                        ecs::EntityID Id = static_cast<EntityPayload*>(payload->Data)->id;
 
-                    // if in prefab mode and parent does not have parent, reject
-                    if (m_prefabSceneMode && hierachy::GetParent(Id).has_value() && (!hierachy::GetParent(hierachy::GetParent(Id).value()).has_value())) {
+                        // if in prefab mode and parent does not have parent, reject
+                        if (m_prefabSceneMode && hierachy::GetParent(Id).has_value() && (!hierachy::GetParent(hierachy::GetParent(Id).value()).has_value())) {
 
+                        }
+                        if (m_prefabSceneMode) {
+                            hierachy::m_SetParent(ecs->sceneMap.find(m_activeScene)->second.prefabID, Id);
+                        }
+                        else {
+                            hierachy::m_RemoveParent(Id, true);
+                        }
                     }
-                    if (m_prefabSceneMode) {
-                        hierachy::m_SetParent(ecs->sceneMap.find(m_activeScene)->second.prefabID, Id);
+
+                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("file"))
+                    {
+                        //IM_ASSERT(payload->DataSize == sizeof(std::filesystem::path));
+                        IM_ASSERT(payload->DataSize == sizeof(AssetPayload));
+                        const AssetPayload* data = static_cast<const AssetPayload*>(payload->Data);
+
+                        std::filesystem::path filePath = data->path;
+
+
+                        if (!m_prefabSceneMode && filePath.filename().extension().string() == ".json") {
+                            scenemanager->LoadScene(filePath);
+                        }
+
+                        if (!m_prefabSceneMode && filePath.filename().extension().string() == ".prefab") {
+                            prefab::m_CreatePrefab(filePath.filename().string(), sceneName);
+                        }
                     }
-                    else {
-                        hierachy::m_RemoveParent(Id, true);
-                    }
+                    ImGui::EndDragDropTarget();
                 }
-
-                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("file"))
-                {
-                    //IM_ASSERT(payload->DataSize == sizeof(std::filesystem::path));
-                    IM_ASSERT(payload->DataSize == sizeof(AssetPayload));
-                    const AssetPayload* data = static_cast<const AssetPayload*>(payload->Data);
-
-                    std::filesystem::path filePath = data->path;
-
-
-                    if (!m_prefabSceneMode && filePath.filename().extension().string() == ".json") {
-                        scenemanager->LoadScene(filePath);
-                    }
-
-                    if (!m_prefabSceneMode && filePath.filename().extension().string() == ".prefab") {
-                        prefab::m_CreatePrefab(filePath.filename().string(), m_activeScene);
-                    }
-                }
-                ImGui::EndDragDropTarget();
             }
         }
         ImGui::End();
