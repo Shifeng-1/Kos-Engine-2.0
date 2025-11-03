@@ -35,14 +35,7 @@ namespace ecs {
         utility::GUID materialGUID{};    // Material asset
         utility::GUID skeletonGUID{};
 
-        //Temporary
-        utility::GUID diffuseMaterialGUID{};   // Path or ID for material asset
-        utility::GUID specularMaterialGUID{};
-        utility::GUID normalMaterialGUID{};
-        utility::GUID ambientOcclusionMaterialGUID{};
-        utility::GUID roughnessMaterialGUID{};
-
-        REFLECTABLE(SkinnedMeshRendererComponent, skinnedMeshGUID, materialGUID, skeletonGUID, diffuseMaterialGUID, specularMaterialGUID, normalMaterialGUID, ambientOcclusionMaterialGUID, roughnessMaterialGUID);
+        REFLECTABLE(SkinnedMeshRendererComponent, skinnedMeshGUID, materialGUID, skeletonGUID);
 
         utility::GUID cachedSkinnedMeshGUID{};
         utility::GUID cachedMaterialGUID{};

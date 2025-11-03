@@ -1,0 +1,414 @@
+[
+    {
+        "SceneData": {
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
+        "entityGUID": "123869f5-79fa-ec05-4c1f-3fc5b2db3454",
+        "BoxColliderComponent": {
+            "isTrigger": false,
+            "box": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "size": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            }
+        },
+        "CubeRendererComponent": {},
+        "MeshRendererComponent": {
+            "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+            "specularMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+            "normalMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+            "ambientOcclusionMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+            "roughnessMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53"
+        },
+        "NameComponent": {
+            "entityName": "box",
+            "Layer": 0,
+            "entityTag": "Default",
+            "isPrefab": true,
+            "prefabName": "box.prefab",
+            "hide": false
+        },
+        "RigidbodyComponent": {
+            "mass": 1.0,
+            "drag": 0.0,
+            "angularDrag": 0.05000000074505806,
+            "useGravity": true,
+            "isKinematic": false,
+            "interpolation": 0,
+            "collisionDetection": 0,
+            "constraints": 0
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            }
+        },
+        "children": [
+            {
+                "entityGUID": "b02fa01e-fd81-c741-471b-3894013775f6",
+                "BoxColliderComponent": {
+                    "isTrigger": false,
+                    "box": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                },
+                "CubeRendererComponent": {},
+                "MeshRendererComponent": {
+                    "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                    "specularMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                    "normalMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                    "ambientOcclusionMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                    "roughnessMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53"
+                },
+                "NameComponent": {
+                    "entityName": "box",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": false,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "RigidbodyComponent": {
+                    "mass": 1.0,
+                    "drag": 0.0,
+                    "angularDrag": 0.05000000074505806,
+                    "useGravity": true,
+                    "isKinematic": false,
+                    "interpolation": 0,
+                    "collisionDetection": 0,
+                    "constraints": 0
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -1.2000000476837158,
+                            "y": 1.2000000476837158,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 19.999988555908203
+                        },
+                        "scale": {
+                            "x": 0.9999998807907104,
+                            "y": 0.9999998807907104,
+                            "z": 1.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": -1.2000000476837158,
+                            "y": 1.2000000476837158,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 19.999988555908203
+                        },
+                        "scale": {
+                            "x": 0.9999998807907104,
+                            "y": 0.9999998807907104,
+                            "z": 1.0
+                        }
+                    }
+                },
+                "children": [
+                    {
+                        "entityGUID": "07681274-41c7-cbe9-3992-7ee2f31a4ada",
+                        "BoxColliderComponent": {
+                            "isTrigger": false,
+                            "box": {
+                                "center": {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0
+                                },
+                                "size": {
+                                    "x": 1.0,
+                                    "y": 1.0,
+                                    "z": 1.0
+                                }
+                            }
+                        },
+                        "CubeRendererComponent": {},
+                        "MeshRendererComponent": {
+                            "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                            "specularMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                            "normalMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                            "ambientOcclusionMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                            "roughnessMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53"
+                        },
+                        "NameComponent": {
+                            "entityName": "box",
+                            "Layer": 0,
+                            "entityTag": "Default",
+                            "isPrefab": false,
+                            "prefabName": "",
+                            "hide": false
+                        },
+                        "RigidbodyComponent": {
+                            "mass": 1.0,
+                            "drag": 0.0,
+                            "angularDrag": 0.05000000074505806,
+                            "useGravity": true,
+                            "isKinematic": false,
+                            "interpolation": 0,
+                            "collisionDetection": 0,
+                            "constraints": 0
+                        },
+                        "TransformComponent": {
+                            "WorldTransformation": {
+                                "position": {
+                                    "x": -1.7983624935150146,
+                                    "y": 2.2592272758483887,
+                                    "z": 0.0
+                                },
+                                "rotation": {
+                                    "x": 0.0,
+                                    "y": -0.0,
+                                    "z": 39.9999885559082
+                                },
+                                "scale": {
+                                    "x": 0.9999998211860657,
+                                    "y": 0.9999998211860657,
+                                    "z": 1.0
+                                }
+                            },
+                            "LocalTransformation": {
+                                "position": {
+                                    "x": -0.20000000298023224,
+                                    "y": 1.2000000476837158,
+                                    "z": 0.0
+                                },
+                                "rotation": {
+                                    "x": 0.0,
+                                    "y": -0.0,
+                                    "z": 20.0
+                                },
+                                "scale": {
+                                    "x": 1.0,
+                                    "y": 1.0,
+                                    "z": 1.0
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "entityGUID": "4092f298-c18d-fb39-dcc1-74c0d37d5368",
+                "BoxColliderComponent": {
+                    "isTrigger": false,
+                    "box": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                },
+                "CubeRendererComponent": {},
+                "MeshRendererComponent": {
+                    "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                    "specularMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                    "normalMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                    "ambientOcclusionMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                    "roughnessMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53"
+                },
+                "NameComponent": {
+                    "entityName": "box",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": false,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "RigidbodyComponent": {
+                    "mass": 1.0,
+                    "drag": 0.0,
+                    "angularDrag": 0.05000000074505806,
+                    "useGravity": true,
+                    "isKinematic": false,
+                    "interpolation": 0,
+                    "collisionDetection": 0,
+                    "constraints": 0
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": 1.2000000476837158,
+                            "y": 1.2000000476837158,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 179.99989318847656,
+                            "y": -0.0,
+                            "z": 159.99993896484375
+                        },
+                        "scale": {
+                            "x": 0.9999904036521912,
+                            "y": 0.9999985098838806,
+                            "z": 0.999986469745636
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 1.2000000476837158,
+                            "y": 1.2000000476837158,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 179.99989318847656,
+                            "y": -0.0,
+                            "z": 159.99993896484375
+                        },
+                        "scale": {
+                            "x": 0.9999904036521912,
+                            "y": 0.9999985098838806,
+                            "z": 0.999986469745636
+                        }
+                    }
+                },
+                "children": [
+                    {
+                        "entityGUID": "9066d171-130c-8ea2-c368-bae04d3fa642",
+                        "BoxColliderComponent": {
+                            "isTrigger": false,
+                            "box": {
+                                "center": {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0
+                                },
+                                "size": {
+                                    "x": 1.0,
+                                    "y": 1.0,
+                                    "z": 1.0
+                                }
+                            }
+                        },
+                        "CubeRendererComponent": {},
+                        "MeshRendererComponent": {
+                            "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                            "specularMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                            "normalMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                            "ambientOcclusionMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
+                            "roughnessMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53"
+                        },
+                        "NameComponent": {
+                            "entityName": "box",
+                            "Layer": 0,
+                            "entityTag": "Default",
+                            "isPrefab": false,
+                            "prefabName": "",
+                            "hide": false
+                        },
+                        "RigidbodyComponent": {
+                            "mass": 1.0,
+                            "drag": 0.0,
+                            "angularDrag": 0.05000000074505806,
+                            "useGravity": true,
+                            "isKinematic": false,
+                            "interpolation": 0,
+                            "collisionDetection": 0,
+                            "constraints": 0
+                        },
+                        "TransformComponent": {
+                            "WorldTransformation": {
+                                "position": {
+                                    "x": 1.7983614206314087,
+                                    "y": 2.259225606918335,
+                                    "z": 0.000002183907781727612
+                                },
+                                "rotation": {
+                                    "x": 179.99989318847656,
+                                    "y": -0.000035663979360833764,
+                                    "z": 139.99993896484375
+                                },
+                                "scale": {
+                                    "x": 0.9999913573265076,
+                                    "y": 0.9999975562095642,
+                                    "z": 0.999986469745636
+                                }
+                            },
+                            "LocalTransformation": {
+                                "position": {
+                                    "x": -0.20000000298023224,
+                                    "y": 1.2000000476837158,
+                                    "z": 0.0
+                                },
+                                "rotation": {
+                                    "x": 0.0,
+                                    "y": -0.0,
+                                    "z": 20.0
+                                },
+                                "scale": {
+                                    "x": 1.0,
+                                    "y": 1.0,
+                                    "z": 1.0
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

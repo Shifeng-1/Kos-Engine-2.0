@@ -17,47 +17,42 @@
         },
         "SkinnedMeshRendererComponent": {
             "skinnedMeshGUID": "9f89e949-6405-e326-8380-1c8f761df4a1",
-            "materialGUID": "00000000-0000-0000-0000-000000000000",
-            "skeletonGUID": "53602e67-2a8d-e367-fe48-ffecc504d71a",
-            "diffuseMaterialGUID": "4d8deac8-5e30-9e34-6f12-37721db6eb53",
-            "specularMaterialGUID": "3835eca5-ca41-66f9-c046-aae5ed607e56",
-            "normalMaterialGUID": "dc87b22b-a90f-e566-c503-d27ea05bc74a",
-            "ambientOcclusionMaterialGUID": "7e3bc79c-83cb-41b9-aa01-6076a018d1e8",
-            "roughnessMaterialGUID": "21e73a5d-3a17-aa8c-8e08-2ec4d5ae7320"
+            "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547",
+            "skeletonGUID": "53602e67-2a8d-e367-fe48-ffecc504d71a"
         },
         "TransformComponent": {
             "WorldTransformation": {
                 "position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
+                    "x": 15.552370071411133,
+                    "y": -11.339710235595703,
+                    "z": -11.757194519042969
                 },
                 "rotation": {
-                    "x": 0.0,
-                    "y": -0.0,
-                    "z": 0.0
+                    "x": 179.9990997314453,
+                    "y": 0.318505197763443,
+                    "z": 179.99989318847656
                 },
                 "scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.10000007599592209,
                     "y": 0.10000000149011612,
-                    "z": 0.10000000149011612
+                    "z": 0.10000007599592209
                 }
             },
             "LocalTransformation": {
                 "position": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
+                    "x": 15.552370071411133,
+                    "y": -11.339710235595703,
+                    "z": -11.757194519042969
                 },
                 "rotation": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
+                    "x": 179.9990997314453,
+                    "y": 0.318505197763443,
+                    "z": 179.99989318847656
                 },
                 "scale": {
-                    "x": 0.10000000149011612,
+                    "x": 0.10000007599592209,
                     "y": 0.10000000149011612,
-                    "z": 0.10000000149011612
+                    "z": 0.10000007599592209
                 }
             }
         }
