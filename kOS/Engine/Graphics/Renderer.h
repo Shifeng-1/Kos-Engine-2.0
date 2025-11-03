@@ -70,7 +70,18 @@ struct CubeRenderer : BasicRenderer
 	void Clear();
 	std::vector<CubeData> cubesToDraw{};
 };
+struct SphereRenderer:BasicRenderer
+{
+	struct SphereData {
+		PBRMaterial meshMaterial;
+		glm::mat4 transformation{ 1.f };
+		unsigned int entityID{ 0 };
+	};
+	void Render(const CameraData& camera, Shader& shader, Sphere* cubePtr);
+	void Clear();
+	std::vector<SphereData> spheresToDraw{};
 
+};
 struct TextRenderer : BasicRenderer
 {
 	void InitializeTextRendererMeshes();

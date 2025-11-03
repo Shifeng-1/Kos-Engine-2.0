@@ -301,6 +301,47 @@ void CubeRenderer::Render(const CameraData& camera, Shader& shader, Cube* cubePt
 void CubeRenderer::Clear() {
 	cubesToDraw.clear();
 }
+
+void SphereRenderer::Render(const CameraData& camera, Shader& shader, Sphere* spherePtr) {
+	for (SphereData& cd : spheresToDraw) {
+		std::cout << "RENDERING SPHERE\n";
+		shader.SetTrans("model", cd.transformation);
+		shader.SetVec3("color", glm::vec3{ 1.f,1.f,1.f });
+		shader.SetInt("entityID", cd.entityID + 1);
+		glActiveTexture(GL_TEXTURE0); // activate proper texture unit before binding
+		shader.SetInt("texture_diffuse1", 0);
+		unsigned int currentTexture = 0;
+		currentTexture = (cd.meshMaterial.albedo) ? cd.meshMaterial.albedo->RetrieveTexture() : 0;
+		glBindTexture(GL_TEXTURE_2D, currentTexture);
+		//Bind sepcular
+		glActiveTexture(GL_TEXTURE1); // activate proper texture unit before binding
+		shader.SetInt("texture_specular1", 1);
+		currentTexture = (cd.meshMaterial.specular) ? cd.meshMaterial.specular->RetrieveTexture() : 0;
+		glBindTexture(GL_TEXTURE_2D, currentTexture);
+		//Bind normal
+		glActiveTexture(GL_TEXTURE2); // activate proper texture unit before binding
+		shader.SetInt("texture_normal1", 2);
+		currentTexture = (cd.meshMaterial.normal) ? cd.meshMaterial.normal->RetrieveTexture() : 0;
+		glBindTexture(GL_TEXTURE_2D, currentTexture);
+		//Bind Metallic map
+		glActiveTexture(GL_TEXTURE4); // activate proper texture unit before binding
+		shader.SetInt("texture_ao1", 4);
+		currentTexture = (cd.meshMaterial.ao) ? cd.meshMaterial.ao->RetrieveTexture() : 0;
+		glBindTexture(GL_TEXTURE_2D, currentTexture);
+		//Bind roughness
+		glActiveTexture(GL_TEXTURE5); // activate proper texture unit before binding
+		shader.SetInt("texture_roughness1", 5);
+		currentTexture = (cd.meshMaterial.roughness) ? cd.meshMaterial.roughness->RetrieveTexture() : 0;
+		glBindTexture(GL_TEXTURE_2D, currentTexture);
+		//std::cout << "RENDERING MESH\n";
+		glActiveTexture(GL_TEXTURE0);
+		spherePtr->DrawMesh();
+
+	}
+}
+void SphereRenderer::Clear() {
+	spheresToDraw.clear();
+}
 void SpriteRenderer::InitializeSpriteRendererMeshes()
 {
 	screenSpriteMesh.CreateMesh();

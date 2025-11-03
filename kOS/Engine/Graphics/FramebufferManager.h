@@ -50,6 +50,11 @@ public:
 		UIBuffer.InitializeUIBuffer(static_cast<int>(windowWidth), static_cast<int>(windowHeight),gBuffer.gMaterial);
 	}
 
+	void Update(unsigned int windowWidth, unsigned int windowHeight) {
+		//Update frame buffer details
+
+	}
+
 	void ComposeBuffers(GLuint lowerBufferTexID, GLuint upperBufferTexID, FrameBuffer& outputBuffer, Shader& shader)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, outputBuffer.fbo);

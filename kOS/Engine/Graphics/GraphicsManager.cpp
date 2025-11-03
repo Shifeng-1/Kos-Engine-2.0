@@ -114,6 +114,7 @@ void GraphicsManager::gm_Clear()
 	debugRenderer.Clear();
 	gameCameras.clear();
 	cubeRenderer.Clear();
+	sphereRenderer.Clear();
 	skinnedMeshRenderer.Clear();
 	particleRenderer.Clear();
 	//editorCameraActive = false;
@@ -207,6 +208,7 @@ void GraphicsManager::gm_FillGBuffer(const CameraData& camera)
 	meshRenderer.Render(camera, *gBufferPBRShader);
 	skinnedMeshRenderer.Render(camera, *gBufferPBRShader);
 	cubeRenderer.Render(camera, *gBufferPBRShader, &this->cube);
+	sphereRenderer.Render(camera, *gBufferPBRShader, &this->sphere);
 	debugRenderer.RenderPointLightDebug(camera, *gBufferPBRShader, lightRenderer.pointLightsToDraw);
 	debugRenderer.RenderDebugFrustums(camera, *gBufferPBRShader, gameCameras);
 	
@@ -423,8 +425,9 @@ void GraphicsManager::gm_DrawMaterial(const PBRMaterial& md,FrameBuffer& fb) {
 	materialShader->Disuse();
 	GLenum err = glGetError();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
 }
+//Testing 123
+
 void GraphicsManager::gm_RenderCubeMap(const CameraData& camera)
 {
 	//Render the cubemap
