@@ -20,7 +20,7 @@ namespace ecs {
 
 	constexpr size_t MAXCOMPONENT = 64;
 	constexpr size_t MAXSYSTEM = 64;
-	using EntityID = unsigned int;
+	using EntityID = int;
 	using ComponentSignature = std::bitset<MAXCOMPONENT>;
 
 	// Max number of entities allowed to be created

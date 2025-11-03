@@ -1,6 +1,8 @@
 R"(
 #version 460 core
-layout (location = 0) in vec4 vertex;
+layout (location = 0) in vec3 vertex;
+layout (location = 1) in vec2 texCO;
+
 out vec2 texCoords;
 
 uniform mat3 projection;
@@ -21,7 +23,7 @@ void main()
     );
     pos.xy += point.xy;  // move quad
     gl_Position = vec4(projection * pos, 1.0);
-    gl_Position.z = point.z;
-    texCoords = vertex.zw;
+    gl_Position.z = vertex.z;
+    texCoords = texCO;
 }
 )"

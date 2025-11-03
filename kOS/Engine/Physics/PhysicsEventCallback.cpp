@@ -1,10 +1,8 @@
 #include "Config/pch.h"
 #include "Physics/PhysicsEventCallback.h"
 
-
 namespace physics {
     void PhysicsEventCallback::onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs) {
-
         if (pairHeader.flags & (PxContactPairHeaderFlag::eREMOVED_ACTOR_0 | PxContactPairHeaderFlag::eREMOVED_ACTOR_1)) { return; }
 
         for (PxU32 i = 0; i < nbPairs; i++) {
@@ -71,10 +69,14 @@ namespace physics {
     }
 
     void PhysicsEventCallback::onTrigger(PxTriggerPair* pairs, PxU32 count) { 
-
         for (PxU32 i = 0; i < count; ++i) {
             const PxTriggerPair& tp = pairs[i];
-            if (tp.flags & (PxTriggerPairFlag::eREMOVED_SHAPE_TRIGGER | PxTriggerPairFlag::eREMOVED_SHAPE_OTHER)) { continue; }
+            TriggerPair pair{ tp.triggerActor, tp.otherActor };
+
+            if (tp.flags & (PxTriggerPairFlag::eREMOVED_SHAPE_TRIGGER | PxTriggerPairFlag::eREMOVED_SHAPE_OTHER)) { 
+                m_activeTriggers.erase(pair);
+                continue; 
+            }
 
             unsigned int entityA = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(tp.triggerActor->userData));
             unsigned int entityB = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(tp.otherActor->userData));
@@ -82,8 +84,6 @@ namespace physics {
             Collision triggerA{}, triggerB{};
             triggerA.otherEntityID = entityB;
             triggerB.otherEntityID = entityA;
-
-            TriggerPair pair{ tp.triggerActor, tp.otherActor };
 
             if (tp.status & PxPairFlag::eNOTIFY_TOUCH_FOUND) {
                 OnTriggerEnter.Invoke(triggerA);
@@ -99,7 +99,6 @@ namespace physics {
     }
 
     void PhysicsEventCallback::ProcessCollisionStay() {
-
         for (const auto& pair : m_activeCollisions) {
             unsigned int entityA = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(pair.collision->userData));
             unsigned int entityB = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(pair.other->userData));
@@ -107,7 +106,10 @@ namespace physics {
             Collision collisionA{};
             Collision collisionB{};
 
+            collisionA.thisEntityID = entityA;
             collisionA.otherEntityID = entityB;
+
+            collisionB.thisEntityID = entityB;
             collisionB.otherEntityID = entityA;
 
             OnCollisionStay.Invoke(collisionA);
@@ -116,7 +118,6 @@ namespace physics {
     }
 
     void PhysicsEventCallback::ProcessTriggerStay() {
-
         for (const auto& pair : m_activeTriggers) {
             unsigned int entityA = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(pair.trigger->userData));
             unsigned int entityB = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(pair.other->userData));

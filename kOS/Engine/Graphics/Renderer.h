@@ -64,7 +64,7 @@ struct CubeRenderer : BasicRenderer
 	struct CubeData {
 		PBRMaterial meshMaterial;
 		glm::mat4 transformation{ 1.f };
-		unsigned int entityID{ 0 };
+		int entityID{ -1 };
 	};
 	void Render(const CameraData& camera, Shader& shader, Cube* cubePtr);
 	void Clear();
@@ -75,7 +75,7 @@ struct SphereRenderer:BasicRenderer
 	struct SphereData {
 		PBRMaterial meshMaterial;
 		glm::mat4 transformation{ 1.f };
-		unsigned int entityID{ 0 };
+		int entityID{ -1 };
 	};
 	void Render(const CameraData& camera, Shader& shader, Sphere* cubePtr);
 	void Clear();

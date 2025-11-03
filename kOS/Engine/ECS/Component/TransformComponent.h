@@ -51,7 +51,7 @@ namespace ecs {
 		std::vector<EntityID> m_childID{};
 		
 		//for entities with parents
-		EntityID m_parentID{};
+		EntityID m_parentID{ -1 };
 		
 		bool m_haveParent{false};
 

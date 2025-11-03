@@ -106,8 +106,8 @@ void Cube::CreateMesh() {
     glBindVertexArray(0);
 
     primitiveType = GL_TRIANGLES;
-}
 
+}
 void Cube::DrawMesh()
 {
 	//std::cout << "DRAWOING SQUARE \n";

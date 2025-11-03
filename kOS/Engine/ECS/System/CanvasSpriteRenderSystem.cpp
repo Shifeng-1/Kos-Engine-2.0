@@ -63,7 +63,7 @@ namespace ecs {
                     {
                         std::shared_ptr<R_Texture> fontResource = m_resourceManager.GetResource<R_Texture>(spriteComp->spriteGUID);
                         m_graphicsManager.gm_PushScreenSpriteData(ScreenSpriteData{ childTransform->WorldTransformation.position,
-                                                           glm::vec2{ childTransform->WorldTransformation.scale.x, 
+                                                           glm::vec2{ childTransform->WorldTransformation.scale.x,
                                                                       childTransform->WorldTransformation.scale.y},
                                                                       -childTransform->WorldTransformation.rotation.x, spriteComp->color,
                                                                       fontResource.get(), 0, 0, 0,childID }); /// Temporarily all 0

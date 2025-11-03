@@ -66,34 +66,48 @@ void ScreenSpriteMesh::CreateMesh()
 {
     float vertices[] = {
         // pos       // tex
-        -0.5f, -0.5f,  0.0f, 0.0f, // bottom left
-         0.5f, -0.5f,  1.0f, 0.0f, // bottom right
-         0.5f,  0.5f,  1.0f, 1.0f, // top right
+        -0.5f, 0.5f, 0.f,  0.0f, 1.0f, // bottom left
+         -0.5f, -0.5f, 0.f,  0.0f, 0.0f, // bottom right
+         0.5f,  0.5f, 0.f,  1.0f, 1.0f, // top right
 
-         0.5f,  0.5f,  1.0f, 1.0f, // top right
-        -0.5f,  0.5f,  0.0f, 1.0f, // top left
-        -0.5f, -0.5f,  0.0f, 0.0f  // bottom left
+         0.5f,  -0.5f, 0.f,  1.0f, 0.0f, // top right
     };
-
-    GLuint vbo;
+    short indices[]{
+    0, 1, 2, 3
+    };
+    GLuint vbo,ebo;
     glGenVertexArrays(1, &vaoID);
     glGenBuffers(1, &vbo);
+    glGenBuffers(1, &ebo);
 
     glBindVertexArray(vaoID);
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    //Bindn the element buffer
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
     // Attribute 0 = vec4 (x, y, u, v)
-    glEnableVertexAttribArray(0);
     glVertexAttribPointer(
         0,                // location = 0 in shader
-        4,                // 4 components: x, y, u, v
+        3,                // 4 components: x, y, u, v
         GL_FLOAT,
         GL_FALSE,
-        4 * sizeof(float),// stride
+        5 * sizeof(float),// stride
         (void*)0          // offset
     );
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(
+        1,                // location = 0 in shader
+        2,                // 4 components: x, y, u, v
+        GL_FLOAT,
+        GL_FALSE,
+        5 * sizeof(float),// stride
+        (void*)(3 * sizeof(float))
+    );
+    glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -117,7 +131,7 @@ void ScreenSpriteMesh::DrawMesh(const ScreenSpriteData& spriteData, Shader& shad
     shader.SetVec4("color", spriteData.color);
     shader.SetInt("entityID", spriteData.entityID+1);
     glBindVertexArray(this->vaoID);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, NULL);
     glBindVertexArray(0);
 
     GLenum err = glGetError();

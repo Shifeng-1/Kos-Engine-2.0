@@ -106,6 +106,8 @@ namespace ecs {
             CapsuleColliderComponent* capsule = m_ecs.GetComponent<CapsuleColliderComponent>(id);
             SphereColliderComponent* sphere = m_ecs.GetComponent<SphereColliderComponent>(id);
 
+            if (!box && !sphere && !capsule) continue;
+
             PxFilterData filter;
             filter.word0 = name->Layer;
 

@@ -57,11 +57,7 @@ namespace physics {
 
     class PhysicsEventCallback : public PxSimulationEventCallback {
     public:
-        PhysicsEventCallback()
-            : PxSimulationEventCallback() // call base constructor explicitly
-        {
-            // Initialize any members if needed
-        }
+        PhysicsEventCallback() : PxSimulationEventCallback() {}
 
         Delegate<const Collision&> OnCollisionEnter;
         Delegate<const Collision&> OnCollisionStay;
@@ -93,7 +89,6 @@ namespace physics {
             }
             return glm::vec3{ 0.0f };
         }
-
     };
 }
 

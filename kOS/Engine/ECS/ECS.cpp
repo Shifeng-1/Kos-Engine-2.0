@@ -396,7 +396,7 @@ namespace ecs{
 
 		TransformComponent* childTransform = GetComponent<TransformComponent>(child);
 		childTransform->m_haveParent = false;
-		childTransform->m_parentID = 0;
+		childTransform->m_parentID = -1;
 		//Updating Transformation Mtxs
 		if (updateTransform) {
 			childTransform->localTransform = childTransform->transformation;

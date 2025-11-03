@@ -160,7 +160,7 @@ namespace gui
 
                     // Instead of Updating all the time, Differences needs to be checked.
                     // Prompt when leaving prefab mode,
-                    std::map<EntityID, std::vector<std::string>> allDiffList;
+                    /*std::map<EntityID, std::vector<std::string>> allDiffList;
                     const auto &prefabscene = m_ecs.sceneMap.find(prefabName);
                     for (const auto &id : m_ecs.GetEntitySignatureData())
                     {
@@ -182,7 +182,7 @@ namespace gui
                                 continue;
                             m_prefabManager.RevertToPrefab_Component(id, compName, prefabName);
                         }
-                    }
+                    }*/
                     // m_ecs.DeleteEntity(duppedID); // Dupping Somehow causes us to update all the prefab scenes?
                     // duppedID = -1;
 

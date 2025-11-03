@@ -45,7 +45,7 @@ struct SkinnedMeshData
     PBRMaterial meshMaterial;
     glm::mat4 transformation{ 1.f };
     float currentDuration{};
-    unsigned int entityID{ 0 };
+    int entityID{ -1 };
 };
 
 struct MeshData
@@ -53,7 +53,7 @@ struct MeshData
     std::shared_ptr<R_Model> meshToUse;
     PBRMaterial meshMaterial;
     glm::mat4 transformation{ 1.f };
-    unsigned int entityID{ 0 };
+    int entityID{ -1 };
 };
 
 struct ModelData

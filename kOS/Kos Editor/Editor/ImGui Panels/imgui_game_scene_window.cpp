@@ -100,13 +100,7 @@ namespace gui
 
         gameWindowPos = ImGui::GetCursorScreenPos();
         gameWindowSize = ImGui::GetContentRegionAvail();
-        if (ImGui::IsWindowFocused())
-        {
-            glfwSetInputMode(m_window.window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-        }
-        else {
-            glfwSetInputMode(m_window.window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-        }
+   
         ImGui::End();
 	}
 }

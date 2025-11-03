@@ -136,10 +136,8 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, const aiMatrix4x4& t
     //std::vector<Texture> roughnessMaps = LoadMaterialTextures("roughness.jpg", ROUGHNESS);
     //textures.insert(textures.end(), roughnessMaps.begin(), roughnessMaps.end());
 
-    std::cout << "BONES LOADED BEFORE" << bones_loaded.size() << std::endl;
     // Extract bones and weights here
     ExtractBoneWeights(mesh, vertices);
-    std::cout <<  "BONES LOADED AT THE END" << bones_loaded.size() << std::endl;
     // return a mesh object created from the extracted mesh data
     return Mesh(vertices, indices);
 }
@@ -147,7 +145,6 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene, const aiMatrix4x4& t
 //Process all nodes of the mesh
 void Model::ProcessNode(aiNode* node, const aiScene* scene, const aiMatrix4x4& transform)
 {
-    std::cout << "BONES LOADED BEFORE BEFORE" << bones_loaded.size() << std::endl;
     const aiMatrix4x4 accTransform = transform * node->mTransformation ;
     // process all the node's meshes (if any)
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
@@ -183,7 +180,6 @@ void Model::ExtractBoneWeights(aiMesh* mesh, std::vector<Vertex>& vertices)
             v.m_Weights[i] = 0.0f;
         }
     }
-    std::cout << "Number of bones" << mesh->mNumBones << std::endl;
     for (unsigned int i = 0; i < mesh->mNumBones; i++)
     {
         std::string boneName = mesh->mBones[i]->mName.C_Str();
@@ -223,7 +219,6 @@ void Model::ExtractBoneWeights(aiMesh* mesh, std::vector<Vertex>& vertices)
         }
     }
 
-    std::cout << "BONES LOADED TOTAL: " << bones_loaded.size() << std::endl;
 
 
     for (auto& v : vertices)

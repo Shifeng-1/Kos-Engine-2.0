@@ -171,8 +171,9 @@ namespace Application {
 
                 input.InputExitFrame(deltaTime);
 
-
-                graphicsManager.gm_UpdateBuffers(lvWindow.windowWidth, lvWindow.windowHeight);
+                int fbw, fbh;
+                glfwGetFramebufferSize(lvWindow.window, &fbw, &fbh);
+                graphicsManager.gm_UpdateBuffers(fbw, fbh);
                 /*--------------------------------------------------------------
                     UPDATE Render Pipeline
                 --------------------------------------------------------------*/
