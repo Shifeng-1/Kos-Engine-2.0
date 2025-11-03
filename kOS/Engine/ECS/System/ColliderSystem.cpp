@@ -125,14 +125,14 @@ namespace ecs {
                 if (!shape) {
                     shape = pm->GetPhysics()->createShape(geometry, *pm->GetDefaultMaterial(), true);
                     box->shape = shape;
-                } else {
-                    shape->setGeometry(geometry);
-                }
-                shape->setLocalPose(PxTransform{ PxVec3{ box->box.center.x, box->box.center.y, box->box.center.z } });
+                } 
+                shape->setGeometry(geometry);
+                glm::vec3 scaledCenter = box->box.center * scale;
+                shape->setLocalPose(PxTransform{ PxVec3{ scaledCenter.x, scaledCenter.y, scaledCenter.z } });
                 ToPhysxIsTrigger(shape, box->isTrigger);
                 shape->setSimulationFilterData(filter);
                 shape->setQueryFilterData(filter);
-                box->box.bounds.center = trans->WorldTransformation.position + box->box.center * scale;
+                box->box.bounds.center = trans->WorldTransformation.position + scaledCenter;
                 box->box.bounds.extents = halfExtents;
                 box->box.bounds.size = box->box.size * scale;
                 box->box.bounds.min = box->box.bounds.center - box->box.bounds.extents;
@@ -146,10 +146,10 @@ namespace ecs {
                 if (!shape) {
                     shape = pm->GetPhysics()->createShape(geometry, *pm->GetDefaultMaterial(), true);
                     sphere->shape = shape;
-                } else {
-                    shape->setGeometry(geometry);
-                }
-                shape->setLocalPose(PxTransform{ PxVec3{ sphere->sphere.center.x, sphere->sphere.center.y, sphere->sphere.center.z } });
+                } 
+                shape->setGeometry(geometry);
+                glm::vec3 scaledCenter = sphere->sphere.center * scale;
+                shape->setLocalPose(PxTransform{ PxVec3{ scaledCenter.x, scaledCenter.y, scaledCenter.z } });
                 ToPhysxIsTrigger(shape, sphere->isTrigger);
                 shape->setSimulationFilterData(filter);
                 shape->setQueryFilterData(filter);
@@ -163,9 +163,8 @@ namespace ecs {
                 if (!shape) {
                     shape = pm->GetPhysics()->createShape(geometry, *pm->GetDefaultMaterial(), true);
                     capsule->shape = shape;
-                } else {
-                    shape->setGeometry(geometry);
-                }
+                } 
+                shape->setGeometry(geometry);
                 PxQuat rot{ PxIdentity };
                 switch (capsule->capsule.capsuleDirection) {
                     case CapsuleDirection::X:
@@ -177,7 +176,8 @@ namespace ecs {
                     default:
                         break;
                 }
-                shape->setLocalPose(PxTransform{ PxVec3{ capsule->capsule.center.x, capsule->capsule.center.y, capsule->capsule.center.z }, rot });
+                glm::vec3 scaledCenter = capsule->capsule.center * scale;
+                shape->setLocalPose(PxTransform{ PxVec3{ scaledCenter.x, scaledCenter.y, scaledCenter.z }, rot });
                 ToPhysxIsTrigger(shape, capsule->isTrigger);
                 shape->setSimulationFilterData(filter);
                 shape->setQueryFilterData(filter);
