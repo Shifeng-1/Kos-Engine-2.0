@@ -55,7 +55,7 @@ namespace scenes {
 			m_resourceManager(rm)
 		{};
 
-		void Update();
+		void EndFrame();
 		bool CreateNewScene(const std::filesystem::path& scenepath);
 
 		void LoadScene(const std::filesystem::path& scenepath);
@@ -104,7 +104,6 @@ namespace scenes {
 
 		std::unordered_map<std::string, std::filesystem::path> unloadScenePath;
 		std::unordered_map<std::string, std::filesystem::path> loadScenePath;
-		std::vector<std::filesystem::path> m_recentFiles;
 		std::vector<std::filesystem::path> cacheScenePath;
 
 

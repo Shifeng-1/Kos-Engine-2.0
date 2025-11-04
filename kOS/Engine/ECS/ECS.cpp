@@ -131,10 +131,18 @@ namespace ecs{
 		
 	}
 
+	void ECS::EndFrame() {
+		if (m_deletedEntities.size() > 0) {
+			//clear and deletedEntities
+			for (EntityID id : m_deletedEntities) {
+				DeleteEntityImmediate(id);
+			}
+			m_deletedEntities.clear();
+		}
+	}
+
 	void ECS::Unload() {
 		m_combinedComponentPool.clear();
-
-		//delete ecs;
 	}
 
 	void ECS::RegisterEntity(EntityID ID) {
@@ -243,13 +251,25 @@ namespace ecs{
 
 	}
 
-	bool ECS::DeleteEntity(EntityID ID) {
+
+	void ECS::DeleteEntity(EntityID ID) {
+		//check if id is a thing
+		if (m_entityMap.find(ID) == m_entityMap.end()) {
+			LOGGING_ERROR("Entity Does Not Exist");
+			return;
+		}
+
+
+		m_deletedEntities.emplace_back(ID);
+	}
+
+	void ECS::DeleteEntityImmediate(EntityID ID) {
 
 		
 		//check if id is a thing
 		if (m_entityMap.find(ID) == m_entityMap.end()) {
 			LOGGING_ERROR("Entity Does Not Exist");
-			return false;
+			return;
 		}
 
 
@@ -276,19 +296,17 @@ namespace ecs{
 
 		// remove entity from scene
 		const auto& result = GetSceneByEntityID(ID);
-		auto& entityList = sceneMap.find(result)->second.sceneIDs;
-		auto it = std::find(entityList.begin(), entityList.end(), ID);
-		sceneMap.find(result)->second.sceneIDs.erase(it);
-
-
-
-
+		if (!result.empty()) {
+			auto& entityList = sceneMap.find(result)->second.sceneIDs;
+			auto it = std::find(entityList.begin(), entityList.end(), ID);
+			sceneMap.find(result)->second.sceneIDs.erase(it);
+		}
 
 		//get child
 		if (GetChild(ID).has_value()) {
 			std::vector<EntityID> childs = GetChild(ID).value();
 			for (auto& x : childs) {
-				DeleteEntity(x);
+				DeleteEntityImmediate(x);
 			}
 		}
 
@@ -306,7 +324,7 @@ namespace ecs{
 		m_entityMap.erase(ID);		
 		m_availableEntityID.push(ID);
 
-		return true;
+		return;
 	}
 
 	

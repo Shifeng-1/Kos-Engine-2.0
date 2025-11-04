@@ -34,21 +34,12 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 
 namespace Application {
 
-    float AppWindow::windowHeight;
-
-    float AppWindow::windowWidth;
-
-    bool AppWindow::fullScreen{ true };
-
-    const GLFWvidmode* AppWindow::mode;
-
-    GLFWmonitor* AppWindow::monitor;
 
     void SetWindowIcon(GLFWwindow* window) {
         GLFWimage icon;
 
         // Load image (ensure your path is correct)
-        icon.pixels = stbi_load("../Configs/icon.png", &icon.width, &icon.height, 0, 4);
+        icon.pixels = stbi_load("Alchemication/Configs/icon.png", &icon.width, &icon.height, 0, 4);
         if (!icon.pixels) {
             printf("Failed to load icon!\n");
             return;
@@ -89,21 +80,23 @@ namespace Application {
 
     static void fullScreenFocusCallback(GLFWwindow* window, int focused)
     {
-        static int oldWidth = static_cast<int>(AppWindow::windowWidth);
-        static int oldHeight = static_cast<int>(AppWindow::windowHeight);
+
         //auto& audioManager = assetmanager::AssetManager::GetInstance()->m_audioManager;
         auto* app = static_cast<Application::AppWindow*>(glfwGetWindowUserPointer(window));
         if (!app) return;
 
+        static int oldWidth = static_cast<int>(app->windowWidth);
+        static int oldHeight = static_cast<int>(app->windowHeight);
+
         auto& m_ecs = app->m_ecs;
         try {
             if (!focused) {
-                oldWidth = static_cast<int>(AppWindow::windowWidth);
-                oldHeight = static_cast<int>(AppWindow::windowHeight);
+                oldWidth = static_cast<int>(app->windowWidth);
+                oldHeight = static_cast<int>(app->windowHeight);
 
                 // If the window loses focus, set it to windowed mode
-                glfwSetWindowMonitor(window, nullptr, 100, 100, static_cast<int>(AppWindow::windowWidth), static_cast<int>(AppWindow::windowHeight), 0);  // Change to windowed mode with a standard resolution
-                AppWindow::fullScreen = false;
+                glfwSetWindowMonitor(window, nullptr, 100, 100, static_cast<int>(app->windowWidth), static_cast<int>(app->windowHeight), 0);  // Change to windowed mode with a standard resolution
+                app->fullScreen = false;
 
                 //audioManager.m_PauseAllSounds();  // Pause all sounds
 
@@ -113,10 +106,10 @@ namespace Application {
                     //Helper::Helpers::GetInstance()->windowMinimise = true;
                 }
             }
-            else if (!AppWindow::fullScreen) {
+            else if (!app->fullScreen) {
                 // If the window regains focus, switch back to full screen
-                glfwSetWindowMonitor(window, AppWindow::monitor, 0, 0, AppWindow::mode->width, AppWindow::mode->height, AppWindow::mode->refreshRate);
-                AppWindow::fullScreen = true;
+                glfwSetWindowMonitor(window, app->monitor, 0, 0, app->mode->width, app->mode->height, app->mode->refreshRate);
+                app->fullScreen = true;
 
                 //audioManager.m_UnpauseAllSounds();  // Unpause all sounds
 
@@ -130,10 +123,11 @@ namespace Application {
         catch (const std::exception& e) {
             LOGGING_ERROR("Exception in fullScreenFocusCallback: " + std::string(e.what()));
             return;
-		}
+        }
 
     }
-    void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+
+    static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     {
         auto* app = static_cast<Application::AppWindow*>(glfwGetWindowUserPointer(window));
         if (!app) return;
@@ -141,42 +135,49 @@ namespace Application {
         app->windowWidth = width;
         glViewport(0, 0, width, height);
     }
-    static void iconifyCallback([[maybe_unused]]GLFWwindow* window, int iconified)
+
+    static void iconifyCallback(GLFWwindow* window, int iconified)
     {
-  //     // auto& audioManager = assetmanager::AssetManager::GetInstance()->m_audioManager;
-  //      auto* app = static_cast<Application::AppWindow*>(glfwGetWindowUserPointer(window));
-  //      if (!app) return;
+        auto* app = static_cast<Application::AppWindow*>(glfwGetWindowUserPointer(window));
+        if (!app) return;
 
-  //      auto& m_ecs = app->m_ecs;
-  //      try {
+        auto& m_ecs = app->m_ecs;
 
-  //          if (iconified == GLFW_TRUE)
-  //          {
+        if (iconified == GLFW_TRUE)
+        {
 
-  //              //audioManager.m_PauseAllSounds();  // Pause all sounds
+            //audioManager.m_PauseAllSounds();  // Pause all sounds
 
-  //              if (m_ecs.GetState() == ecs::RUNNING) {
-  //                  //std::cout << "Window minimized!" << std::endl;
-  //                  m_ecs.SetState(ecs::WAIT);
-  //                  //Helper::Helpers::GetInstance()->windowMinimise = true;
-  //              }
-  //          }
-  //          else
-  //          {
+            if (m_ecs.GetState() == ecs::RUNNING) {
+                //std::cout << "Window minimized!" << std::endl;
+                m_ecs.SetState(ecs::WAIT);
+                //Helper::Helpers::GetInstance()->windowMinimise = true;
+            }
+        }
+        else
+        {
 
-  //              // audioManager.m_UnpauseAllSounds();  // Unpause all sounds
+            // audioManager.m_UnpauseAllSounds();  // Unpause all sounds
 
-  //              if (m_ecs.GetState() == ecs::WAIT) {
-  //                  //std::cout << "Window restored!" << std::endl;
-  //                  m_ecs.SetState(ecs::RUNNING);
-  //                  //Helper::Helpers::GetInstance()->windowMinimise = false;
-  //              }
-  //          }
-  //      }
-  //      catch (const std::exception& e) {
-  //          LOGGING_ERROR("Exception in iconifyCallback: " + std::string(e.what()));
-  //          return;
-		//}
+            if (m_ecs.GetState() == ecs::WAIT) {
+                //std::cout << "Window restored!" << std::endl;
+                m_ecs.SetState(ecs::RUNNING);
+                //Helper::Helpers::GetInstance()->windowMinimise = false;
+            }
+        }
+    }
+
+    static void CursorPosCallback(GLFWwindow* window, double xpos, double ypos) {
+        auto* app = static_cast<Application::AppWindow*>(glfwGetWindowUserPointer(window));
+        if (!app) return;
+        app->m_inputSystem.OnCursorPos(xpos, ypos);
+
+    }
+
+    static void DropCallback(GLFWwindow* window, int count, const char** paths) {
+        auto* app = static_cast<Application::AppWindow*>(glfwGetWindowUserPointer(window));
+        if (!app) return;
+        app->m_inputSystem.OnDrop(count, paths);
     }
 
     int AppWindow::init(int _windowWidth, int _windowHeight) {
@@ -191,24 +192,28 @@ namespace Application {
 
 
 
-
-
         /* Create a windowed mode window and its OpenGL context */
 
         monitor = glfwGetPrimaryMonitor();
         mode = glfwGetVideoMode(monitor);
-        window = glfwCreateWindow(_windowWidth, _windowHeight, "Kos 2.0", enabledFullScreen ? monitor : NULL, NULL);
-
+        window = glfwCreateWindow(_windowWidth, _windowHeight, "Alchemication", enabledFullScreen ? monitor : NULL, NULL);
+        glfwSetWindowUserPointer(window, this);
         m_inputSystem.InputInit(window);
+
+
         if (!window)
         {
             glfwTerminate();
             return -1;
         }
         //set call back
-        if (enabledFullScreen) glfwSetWindowFocusCallback(window, fullScreenFocusCallback);
+        CheckFullscreen();
         glfwSetWindowIconifyCallback(window, iconifyCallback);
         glfwMaximizeWindow(window); // Maximize the window
+
+        //set input callback
+        glfwSetCursorPosCallback(window, CursorPosCallback);
+        glfwSetDropCallback(window, DropCallback);
 
         /* Make the window's context current */
         glfwMakeContextCurrent(window);
@@ -226,39 +231,42 @@ namespace Application {
         windowHeight = static_cast<float>(_windowHeight);
         glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-        glfwSetWindowUserPointer(window, this);
+
         return 0;
     }
 
 
 
 
-	int AppWindow::Draw() {
+    int AppWindow::Update() {
 
 
 
         if ((m_inputSystem.IsKeyPressed(keys::LeftAlt) || m_inputSystem.IsKeyPressed(keys::RightAlt)) && m_inputSystem.IsKeyTriggered(keys::ENTER)) {
-            if (enabledFullScreen) {
-                glfwSetWindowFocusCallback(window, windowedFocusCallback);
-                glfwSetWindowMonitor(window, nullptr, 100, 100, static_cast<int>(AppWindow::windowWidth), static_cast<int>(AppWindow::windowHeight), 0);
-                enabledFullScreen = false;
-            }
-            else {
-                glfwSetWindowFocusCallback(window, fullScreenFocusCallback);
-                glfwSetWindowMonitor(window, AppWindow::monitor, 0, 0, AppWindow::mode->width, AppWindow::mode->height, AppWindow::mode->refreshRate);
-
-                enabledFullScreen = true;
-            }
+            CheckFullscreen();
         }
 
         return 0;
-	}
+    }
 
-	int AppWindow::CleanUp() {
+    void AppWindow::CheckFullscreen() {
+        if (enabledFullScreen) {
+            glfwSetWindowFocusCallback(window, fullScreenFocusCallback);
+            glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+            enabledFullScreen = false;
+        }
+        else {
+            glfwSetWindowFocusCallback(window, windowedFocusCallback);
+            glfwSetWindowMonitor(window, nullptr, 100, 100, static_cast<int>(windowWidth), static_cast<int>(windowHeight), 0);
+            enabledFullScreen = true;
+        }
+    }
+
+    int AppWindow::CleanUp() {
 
         glfwDestroyWindow(window);
         return 0;
-	}
+    }
 
     void AppWindow::setCursorImage(const std::string& imageFile, bool centered)
     {
@@ -288,7 +296,7 @@ namespace Application {
                 LOGGING_ERROR("Failed to create default GLFW cursor.");
                 return;
             }
-            glfwSetCursor(AppWindow::window, defaultCursor);
+            glfwSetCursor(window, defaultCursor);
             return;
         }
 
@@ -307,7 +315,7 @@ namespace Application {
                 LOGGING_ERROR("Failed to create default GLFW cursor.");
                 return;
             }
-            glfwSetCursor(AppWindow::window, defaultCursor);
+            glfwSetCursor(window, defaultCursor);
             return;
         }
 
@@ -324,16 +332,16 @@ namespace Application {
                 LOGGING_ERROR("Failed to create default GLFW cursor.");
                 return;
             }
-            glfwSetCursor(AppWindow::window, defaultCursor);
+            glfwSetCursor(window, defaultCursor);
             return;
         }
 
-        glfwSetCursor(AppWindow::window, customCursor);
+        glfwSetCursor(window, customCursor);
         stbi_image_free(image.pixels);
 
         stbi_set_flip_vertically_on_load(true);
     }
 
-  
+
 
 }

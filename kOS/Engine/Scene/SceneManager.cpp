@@ -194,7 +194,7 @@ namespace scenes {
         }
     }
 
-	void SceneManager::Update()
+	void SceneManager::EndFrame()
 	{
         if (!m_clearQueue.empty()) {
 
@@ -257,15 +257,12 @@ namespace scenes {
 
 	void SceneManager::ImmediateClearScene(const std::string& scene)
 	{
-
-		size_t numberOfEntityInScene = m_ecs.sceneMap.find(scene)->second.sceneIDs.size();
-		for (int n{}; n < numberOfEntityInScene; n++) {
-			if (m_ecs.sceneMap.find(scene)->second.sceneIDs.size() <= 0) break;
-			auto entityid = m_ecs.sceneMap.find(scene)->second.sceneIDs.begin();
-			if (!m_ecs.GetParent(*entityid)) {
-				m_ecs.DeleteEntity(*entityid);
-			}
-		}
+        auto entityids = m_ecs.sceneMap.find(scene)->second.sceneIDs;
+        for (auto id : entityids) {
+            if (!m_ecs.GetParent(id)) {
+                m_ecs.DeleteEntity(id);
+            }
+        }
 
 
 		//remove scene from activescenes
