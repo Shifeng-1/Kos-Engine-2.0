@@ -73,7 +73,7 @@ namespace ecs {
 
 		EntityID CreateEntity(std::string scene);
 		EntityID DuplicateEntity(EntityID, std::string scene = {});
-		bool DeleteEntity(EntityID);
+		void DeleteEntity(EntityID);
 
 		template<typename T>
 		T* AddComponent(EntityID ID);
@@ -190,6 +190,8 @@ namespace ecs {
 		
 
 	private:
+
+		void DeleteEntityImmediate(EntityID);
 		//modify from set next state
 		GAMESTATE m_nextState{ STOP };
 		GAMESTATE m_state{ STOP };
@@ -211,7 +213,7 @@ namespace ecs {
 		EntityID m_entityCount{};
 		std::stack<EntityID> m_availableEntityID;
 		std::unordered_map<utility::GUID, ecs::EntityID> m_GUIDtoEntityID;
-
+		std::vector<EntityID> m_deletedEntities;
 
 	};
 
