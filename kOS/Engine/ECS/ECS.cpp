@@ -81,12 +81,6 @@ namespace ecs{
 
 
 	void ECS::Update(float DT) {
-		//clear and deletedEntities
-		for (auto id : m_deletedEntities) {
-			DeleteEntityImmediate(id);
-		}
-		m_deletedEntities.clear();
-
 
 		//update deltatime
 		m_deltaTime = DT;
@@ -137,10 +131,18 @@ namespace ecs{
 		
 	}
 
+	void ECS::EndFrame() {
+		if (m_deletedEntities.size() > 0) {
+			//clear and deletedEntities
+			for (EntityID id : m_deletedEntities) {
+				DeleteEntityImmediate(id);
+			}
+			m_deletedEntities.clear();
+		}
+	}
+
 	void ECS::Unload() {
 		m_combinedComponentPool.clear();
-
-		//delete ecs;
 	}
 
 	void ECS::RegisterEntity(EntityID ID) {
@@ -304,7 +306,7 @@ namespace ecs{
 		if (GetChild(ID).has_value()) {
 			std::vector<EntityID> childs = GetChild(ID).value();
 			for (auto& x : childs) {
-				DeleteEntity(x);
+				DeleteEntityImmediate(x);
 			}
 		}
 

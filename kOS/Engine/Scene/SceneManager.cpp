@@ -194,7 +194,7 @@ namespace scenes {
         }
     }
 
-	void SceneManager::Update()
+	void SceneManager::EndFrame()
 	{
         if (!m_clearQueue.empty()) {
 

@@ -69,6 +69,7 @@ namespace ecs {
 		void Load();
 		void Init();
 		void Update(float DeltaTime);
+		void EndFrame();
 		void Unload();
 
 		EntityID CreateEntity(std::string scene);

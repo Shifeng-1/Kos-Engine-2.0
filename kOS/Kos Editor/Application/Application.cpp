@@ -90,13 +90,6 @@ namespace Application {
         //resourceManager->GetResource<R_Scene>(windowData.startScene);
         LOGGING_INFO("Load Asset Successful");
 
-        /*--------------------------------------------------------------
-           INITIALIZE Input
-        --------------------------------------------------------------*/
-        //call back must happen before imgui
-        input.SetCallback(lvWindow.window);
-        LOGGING_INFO("Set Input Call Back Successful");
-
         
         /*--------------------------------------------------------------
             INITIALIZE EDITOR // LAST INIT
@@ -152,10 +145,6 @@ namespace Application {
                     accumulatedTime -= static_cast<float>(fixedDeltaTime);
                     ++currentNumberOfSteps;
                 }
-                /*--------------------------------------------------------------
-                    Update SceneManager // STAY THE FIRST ON TOP
-                --------------------------------------------------------------*/
-                sceneManager.Update();
                 
                 /*--------------------------------------------------------------
                     UPDATE INPUT
@@ -204,6 +193,17 @@ namespace Application {
                  DRAWING/RENDERING Window
                 --------------------------------------------------------------*/
                 lvWindow.Draw();
+
+
+                /*--------------------------------------------------------------
+                    ecs Endframe
+                --------------------------------------------------------------*/
+                ecs.EndFrame();
+
+                /*--------------------------------------------------------------
+                    SceneManager EndFrame
+                --------------------------------------------------------------*/
+                sceneManager.EndFrame();
 
 
                 graphicsManager.gm_ClearGBuffer();

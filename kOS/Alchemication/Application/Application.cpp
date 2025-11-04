@@ -93,17 +93,6 @@ namespace Application {
         graphicsManager.gm_Initialize(static_cast<float>(windowData.windowWidth), static_cast<float>(windowData.windowHeight));
         LOGGING_INFO("Load Graphic Pipeline Successful");
 
-        /*--------------------------------------------------------------
-           INITIALIZE Input
-        --------------------------------------------------------------*/
-        //call back must happen before imgui
-        input.SetCallback(lvWindow.window);
-        LOGGING_INFO("Set Input Call Back Successful");
-
-
-
-
-
 
 
         LOGGING_INFO("Application Init Successful");
@@ -150,10 +139,6 @@ namespace Application {
                     accumulatedTime -= static_cast<float>(fixedDeltaTime);
                     ++currentNumberOfSteps;
                 }
-                /*--------------------------------------------------------------
-                    Update SceneManager // STAY THE FIRST ON TOP
-                --------------------------------------------------------------*/
-                sceneManager.Update();
 
                 /*--------------------------------------------------------------
                     UPDATE INPUT
@@ -195,6 +180,16 @@ namespace Application {
                  DRAWING/RENDERING Window
                 --------------------------------------------------------------*/
                 lvWindow.Draw();
+
+                /*--------------------------------------------------------------
+                    ecs Endframe
+                --------------------------------------------------------------*/
+                ecs.EndFrame();
+
+                /*--------------------------------------------------------------
+                    SceneManager EndFrame
+                --------------------------------------------------------------*/
+                sceneManager.EndFrame();
 
 
                 graphicsManager.gm_ClearGBuffer();

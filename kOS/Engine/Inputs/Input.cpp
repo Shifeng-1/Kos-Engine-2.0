@@ -55,18 +55,6 @@ namespace Input {
 		}
 	}
 	
-	void InputSystem::SetCallback(GLFWwindow* window) {
-		glfwSetWindowUserPointer(window, this);
-
-		glfwSetCursorPosCallback(window, [](GLFWwindow* w, double x, double y) {
-			static_cast<InputSystem*>(glfwGetWindowUserPointer(w))->OnCursorPos(x, y);
-			});
-
-		glfwSetDropCallback(window, [](GLFWwindow* w, int count, const char** paths) {
-			static_cast<InputSystem*>(glfwGetWindowUserPointer(w))->OnDrop(count, paths);
-			});
-	}
-	
 	void InputSystem::HideCursor(bool check) {
 		if (check) {
 			glfwSetInputMode(inputWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);

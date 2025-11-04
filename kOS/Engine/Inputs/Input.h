@@ -48,7 +48,6 @@ namespace Input {
 		std::vector<std::string> droppedFiles;
 		GLFWwindow* inputWindow;
 
-		void SetCallback(GLFWwindow* window);
 		void HideCursor(bool check);
 		bool IsKeyTriggered(const keyCode key);
 		bool IsKeyPressed(const keyCode key);
