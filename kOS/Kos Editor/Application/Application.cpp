@@ -103,7 +103,7 @@ namespace Application {
          --------------------------------------------------------------*/
 
         const char* glsl_version = "#version 130";
-        Editor.Initialize(lvWindow.window, glsl_version, configpath::editorTagPath, configpath::imguiINIPath);
+        Editor.Initialize(glsl_version, configpath::editorTagPath, configpath::imguiINIPath);
         LOGGING_INFO("Load ImGui Successful");
 
 

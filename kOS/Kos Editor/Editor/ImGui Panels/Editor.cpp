@@ -68,7 +68,7 @@ namespace gui {
 	}
 
 
-	void ImGuiHandler::Initialize(GLFWwindow* window, const char* glsl_version, const std::string& editorTagsFile, const std::string& imguiINI)
+	void ImGuiHandler::Initialize(const char* glsl_version, const std::string& editorTagsFile, const std::string& imguiINI)
 	{
 
 
@@ -127,7 +127,7 @@ namespace gui {
 		DeserializeProfile();
 
 		// Setup Platform/Renderer bindings
-		ImGui_ImplGlfw_InitForOpenGL(window, true);
+		ImGui_ImplGlfw_InitForOpenGL(m_window.window, true);
 		ImGui_ImplOpenGL3_Init(glsl_version);
 
 		// load current layout

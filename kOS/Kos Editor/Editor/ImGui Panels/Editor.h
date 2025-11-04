@@ -113,7 +113,7 @@ namespace gui {
                        multi-viewport windows), and applies the dark style theme.
         */
         /******************************************************************/
-        void Initialize(GLFWwindow* window, const char* glsl_version, const std::string& editorTagsFile, const std::string& imguiINI);
+        void Initialize( const char* glsl_version, const std::string& editorTagsFile, const std::string& imguiINI);
 
         /******************************************************************/
         /*!
