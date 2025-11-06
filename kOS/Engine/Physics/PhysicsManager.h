@@ -40,9 +40,6 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 using namespace physx;
 
 namespace physics {
-
-
-
 	class PhysicsManager {
 	public:
 		PhysicsManager() = default;  
@@ -56,24 +53,23 @@ namespace physics {
 		PxScene* GetScene() { return m_scene; }
 		PxMaterial* GetDefaultMaterial() { return m_defaultMaterial; }
 		PxControllerManager* GetControllerManager() { return m_controllerManager; }
-		float GetFixedDeltaTime() const { return m_fixedDeltaTime; }
-		void SetFixedDeltaTime(float t) { m_fixedDeltaTime = t; }
+		PhysicsEventCallback* GetEventCallback() const { return m_eventCallback; }
+
+		float FixedDeltaTime() const { return m_fixedDeltaTime; }
+		int FrameCount() const { return m_frameCount; }
 
 		void AddForce(void*, const glm::vec3&, ForceMode mode = ForceMode::Force);
 		void AddTorque(void*, const glm::vec3&, ForceMode mode = ForceMode::Force);
 
-		//bool Raycast(const glm::vec3&, const glm::vec3&, float, RaycastHit&);
 		bool Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, RaycastHit& outHit, void* actorToIgnore);
 
-		PhysicsEventCallback* GetEventCallback() const { return m_eventCallback; }
-
 		physicslayer::PhysicsLayer layers;
-
 	private:
 		PhysicsManager(const PhysicsManager&) = delete;
 		PhysicsManager& operator=(const PhysicsManager&) = delete;
-
 		
+		PxDefaultAllocator m_allocator;
+		PxDefaultErrorCallback m_errorCallback;
 		PxFoundation* m_foundation = nullptr;
 		PxPhysics* m_physics = nullptr;
 		PxScene* m_scene = nullptr;
@@ -82,8 +78,10 @@ namespace physics {
 		PxControllerManager* m_controllerManager = nullptr;
 		PhysicsEventCallback* m_eventCallback = nullptr;
 
-		float m_fixedDeltaTime = 1.0f / 60.0f;
+		float m_fixedDeltaTime = 1.0f / 50.0f;
+		float m_maximumDeltaTIme = 1.0f / 3.0f;
 		float m_accumulator = 0.0f;
+		int m_frameCount = 0;
 	};
 }
 

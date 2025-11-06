@@ -32,12 +32,8 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "PhysicsManager.h"
 
 namespace physics {
-
 	void PhysicsManager::Init() {
-		static PxDefaultAllocator g_Allocator;
-		static PxDefaultErrorCallback g_ErrorCallback;
-
-		m_foundation = PxCreateFoundation(PX_PHYSICS_VERSION, g_Allocator, g_ErrorCallback);
+		m_foundation = PxCreateFoundation(PX_PHYSICS_VERSION, m_allocator, m_errorCallback);
 		PX_ASSERT(m_foundation);
 
 		m_physics = PxCreatePhysics(PX_PHYSICS_VERSION, *m_foundation, PxTolerancesScale{});
@@ -114,6 +110,8 @@ namespace physics {
 	void PhysicsManager::Update(float deltaTime) {
 		if (!m_scene) { return; }
 		m_accumulator += deltaTime;
+		if (m_accumulator > m_maximumDeltaTIme) { m_accumulator = m_maximumDeltaTIme; }
+		m_frameCount = 0;
 		while (m_accumulator >= m_fixedDeltaTime) {
 			m_scene->simulate(m_fixedDeltaTime);
 			m_scene->fetchResults(true);
@@ -122,6 +120,7 @@ namespace physics {
 				m_eventCallback->ProcessTriggerStay(); 
 			}
 			m_accumulator -= m_fixedDeltaTime;
+			++m_frameCount;
 		}
 	}
 
@@ -138,20 +137,6 @@ namespace physics {
 			rb->addTorque(PxVec3{ torque.x, torque.y, torque.z }, ToPhysxForceMode(mode));
 		}
 	}
-
-	//bool PhysicsManager::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, RaycastHit& outHit) {
-	//	if (!m_scene) { return false; }
-	//	PxRaycastBuffer hit;
-	//	bool isHit = m_scene->raycast(PxVec3{ origin.x, origin.y, origin.z }, PxVec3{ direction.x, direction.y, direction.z }.getNormalized(), maxDistance, hit);
-	//	if (isHit && hit.hasBlock) {
-	//		outHit.point = glm::vec3{ hit.block.position.x, hit.block.position.y, hit.block.position.z };
-	//		outHit.normal = glm::vec3{ hit.block.normal.x, hit.block.normal.y, hit.block.normal.z };
-	//		outHit.distance = hit.block.distance;
-	//		if (hit.block.actor && hit.block.actor->userData) { outHit.entityID = reinterpret_cast<unsigned int>(hit.block.actor->userData); }
-	//		return true;
-	//	}
-	//	return false;
-	//}
 
 	bool PhysicsManager::Raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, RaycastHit& outHit, void* actorToIgnore) {
 		if (!m_scene) { return false; }
