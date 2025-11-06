@@ -15,6 +15,10 @@ file(GLOB_RECURSE EDITOR_SOURCES
 )
 
 add_executable(Alchemication ${EDITOR_SOURCES})
+if (MSVC)
+    # Build without console window
+    target_link_options(Alchemication PRIVATE /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup)
+endif()
 add_dependencies(Alchemication SCRIPTS)
 
 target_link_libraries(Alchemication PRIVATE Kos_Engine)
@@ -25,6 +29,6 @@ target_include_directories(Alchemication
 )
 
 if(MSVC)
-    target_compile_options(Alchemication PRIVATE /Zc:preprocessor)
+    target_compile_options(Alchemication PRIVATE /Zc:preprocessor )
 endif()
 

@@ -176,18 +176,21 @@ namespace serialization{
 
 		{//Update entity without GUID
 			ecs::NameComponent* nameComp = m_ecs.GetComponent<ecs::NameComponent>(entityId);
-			if (nameComp && nameComp->entityGUID.Empty()) {
-				nameComp->entityGUID = utility::GenerateGUID();
-				m_ecs.InsertGUID(nameComp->entityGUID, entityId);
-			}
-			std::string GUIDString = nameComp->entityGUID.GetToString();
-			rapidjson::Value key("entityGUID", allocator); // key name
-			rapidjson::Value value;
-			value.SetString(GUIDString.c_str(),
-				static_cast<rapidjson::SizeType>(GUIDString.size()),
-				allocator);
+			if(nameComp) {
+				if (nameComp->entityGUID.Empty()) {
+					nameComp->entityGUID = utility::GenerateGUID();
+					m_ecs.InsertGUID(nameComp->entityGUID, entityId);
+				}
+				std::string GUIDString = nameComp->entityGUID.GetToString();
+				rapidjson::Value key("entityGUID", allocator); // key name
+				rapidjson::Value value;
+				value.SetString(GUIDString.c_str(),
+					static_cast<rapidjson::SizeType>(GUIDString.size()),
+					allocator);
 
-			entityData.AddMember(key, value, allocator);
+				entityData.AddMember(key, value, allocator);
+			}
+
 		}
 
 
@@ -234,10 +237,13 @@ namespace serialization{
 				ecs::NameComponent* nameComp = m_ecs.GetComponent<ecs::NameComponent>(newEntityId);
 				if (nameComp) {
 					nameComp->entityGUID.SetFromString(guidStr);
+					
 					m_ecs.InsertGUID(nameComp->entityGUID, newEntityId);
 				}
 			}
 		}
+
+		
 
 		const auto& componentKey = m_ecs.GetComponentKeyData();
 		for (const auto& [ComponentName, key] : componentKey) {

@@ -69,11 +69,12 @@ namespace ecs {
 		void Load();
 		void Init();
 		void Update(float DeltaTime);
+		void EndFrame();
 		void Unload();
 
-		EntityID CreateEntity(std::string scene);
+		EntityID CreateEntity(const std::string& scene);
 		EntityID DuplicateEntity(EntityID, std::string scene = {});
-		bool DeleteEntity(EntityID);
+		void DeleteEntity(EntityID);
 
 		template<typename T>
 		T* AddComponent(EntityID ID);
@@ -123,7 +124,7 @@ namespace ecs {
 
 		//ENTITY DATA GETTERS
 		void InsertGUID(const utility::GUID& guid, ecs::EntityID id) {
-			m_GUIDtoEntityID.insert({ guid, id });
+			m_GUIDtoEntityID[guid] = id;
 		}
 
 		void DeleteGUID(const utility::GUID& guid) {
@@ -190,6 +191,8 @@ namespace ecs {
 		
 
 	private:
+
+		void DeleteEntityImmediate(EntityID);
 		//modify from set next state
 		GAMESTATE m_nextState{ STOP };
 		GAMESTATE m_state{ STOP };
@@ -211,7 +214,7 @@ namespace ecs {
 		EntityID m_entityCount{};
 		std::stack<EntityID> m_availableEntityID;
 		std::unordered_map<utility::GUID, ecs::EntityID> m_GUIDtoEntityID;
-
+		std::vector<EntityID> m_deletedEntities;
 
 	};
 

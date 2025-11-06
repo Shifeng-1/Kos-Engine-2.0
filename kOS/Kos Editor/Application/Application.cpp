@@ -90,13 +90,6 @@ namespace Application {
         //resourceManager->GetResource<R_Scene>(windowData.startScene);
         LOGGING_INFO("Load Asset Successful");
 
-        /*--------------------------------------------------------------
-           INITIALIZE Input
-        --------------------------------------------------------------*/
-        //call back must happen before imgui
-        input.SetCallback(lvWindow.window);
-        LOGGING_INFO("Set Input Call Back Successful");
-
         
         /*--------------------------------------------------------------
             INITIALIZE EDITOR // LAST INIT
@@ -152,17 +145,18 @@ namespace Application {
                     accumulatedTime -= static_cast<float>(fixedDeltaTime);
                     ++currentNumberOfSteps;
                 }
-                /*--------------------------------------------------------------
-                    Update SceneManager // STAY THE FIRST ON TOP
-                --------------------------------------------------------------*/
-                sceneManager.Update();
                 
                 /*--------------------------------------------------------------
                     UPDATE INPUT
                 --------------------------------------------------------------*/
-
                 input.InputUpdate(deltaTime);
                 Editor.InputUpdate();
+
+                /*--------------------------------------------------------------
+                 Update Window
+                --------------------------------------------------------------*/
+                lvWindow.Update();
+
                 /*--------------------------------------------------------------
                     UPDATE ECS
                 --------------------------------------------------------------*/
@@ -200,11 +194,16 @@ namespace Application {
                 --------------------------------------------------------------*/
                 graphicsManager.gm_ResetFrameBuffer();
 
-                /*--------------------------------------------------------------
-                 DRAWING/RENDERING Window
-                --------------------------------------------------------------*/
-                lvWindow.Draw();
 
+
+                /*--------------------------------------------------------------
+                    SceneManager EndFrame
+                --------------------------------------------------------------*/
+                sceneManager.EndFrame();
+                /*--------------------------------------------------------------
+                    ecs Endframe
+                --------------------------------------------------------------*/
+                ecs.EndFrame();
 
                 graphicsManager.gm_ClearGBuffer();
 
