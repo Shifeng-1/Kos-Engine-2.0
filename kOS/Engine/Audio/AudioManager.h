@@ -17,6 +17,8 @@ namespace audio {
         AudioManager();                                 
         ~AudioManager();
 
+        static FMOD::System* GetCore() { return s_fmod; }
+
         void Init();
 
 
