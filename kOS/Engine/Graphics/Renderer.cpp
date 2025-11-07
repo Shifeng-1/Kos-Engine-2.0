@@ -169,12 +169,16 @@ void MeshRenderer::Render(const CameraData& camera, Shader& shader)
 {
 	shader.SetBool("isNotRigged", true);
 	shader.SetVec3("color", glm::vec3{1.f,1.f,1.f});
-	for (MeshData& mesh : meshesToDraw)
-	{
-		shader.SetTrans("model", mesh.transformation);
-		shader.SetInt("entityID", mesh.entityID+1);
-		mesh.meshToUse->PBRDraw(shader, mesh.meshMaterial);
+	for (std::vector<MeshData>& meshData : meshesToDraw) {
+		for (MeshData& mesh : meshData)
+		{
+			shader.SetTrans("model", mesh.transformation);
+			shader.SetInt("entityID", mesh.entityID + 1);
+			mesh.meshToUse->PBRDraw(shader, mesh.meshMaterial);
+		}
 	}
+
+
 }
 
 void SkinnedMeshRenderer::Render(const CameraData& camera, Shader& shader)
@@ -254,7 +258,9 @@ void LightRenderer::DebugRender(const CameraData& camera, Shader& shader) {
 
 void MeshRenderer::Clear()
 {
-	meshesToDraw.clear();
+	for (std::vector<MeshData>& md : meshesToDraw) {
+		md.clear();
+	}
 }
 
 void SkinnedMeshRenderer::Clear()

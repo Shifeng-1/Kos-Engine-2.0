@@ -48,7 +48,8 @@ struct MeshRenderer : BasicRenderer
 {
 	void Render(const CameraData& camera, Shader& shader);
 	void Clear() override;
-	std::vector<MeshData> meshesToDraw{};
+	std::array<std::vector<MeshData>, layer::MAXLAYER> meshesToDraw{};
+	//std::array
 };
 
 struct SkinnedMeshRenderer : BasicRenderer
