@@ -84,6 +84,7 @@ void GraphicsManager::gm_Render()
 	//Iterate through game cameras and render each of them,
 	if (currentGameCameraIndex + 1 <= gameCameras.size()) {
 		gm_RenderToGameFrameBuffer();
+
 		//std::cout << "REDNERED TO GAME BUFFER\n";
 	}
 	if (editorCameraActive) {
@@ -163,12 +164,27 @@ void GraphicsManager::gm_RenderToEditorFrameBuffer()
 void GraphicsManager::gm_RenderToGameFrameBuffer()
 {
 	//Render deffered rendering
-	gm_FillDataBuffersGame(gameCameras[currentGameCameraIndex]);
-
+	//Iterate through GOS and render to this gbuffer and defferred buffer
 	framebufferManager.sceneBuffer.BindForDrawing();
+	//gm_RenderCubeMap(cd);
+	for (CameraData& cd : gameCameras) {
+		//Clear G buffer at the start maybe
+		//Bind and clear g buffer
+		if (!cd.culling) {
+			gm_FillDataBuffersGame(cd);
+		}
+		else {
+			//Only render those that have been culled
+			gm_FillDataBuffersGame(cd, cd.layer);
 
-	gm_RenderCubeMap(gameCameras[currentGameCameraIndex]);
-	gm_RenderDeferredObjects(gameCameras[currentGameCameraIndex]);
+		}
+		glBindFramebuffer(GL_FRAMEBUFFER, framebufferManager.sceneBuffer.fbo);
+		glViewport(0, 0, static_cast<GLsizei>(framebufferManager.sceneBuffer.width), static_cast<GLsizei>(framebufferManager.sceneBuffer.height));
+
+		gm_RenderDeferredObjects(cd);
+
+
+	}
 	glDisable(GL_DEPTH_TEST);
 	//Render UI
 	framebufferManager.UIBuffer.BindForDrawing();
@@ -190,6 +206,12 @@ void GraphicsManager::gm_FillDataBuffers(const CameraData& camera)
 void GraphicsManager::gm_FillDataBuffersGame(const CameraData& camera)
 {
 	gm_FillGBufferGame(camera);
+	gm_FillDepthBuffer(camera);
+	gm_FillDepthCube(camera);
+}
+void GraphicsManager::gm_FillDataBuffersGame(const CameraData& camera, layer::LAYERS layer)
+{
+	gm_FillGBufferGame(camera, layer);
 	gm_FillDepthBuffer(camera);
 	gm_FillDepthCube(camera);
 }
@@ -251,6 +273,29 @@ void GraphicsManager::gm_FillGBufferGame(const CameraData& camera) {
 	gBufferPBRShader->Disuse();
 
 }
+void GraphicsManager::gm_FillGBufferGame(const CameraData& camera, layer::LAYERS layer) {
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	//Render to G buffer 
+	framebufferManager.gBuffer.BindGBuffer();
+	Shader* gBufferPBRShader{ &shaderManager.engineShaders.find("GBufferPBRShader")->second };
+	Shader* gBufferDebugShader{ &shaderManager.engineShaders.find("GBufferDebugShader")->second };
+
+	gBufferPBRShader->Use();
+	gBufferPBRShader->SetTrans("projection", camera.GetPerspMtx()); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+	gBufferPBRShader->SetTrans("view", camera.GetViewMtx());
+	gBufferPBRShader->SetVec3("cameraPosition", camera.position);
+	gBufferPBRShader->SetFloat("uShaderType", 0.f);
+
+	//Render all meshes
+	meshRenderer.Render(camera, *gBufferPBRShader,layer);
+	skinnedMeshRenderer.Render(camera, *gBufferPBRShader);
+	cubeRenderer.Render(camera, *gBufferPBRShader, &this->cube);
+	sphereRenderer.Render(camera, *gBufferPBRShader, &this->sphere);
+	gBufferPBRShader->Disuse();
+
+}
+
 void GraphicsManager::gm_FillDepthBuffer(const CameraData& camera)
 {
 	//Render to Depth buffer
@@ -333,10 +378,13 @@ void GraphicsManager::gm_FillDepthCube(const CameraData& camera) {
 			}
 
 		}
-		for (SkinnedMeshData& md : skinnedMeshRenderer.skinnedMeshesToDraw) {
-			pointShadowShader->SetTrans("model", md.transformation);
-			md.meshToUse->PBRDraw(*pointShadowShader, md.meshMaterial);
+		for (std::vector<SkinnedMeshData>& meshData : skinnedMeshRenderer.skinnedMeshesToDraw) {
+			for (SkinnedMeshData& md : meshData)
+			{
+				pointShadowShader->SetTrans("model", md.transformation);
+				md.meshToUse->PBRDraw(*pointShadowShader, md.meshMaterial);
 
+			}
 		}
 		cubeRenderer.Render(camera, *pointShadowShader, &this->cube);
 
@@ -369,10 +417,13 @@ void GraphicsManager::gm_FillDepthCube(const CameraData& camera, int index,glm::
 		}
 
 	}
-	for (SkinnedMeshData& md : skinnedMeshRenderer.skinnedMeshesToDraw) {
-		pointShadowShader->SetTrans("model", md.transformation);
-		md.meshToUse->PBRDraw(*pointShadowShader, md.meshMaterial);
+	for (std::vector<SkinnedMeshData>& meshData : skinnedMeshRenderer.skinnedMeshesToDraw) {
+		for (SkinnedMeshData& md : meshData)
+		{
+			pointShadowShader->SetTrans("model", md.transformation);
+			md.meshToUse->PBRDraw(*pointShadowShader, md.meshMaterial);
 
+		}
 	}
 	cubeRenderer.Render(camera, *pointShadowShader, &this->cube);
 
@@ -470,7 +521,8 @@ void GraphicsManager::gm_RenderDeferredObjects(const CameraData& camera)
 
 	Shader* deferredPBRShader{ &shaderManager.engineShaders.find("DeferredPBRShader")->second };
 
-
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
 	lightRenderer.RenderAllLights(camera, *deferredPBRShader);
 
 	//Render everything else

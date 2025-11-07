@@ -66,7 +66,7 @@ namespace ecs {
                     pbrTmpList.push_back(PBRMaterial{ diff,spec,rough,ao,norm });
                 }
                 if (mesh)
-                    m_graphicsManager.gm_PushMeshData(MeshData{ mesh,std::make_shared<PBRMaterialList>(pbrTmpList,true), transform->transformation,id });
+                    m_graphicsManager.gm_PushMeshData(MeshData{ mesh,std::make_shared<PBRMaterialList>(pbrTmpList,true), transform->transformation,id }, nameComp->Layer);
 
             }
             // Skip entities not in this scene or hidden
