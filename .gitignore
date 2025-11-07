@@ -23,5 +23,5 @@ out
 Debug
 Release
 !imgui.ini
-imguiStyle.json
 kOS/Resource/
+kOS/Kos Editor/Configs/imguiStyle.json

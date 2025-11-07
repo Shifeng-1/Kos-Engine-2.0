@@ -56,13 +56,13 @@ namespace Input {
 	}
 	
 	void InputSystem::HideCursor(bool check) {
+		cursorHidden = check;
 		if (check) {
 			glfwSetInputMode(inputWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
 		else {
 			glfwSetInputMode(inputWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
-	
 	}
 	
 	void InputSystem::InputInit(GLFWwindow* window) {
