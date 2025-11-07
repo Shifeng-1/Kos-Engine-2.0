@@ -119,10 +119,10 @@ namespace gui {
 
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;// Enable Docking
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;// Enable Multi-Viewport / Platform Windows
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;	// Enable Keyboard Controls
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;	// Enable Gamepad Controls
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;		// Enable Docking
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;		// Enable Multi-Viewport / Platform Windows
 
 		DeserializeProfile();
 
@@ -197,7 +197,6 @@ namespace gui {
 				m_clickedEntityId = -1;
 			}
 
-
 			ImVec2 windowSize = ImGui::GetIO().DisplaySize;
 			int windowWidth, windowHeight;
 			glfwGetWindowSize(m_window.window, &windowWidth, &windowHeight);
@@ -247,6 +246,7 @@ namespace gui {
 			ImGui::RenderPlatformWindowsDefault();
 			glfwMakeContextCurrent(backup_current_context);
 		}
+
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
@@ -278,7 +278,7 @@ namespace gui {
 			onSaveAll.Invoke("");
 		}
 
-		if (m_input.currentMousePos != m_input.prevMousePos) {
+		if (m_input.currentMousePos != m_input.prevMousePos && m_input.cursorHidden) {
 			double mouseX, mouseY;
 			int winX, winY;
 			glfwGetWindowPos(m_window.window, &winX, &winY);

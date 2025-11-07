@@ -80,8 +80,6 @@ namespace gui
             pos.y += (renderWindowSize.y - imageSize.y) / 2;
         }
 
-        //ImVec2 testSize(960, 540);
-
         //pipe->m_renderFinalPassWithDebug();
         gameWindowPos = pos;
         gameWindowSize = imageSize;
@@ -94,9 +92,22 @@ namespace gui
         
         auto winLoc = ImVec2(pos.x - ImGui::GetWindowPos().x, pos.y - ImGui::GetWindowPos().y);
         ImGui::SetCursorPos(winLoc);
-        if (ImGui::InvisibleButton("##GameWindowBut", imageSize, ImGuiButtonFlags_MouseButtonLeft)) {
-            LOGGING_INFO("Clicked Game Screen");
+        if (ImGui::InvisibleButton("##GameWindowBut", imageSize, ImGuiButtonFlags_MouseButtonLeft) && m_ecs.GetState() == GAMESTATE::RUNNING) {
+            m_input.HideCursor(true);
+            ImGuiIO& io = ImGui::GetIO();
+            io.ConfigFlags |= ImGuiConfigFlags_NoMouse;
         }
+
+        if (m_input.cursorHidden) {
+            ImGui::SetMouseCursor(ImGuiMouseCursor_None);
+            if (ImGui::IsKeyDown(ImGuiKey_Escape)) {
+                m_input.HideCursor(false);
+                ImGui::SetMouseCursor(ImGuiMouseCursor_Arrow);
+                ImGuiIO& io = ImGui::GetIO();
+                io.ConfigFlags &= ~ImGuiConfigFlags_NoMouse;
+            }
+        }
+
         //ImGui::SetCursorPos(winLoc);
         //auto str1 = "WinPos [" + std::to_string(winLoc.x) + ',' + std::to_string(winLoc.y) + "] Pos: [" + std::to_string(pos.x) + ',' + std::to_string(pos.y) + "]";
         //ImGui::Text(str1.c_str());

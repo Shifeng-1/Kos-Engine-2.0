@@ -47,6 +47,7 @@ namespace Input {
 		glm::vec2 prevMousePos;
 		std::vector<std::string> droppedFiles;
 		GLFWwindow* inputWindow;
+		bool cursorHidden;
 
 		void HideCursor(bool check);
 		bool IsKeyTriggered(const keyCode key);
