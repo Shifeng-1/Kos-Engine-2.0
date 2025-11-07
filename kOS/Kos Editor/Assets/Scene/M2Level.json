@@ -8,7 +8,11 @@
     {
         "entityGUID": "5605c854-fb0e-4a4f-3972-1ff4fc431957",
         "MaterialComponent": {
-            "materialGUID": "44e530cf-6c90-af94-a08d-d73e6b7a190b"
+            "materialGUID": [
+                {
+                    "materialGUID": "44e530cf-6c90-af94-a08d-d73e6b7a190b"
+                }
+            ]
         },
         "MeshFilterComponent": {
             "meshGUID": "084212fc-c344-c615-3381-83350ec06fb7"
@@ -241,7 +245,9 @@
                         "y": 0.0,
                         "z": -1.0
                     },
-                    "active": false
+                    "active": false,
+                    "culling": false,
+                    "layer": 0
                 },
                 "NameComponent": {
                     "entityName": "Camera",
@@ -338,7 +344,11 @@
                     {
                         "entityGUID": "841bd619-51ae-7f8c-2c79-fc695fbc5364",
                         "MaterialComponent": {
-                            "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                            "materialGUID": [
+                                {
+                                    "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                                }
+                            ]
                         },
                         "MeshFilterComponent": {
                             "meshGUID": "874f2cee-12a8-60ee-5eb0-47b549f08822"
@@ -579,7 +589,11 @@
             {
                 "entityGUID": "99cfa757-6697-b1f9-c5c1-77f94fd9b95a",
                 "MaterialComponent": {
-                    "materialGUID": "b8f80247-4a7e-b87a-1d3d-540516e0938b"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "23e7b1cb-3d50-e7e5-20f9-515b8bddebf5"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "7b0adace-76b2-df23-aedb-f6a5ed8d4a88"
@@ -1054,7 +1068,7 @@
         },
         "CubeRendererComponent": {},
         "MaterialComponent": {
-            "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+            "materialGUID": []
         },
         "NameComponent": {
             "entityName": "Obstacle",
@@ -1876,7 +1890,11 @@
             {
                 "entityGUID": "da81fd9b-7c88-f61f-0692-33c6b5dc9cba",
                 "MaterialComponent": {
-                    "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "448ff5ff-3732-73c6-9a7d-622633b24227"
@@ -1929,7 +1947,11 @@
             {
                 "entityGUID": "023bc14c-be97-b1b5-34ad-2b409ae051f8",
                 "MaterialComponent": {
-                    "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "448ff5ff-3732-73c6-9a7d-622633b24227"
@@ -1982,7 +2004,11 @@
             {
                 "entityGUID": "e3fd5409-073d-8e80-6ebd-9234c48127bf",
                 "MaterialComponent": {
-                    "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "448ff5ff-3732-73c6-9a7d-622633b24227"
@@ -2035,7 +2061,11 @@
             {
                 "entityGUID": "629b61fc-e939-21f4-f440-4cb23330c172",
                 "MaterialComponent": {
-                    "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "448ff5ff-3732-73c6-9a7d-622633b24227"
@@ -2088,7 +2118,11 @@
             {
                 "entityGUID": "f2a60a8e-252b-1cf0-ebfa-bbf0a323680b",
                 "MaterialComponent": {
-                    "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "448ff5ff-3732-73c6-9a7d-622633b24227"
@@ -2141,7 +2175,11 @@
             {
                 "entityGUID": "05a57d2d-54e8-6528-68f8-042a1f112278",
                 "MaterialComponent": {
-                    "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "448ff5ff-3732-73c6-9a7d-622633b24227"
@@ -2194,7 +2232,11 @@
             {
                 "entityGUID": "7fd5003e-a264-7636-e9e7-1f5068420a6d",
                 "MaterialComponent": {
-                    "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "e9ece6d7-4ed7-73b3-9309-ec58d5d77a07"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "046eb175-fa5b-f1b2-646e-184083d5ccfb"
@@ -5086,7 +5128,11 @@
                     }
                 },
                 "MaterialComponent": {
-                    "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "824d152d-be2f-bbb9-9482-090d580683ff"
@@ -5155,7 +5201,11 @@
                     }
                 },
                 "MaterialComponent": {
-                    "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "824d152d-be2f-bbb9-9482-090d580683ff"
@@ -5224,7 +5274,11 @@
                     }
                 },
                 "MaterialComponent": {
-                    "materialGUID": "d1dc99cf-dde1-ca8b-eeda-2c33d81b557d"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "d1dc99cf-dde1-ca8b-eeda-2c33d81b557d"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "d99f9522-9e6b-105a-4ef2-7e2b63bcc074"
@@ -5341,7 +5395,11 @@
                     {
                         "entityGUID": "55d986f6-250d-876d-6b09-f6ed54032156",
                         "MaterialComponent": {
-                            "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                            "materialGUID": [
+                                {
+                                    "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                                }
+                            ]
                         },
                         "MeshFilterComponent": {
                             "meshGUID": "660b9bb0-6212-77a4-c1f4-dc40ea8cce28"
