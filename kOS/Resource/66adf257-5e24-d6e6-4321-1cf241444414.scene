@@ -11,7 +11,6 @@
             "bulletDamage": 1,
             "bulletSpeed": 100.0
         },
-        "CubeRendererComponent": {},
         "MaterialComponent": {
             "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
         },
@@ -34,6 +33,7 @@
                 "radius": 0.15000000596046448
             }
         },
+        "SphereRendererComponent": {},
         "TransformComponent": {
             "WorldTransformation": {
                 "position": {

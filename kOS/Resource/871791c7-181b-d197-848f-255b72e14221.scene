@@ -1,5 +1,11 @@
 [
     {
+        "SceneData": {
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
         "entityGUID": "6eccd0dd-0748-2903-db9b-c175cbf98f24",
         "NameComponent": {
             "entityName": "Acid Prop Holder",

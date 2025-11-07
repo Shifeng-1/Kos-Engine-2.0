@@ -773,68 +773,6 @@
         }
     },
     {
-        "entityGUID": "13e8f710-0ecd-5c35-7d35-459bf9d87772",
-        "BoxColliderComponent": {
-            "isTrigger": false,
-            "box": {
-                "center": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
-                },
-                "size": {
-                    "x": 1.0,
-                    "y": 1.0,
-                    "z": 1.0
-                }
-            }
-        },
-        "NameComponent": {
-            "entityName": "Wall Collider 23",
-            "Layer": 0,
-            "entityTag": "Obstacle",
-            "isPrefab": false,
-            "prefabName": "",
-            "hide": false
-        },
-        "TransformComponent": {
-            "WorldTransformation": {
-                "position": {
-                    "x": -90.55024719238281,
-                    "y": 0.4696362018585205,
-                    "z": -39.564971923828125
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -45.000003814697266,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 10.5,
-                    "y": 10.5,
-                    "z": 10.5
-                }
-            },
-            "LocalTransformation": {
-                "position": {
-                    "x": -90.55024719238281,
-                    "y": 0.4696362018585205,
-                    "z": -39.564971923828125
-                },
-                "rotation": {
-                    "x": 0.0,
-                    "y": -45.000003814697266,
-                    "z": 0.0
-                },
-                "scale": {
-                    "x": 10.5,
-                    "y": 10.5,
-                    "z": 10.5
-                }
-            }
-        }
-    },
-    {
         "entityGUID": "0383ec70-b8c7-2fdf-1a47-04f59a7279a8",
         "BoxColliderComponent": {
             "isTrigger": false,
@@ -845,9 +783,9 @@
                     "z": 0.0
                 },
                 "size": {
-                    "x": 1.0,
+                    "x": 2.0,
                     "y": 1.0,
-                    "z": 1.0
+                    "z": 0.10000000149011612
                 }
             }
         },
@@ -862,9 +800,9 @@
         "TransformComponent": {
             "WorldTransformation": {
                 "position": {
-                    "x": -82.7720718383789,
+                    "x": -84.93553161621094,
                     "y": 0.4696362018585205,
-                    "z": -31.78679656982422
+                    "z": -39.597129821777344
                 },
                 "rotation": {
                     "x": 0.0,
@@ -879,13 +817,13 @@
             },
             "LocalTransformation": {
                 "position": {
-                    "x": -82.7720718383789,
+                    "x": -84.93553161621094,
                     "y": 0.4696362018585205,
-                    "z": -31.78679656982422
+                    "z": -39.597129821777344
                 },
                 "rotation": {
                     "x": 0.0,
-                    "y": -45.000003814697266,
+                    "y": -45.0,
                     "z": 0.0
                 },
                 "scale": {
@@ -1767,7 +1705,7 @@
     {
         "entityGUID": "52dac04b-17f9-d959-a3b8-8621e6f163f1",
         "CapsuleColliderComponent": {
-            "isTrigger": true,
+            "isTrigger": false,
             "capsule": {
                 "center": {
                     "x": 0.0,
@@ -1794,6 +1732,16 @@
         "PathfinderComponent": {
             "pathfinderMovementSpeed": 2.5,
             "chase": true
+        },
+        "RigidbodyComponent": {
+            "mass": 1.0,
+            "drag": 0.0,
+            "angularDrag": 0.05000000074505806,
+            "useGravity": false,
+            "isKinematic": true,
+            "interpolation": 0,
+            "collisionDetection": 0,
+            "constraints": 0
         },
         "TransformComponent": {
             "WorldTransformation": {
@@ -3064,7 +3012,7 @@
         },
         "OctreeGeneratorComponent": {
             "drawWireframe": true,
-            "drawNodes": false,
+            "drawNodes": true,
             "drawBound": false
         },
         "TransformComponent": {
