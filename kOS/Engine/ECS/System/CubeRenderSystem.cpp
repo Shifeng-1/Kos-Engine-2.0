@@ -36,7 +36,8 @@ namespace ecs
                 model = glm::mat4{1.f};
                 model = glm::translate(model, center) * glm::mat4_cast(glm::quat(glm::radians(transform->WorldTransformation.rotation))) * glm::scale(model, size);
             }
-            std::shared_ptr<R_Material> mat = m_resourceManager.GetResource<R_Material>(matRenderer->materialGUID);
+            if (!matRenderer->materialGUID.size())continue;;
+            std::shared_ptr<R_Material> mat = m_resourceManager.GetResource<R_Material>(matRenderer->materialGUID[0]);
             if (!mat)
                 return;
             ;

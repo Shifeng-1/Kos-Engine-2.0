@@ -81,6 +81,7 @@ void GraphicsManager::gm_Render()
 
 	//Force only first camera to be active for now
 	currentGameCameraIndex = 0;
+	//Iterate through game cameras and render each of them,
 	if (currentGameCameraIndex + 1 <= gameCameras.size()) {
 		gm_RenderToGameFrameBuffer();
 		//std::cout << "REDNERED TO GAME BUFFER\n";
@@ -324,9 +325,12 @@ void GraphicsManager::gm_FillDepthCube(const CameraData& camera) {
 		}
 		pointShadowShader->SetFloat("far_plane", lightRenderer.dcm[i].far_plane);
 		pointShadowShader->SetVec3("lightPos", lightRenderer.pointLightsToDraw[i].position);
-		for (MeshData& md : meshRenderer.meshesToDraw) {
-			pointShadowShader->SetTrans("model", md.transformation);
-			md.meshToUse->PBRDraw(*pointShadowShader, md.meshMaterial);
+		for (std::vector<MeshData>& meshData : meshRenderer.meshesToDraw) {
+			for (MeshData& md : meshData)
+			{
+				pointShadowShader->SetTrans("model", md.transformation);
+				md.meshToUse->PBRDraw(*pointShadowShader, md.meshMaterial);
+			}
 
 		}
 		for (SkinnedMeshData& md : skinnedMeshRenderer.skinnedMeshesToDraw) {
@@ -343,7 +347,7 @@ void GraphicsManager::gm_FillDepthCube(const CameraData& camera) {
 
 }
 
-void GraphicsManager::gm_FillDepthCube(const CameraData& camera, int index) {
+void GraphicsManager::gm_FillDepthCube(const CameraData& camera, int index,glm::vec3 lighPos) {
 	Shader* pointShadowShader{ &shaderManager.engineShaders.find("PointShadowShader")->second };
 	glCullFace(GL_FRONT);
 
@@ -351,15 +355,18 @@ void GraphicsManager::gm_FillDepthCube(const CameraData& camera, int index) {
 	glBindFramebuffer(GL_FRAMEBUFFER, lightRenderer.dcm[index].GetFBO());
 	glClear(GL_DEPTH_BUFFER_BIT);
 	pointShadowShader->Use();
-	lightRenderer.dcm[index].FillMap(lightRenderer.pointLightsToDraw[index].position);
+	lightRenderer.dcm[index].FillMap(lighPos);
 	for (unsigned int j = 0; j < 6; ++j) {
 		pointShadowShader->SetMat4("shadowMatrices[" + std::to_string(j) + "]", lightRenderer.dcm[index].shadowTransforms[j]);
 	}
 	pointShadowShader->SetFloat("far_plane", lightRenderer.dcm[index].far_plane);
-	pointShadowShader->SetVec3("lightPos", lightRenderer.pointLightsToDraw[index].position);
-	for (MeshData& md : meshRenderer.meshesToDraw) {
-		pointShadowShader->SetTrans("model", md.transformation);
-		md.meshToUse->PBRDraw(*pointShadowShader, md.meshMaterial);
+	pointShadowShader->SetVec3("lightPos", lighPos);
+	for (std::vector<MeshData>& meshData : meshRenderer.meshesToDraw) {
+		for (MeshData& md : meshData)
+		{
+			pointShadowShader->SetTrans("model", md.transformation);
+			md.meshToUse->PBRDraw(*pointShadowShader, md.meshMaterial);
+		}
 
 	}
 	for (SkinnedMeshData& md : skinnedMeshRenderer.skinnedMeshesToDraw) {

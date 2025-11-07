@@ -166,7 +166,7 @@ public:
 	}
 
 	void Draw(Shader& shader);
-	void PBRDraw(Shader& shader, PBRMaterial const& pbrMat);
+	void PBRDraw(Shader& shader, std::shared_ptr < PBRMaterial> const& pbrMat);
 	void DrawAnimation(Shader& shader, PBRMaterial const& pbrMat, const std::vector<glm::mat4>& boneMatrices);
 
 	const std::vector<Animation>& GetAnimations() const { return animations; }

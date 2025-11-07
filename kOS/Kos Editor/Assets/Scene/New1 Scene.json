@@ -20,15 +20,15 @@
                 "position": {
                     "x": 0.0,
                     "y": 0.0,
-                    "z": -8.1899995803833
+                    "z": -4.714456558227539
                 },
                 "rotation": {
-                    "x": 35.79999923706055,
-                    "y": 19.299999237060547,
-                    "z": -4.523059828898113e-7
+                    "x": 35.79999542236328,
+                    "y": 19.299997329711914,
+                    "z": -9.046119657796226e-7
                 },
                 "scale": {
-                    "x": 0.9999999403953552,
+                    "x": 0.9999998807907104,
                     "y": 1.0,
                     "z": 1.0
                 }
@@ -37,15 +37,15 @@
                 "position": {
                     "x": 0.0,
                     "y": 0.0,
-                    "z": -8.1899995803833
+                    "z": -4.714456558227539
                 },
                 "rotation": {
                     "x": 35.79999923706055,
-                    "y": 19.299999237060547,
-                    "z": 0.0
+                    "y": 19.29999542236328,
+                    "z": -0.0000018092238178724074
                 },
                 "scale": {
-                    "x": 1.0,
+                    "x": 0.9999998807907104,
                     "y": 1.0,
                     "z": 1.0
                 }
@@ -55,11 +55,11 @@
     {
         "entityGUID": "60ee2bd8-eefe-d9d9-be2e-b7605da2b744",
         "LightComponent": {
-            "lightType": 1,
+            "lightType": 0,
             "color": {
-                "x": 0.8999999761581421,
-                "y": 1.2000000476837158,
-                "z": 3.799999952316284
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
             },
             "diffuseStrength": {
                 "x": 1.0,
@@ -80,10 +80,10 @@
             },
             "cutOff": 5.5,
             "outerCutOff": 87.5999984741211,
-            "intesnity": 150.10000610351563,
-            "shadowCast": true,
-            "bakedLighting": false,
-            "depthMapGUID": "ac7f4064-9a1b-9b28-4c5a-68a755864cbe"
+            "intesnity": 1.7999999523162842,
+            "shadowCast": false,
+            "bakedLighting": true,
+            "depthMapGUID": "9703cbb8-22f7-e7d8-7f0b-1d6f25648c03"
         },
         "NameComponent": {
             "entityName": "test light",
@@ -147,7 +147,11 @@
             ]
         },
         "MaterialComponent": {
-            "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+            "materialGUID": [
+                {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                }
+            ]
         },
         "MeshFilterComponent": {
             "meshGUID": "ee1ad3b9-e869-074a-fe25-b15ac13d76d0"
@@ -228,7 +232,9 @@
                 "y": -0.4000000059604645,
                 "z": -1.600000023841858
             },
-            "active": false
+            "active": false,
+            "culling": false,
+            "layer": 0
         },
         "NameComponent": {
             "entityName": "camera",
@@ -523,7 +529,7 @@
     {
         "entityGUID": "49e12cda-8e58-a39e-de9f-f08e9dfad6f9",
         "MaterialComponent": {
-            "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+            "materialGUID": []
         },
         "MeshFilterComponent": {
             "meshGUID": "00000000-0000-0000-0000-000000000000"
@@ -576,7 +582,7 @@
     {
         "entityGUID": "bbd4ddb4-aefa-85dd-10e3-8eb84494266b",
         "MaterialComponent": {
-            "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+            "materialGUID": []
         },
         "NameComponent": {
             "entityName": "TestSphere",
@@ -613,6 +619,56 @@
                 "rotation": {
                     "x": 0.0,
                     "y": 0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            }
+        }
+    },
+    {
+        "entityGUID": "173044ff-5e71-293e-d119-d103c74e5a85",
+        "MeshFilterComponent": {
+            "meshGUID": "1b24abdb-864c-b924-5d58-c999e401d55b"
+        },
+        "NameComponent": {
+            "entityName": "Evelyn",
+            "Layer": 0,
+            "entityTag": "Default",
+            "isPrefab": false,
+            "prefabName": "",
+            "hide": false
+        },
+        "TransformComponent": {
+            "WorldTransformation": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -28.009658813476563
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
+                    "z": 0.0
+                },
+                "scale": {
+                    "x": 1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                }
+            },
+            "LocalTransformation": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -28.009658813476563
+                },
+                "rotation": {
+                    "x": 0.0,
+                    "y": -0.0,
                     "z": 0.0
                 },
                 "scale": {

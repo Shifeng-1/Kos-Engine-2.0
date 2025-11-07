@@ -1,13 +1,19 @@
 [
     {
+        "SceneData": {
+            "skyBoxGUID": [],
+            "ambientIntensity": 1.0
+        }
+    },
+    {
         "entityGUID": "77c4e220-31ca-51d7-0e1c-06e725269946",
         "CapsuleColliderComponent": {
             "isTrigger": false,
             "capsule": {
                 "center": {
-                    "x": 0.0,
-                    "y": 0.0,
-                    "z": 0.0
+                    "x": -69.30000305175781,
+                    "y": 75.30000305175781,
+                    "z": -4.599999904632568
                 },
                 "radius": 61.599998474121094,
                 "height": 161.1999969482422,
@@ -15,7 +21,11 @@
             }
         },
         "MaterialComponent": {
-            "materialGUID": "d1dc99cf-dde1-ca8b-eeda-2c33d81b557d"
+            "materialGUID": [
+                {
+                    "materialGUID": "d1dc99cf-dde1-ca8b-eeda-2c33d81b557d"
+                }
+            ]
         },
         "MeshFilterComponent": {
             "meshGUID": "d99f9522-9e6b-105a-4ef2-7e2b63bcc074"

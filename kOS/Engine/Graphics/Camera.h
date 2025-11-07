@@ -26,12 +26,13 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 
 #pragma once
 #include "GraphicsReferences.h"
+#include "ECS/LayerData.h"
 
 class CameraData {
 public:  
 
 	CameraData() = default;
-	CameraData(float fov, float nearPlane, float farPlane, glm::vec2 size, glm::vec3 position,glm::vec3 rot,glm::vec3 target, bool active);
+	CameraData(float fov, float nearPlane, float farPlane, glm::vec2 size, glm::vec3 position,glm::vec3 rot,glm::vec3 target, bool active,bool culling, layer::LAYERS layer);
 
 	virtual glm::mat4 CalculateViewMtx();
 	glm::mat4 CalculatePerspMtx();
@@ -53,6 +54,8 @@ public:
 	glm::vec3 position{0.f,0.f,-50.f}; // Current position of the camera in 3D space
 	glm::vec3 rotation{ 0.f,0.f,0.f };
 	bool active{ false };
+	bool culling{ false };
+	layer::LAYERS layer;
 	glm::vec3 target{ 0.f };   // Target point that the camera is looking at
 	float r{ glm::length(position) };
 	float alpha{ glm::asin(position.y / r) };

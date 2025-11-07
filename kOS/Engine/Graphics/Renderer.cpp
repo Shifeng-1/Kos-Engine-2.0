@@ -169,13 +169,16 @@ void MeshRenderer::Render(const CameraData& camera, Shader& shader)
 {
 	shader.SetBool("isNotRigged", true);
 	shader.SetVec3("color", glm::vec3{1.f,1.f,1.f});
-	for (MeshData& mesh : meshesToDraw)
-	{
-		shader.SetTrans("model", mesh.transformation);
-		shader.SetInt("entityID", mesh.entityID+1);
-
-		mesh.meshToUse->PBRDraw(shader, mesh.meshMaterial);
+	for (std::vector<MeshData>& meshData : meshesToDraw) {
+		for (MeshData& mesh : meshData)
+		{
+			shader.SetTrans("model", mesh.transformation);
+			shader.SetInt("entityID", mesh.entityID + 1);
+			mesh.meshToUse->PBRDraw(shader, mesh.meshMaterial);
+		}
 	}
+
+
 }
 
 void SkinnedMeshRenderer::Render(const CameraData& camera, Shader& shader)
@@ -189,7 +192,7 @@ void SkinnedMeshRenderer::Render(const CameraData& camera, Shader& shader)
 		if (mesh.animationToUse)
 		{
 			mesh.animationToUse->Update(mesh.currentDuration, glm::mat4(1.f), glm::mat4(1.f), mesh.meshToUse->GetBoneMap(), mesh.meshToUse->GetBoneInfo());
-			mesh.meshToUse->DrawAnimation(shader, mesh.meshMaterial, mesh.animationToUse->GetBoneFinalMatrices());
+			mesh.meshToUse->DrawAnimation(shader, *mesh.meshMaterial, mesh.animationToUse->GetBoneFinalMatrices());
 		}
 		else
 		{
@@ -255,7 +258,9 @@ void LightRenderer::DebugRender(const CameraData& camera, Shader& shader) {
 
 void MeshRenderer::Clear()
 {
-	meshesToDraw.clear();
+	for (std::vector<MeshData>& md : meshesToDraw) {
+		md.clear();
+	}
 }
 
 void SkinnedMeshRenderer::Clear()

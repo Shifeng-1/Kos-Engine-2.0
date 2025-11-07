@@ -84,7 +84,7 @@ namespace ecs
                 // std::shared_ptr<R_Texture> rough = m_resourceManager.GetResource<R_Texture>(skinnedMesh->roughnessMaterialGUID);
 
                 if (mesh)
-                    m_graphicsManager.gm_PushSkinnedMeshData(SkinnedMeshData{mesh, skeleton, PBRMaterial{diff, spec, rough, ao, norm}, transform->transformation, anim->m_CurrentTime, id});
+                    m_graphicsManager.gm_PushSkinnedMeshData(SkinnedMeshData{mesh, skeleton, std::make_shared<PBRMaterial>(PBRMaterial{diff, spec, rough, ao, norm}), transform->transformation, anim->m_CurrentTime, id});
             }
             // else
             //  mesh = static_cast<R_Model*>(skinnedMesh->cachedSkinnedMeshResource);
