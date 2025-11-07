@@ -18,8 +18,6 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 
 #include "Component.h"
 
-namespace FMOD { class Channel; }
-
 namespace ecs {
 
     struct AudioFile {
@@ -43,7 +41,7 @@ namespace ecs {
         bool use3D = { false };
         float minDistance = { 1.0f };   
         float maxDistance = { 20.0f };   
-        FMOD::Channel* channel = nullptr;
+        void* channel = nullptr;
 
         REFLECTABLE(AudioFile, audioGUID, volume, loop, playOnStart, hasPlayed, pan, isBGM, isSFX, use3D,minDistance,maxDistance)
     };

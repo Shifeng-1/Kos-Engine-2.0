@@ -50,10 +50,11 @@ namespace ecs {
 			for (auto& af : audioComp->audioFiles) {
 
 				if (af.use3D && transform && af.channel) {
+					FMOD::Channel* ch = static_cast<FMOD::Channel*>(af.channel);
 					glm::vec3 pos = transform->WorldTransformation.position;
 					FMOD_VECTOR fpos{ pos.x, pos.y, pos.z };
 					FMOD_VECTOR fvel{ 0,0,0 };
-					af.channel->set3DAttributes(&fpos, &fvel);
+					ch->set3DAttributes(&fpos, &fvel);
 				}
 
 				if (!af.requestPlay) continue;
