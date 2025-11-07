@@ -24,10 +24,10 @@ namespace ecs {
             const glm::vec3& velocity, float lifetime, ParticleComponent*& particle, glm::vec4* position, glm::vec3* velocities, float* lifetime_list);
         
         // Update particle lifetimes and kill dead particles
-        void UpdateParticleLifetimes(float dt, ParticleComponent*& particle, glm::vec4* positions);
+        void UpdateParticleLifetimes(float dt, ParticleComponent*& particle, glm::vec4* positions, float* lifetime_list);
         
         // Handle particle emission from emitter components
-        void UpdateEmitters(float dt, EntityID id, ParticleComponent*& particleComp,  TransformComponent* transform);
+        void UpdateEmitters(float dt, EntityID id, ParticleComponent*& particleComp,  TransformComponent* transform, glm::vec4* position, glm::vec3* velocities, float* lifetime_list);
 
         void SyncActiveBuffer(ParticleComponent* particle);
 
