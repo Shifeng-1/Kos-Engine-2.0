@@ -41,7 +41,6 @@ public:
 		RegisterResourceType<R_Audio>(".wav");
 		RegisterResourceType<R_Material>(".mat");
 		RegisterResourceType<R_DepthMapCube>(".dcm");
-		RegisterResourceType<R_DepthMapCube>(".prefab");
         //Wait for texture type
     }
 

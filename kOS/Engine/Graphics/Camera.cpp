@@ -27,8 +27,8 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "Config/pch.h"
 #include "Camera.h"
 
-CameraData::CameraData(float fieldOfView, float nearP, float farP, glm::vec2 cameraSize, glm::vec3 pos,glm::vec3 rot ,glm::vec3 targ, bool cameraActive)
-    : fov(fieldOfView), nearPlane(nearP), farPlane(farP), size(cameraSize), position(pos),rotation(rot), target(targ), active(cameraActive)
+CameraData::CameraData(float fieldOfView, float nearP, float farP, glm::vec2 cameraSize, glm::vec3 pos,glm::vec3 rot ,glm::vec3 targ, bool cameraActive, bool cull, layer::LAYERS lay)
+    : fov(fieldOfView), nearPlane(nearP), farPlane(farP), size(cameraSize), position(pos),rotation(rot), target(targ), active(cameraActive),culling(cull),layer(lay)
 {
     rotation.y = fmod(rotation.y, 360.0f);
     rotation.x = glm::clamp(rotation.x, -89.0f, 89.0f);     

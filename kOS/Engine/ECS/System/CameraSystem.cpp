@@ -44,7 +44,7 @@ namespace ecs {
 			
 			m_graphicsManager.gm_PushGameCameraData(CameraData{ camera->fov, camera->nearPlane, camera->farPlane,
 																			camera->size, transform->WorldTransformation.position,transform->LocalTransformation.rotation,
-																			camera->target, camera->active });
+																			camera->target, camera->active,camera->culling,camera->layer });
 
 		}
 

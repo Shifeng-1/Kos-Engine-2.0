@@ -41,4 +41,12 @@ struct PBRMaterial {
 	std::shared_ptr<R_Texture> roughness;
 	std::shared_ptr<R_Texture> ao;
 	std::shared_ptr<R_Texture> normal;
+	bool listCon=false;
+};
+struct PBRMaterialList :public PBRMaterial {
+	PBRMaterialList(std::vector<PBRMaterial> const& pbrList, bool lc) {
+		pbrMatList = pbrList;
+		listCon = lc;
+	}
+	std::vector<PBRMaterial>pbrMatList;
 };

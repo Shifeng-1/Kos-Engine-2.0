@@ -5,7 +5,7 @@
 namespace ecs {
 	class MaterialComponent :public Component {
 	public:
-		utility::GUID materialGUID{};
+		std::vector<utility::GUID> materialGUID{};
 		REFLECTABLE(MaterialComponent, materialGUID)
 
 	};
