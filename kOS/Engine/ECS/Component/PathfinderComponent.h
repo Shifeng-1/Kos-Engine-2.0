@@ -8,6 +8,9 @@ namespace ecs {
 	public:
 		float pathfinderMovementSpeed = 0.f;
 		bool chase = false;
+
+		float pathfinderCurrentTimer = 0.f;
+		float pathfinderMaxTimer = 3.f;
 		REFLECTABLE(PathfinderComponent, pathfinderMovementSpeed, chase)
 	};
 }

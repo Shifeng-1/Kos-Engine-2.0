@@ -45,7 +45,7 @@ public:
 	float playerCurrentMovementSpeed;
 
 	// JUST FOR TESTING, DELETE AFTERWARDS
-
+	float originalDrag;
 
 	void Start() override {
 		creationPointID = ecsPtr->GetEntityIDFromGUID(creationPoint);
@@ -59,6 +59,7 @@ public:
 		cameraSlidingHeight = cameraStandingHeight * 0.3f;
 
 		playerCurrentMovementSpeed = playerMovementSpeed;
+		originalDrag = ecsPtr->GetComponent<ecs::RigidbodyComponent>(entity)->drag;
 	}
 
 	void Update() override {
@@ -74,15 +75,19 @@ public:
 			glm::vec3 right = q * glm::vec3(1.f, 0.f, 0.f);
 
 			// Movement Inputs
+			glm::vec3 moveForce = {0.f, 0.f, 0.f};
+
 			if (Input->IsKeyPressed(keys::W)) {
 				if (Input->IsKeyPressed(keys::LeftShift)) {
-					tc->LocalTransformation.position += glm::normalize(forward) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime() * 1.75f;
+					//tc->LocalTransformation.position += glm::normalize(forward) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime() * 1.75f;
 					//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, glm::normalize(forward) * playerCurrentMovementSpeed * 1.45f, ForceMode::VelocityChange);
+					moveForce += glm::normalize(forward) * playerCurrentMovementSpeed * 1.45f;
 					playerIsRunning = true;
 				}
 				else {
-					tc->LocalTransformation.position += glm::normalize(forward) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
+					//tc->LocalTransformation.position += glm::normalize(forward) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
 					//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, glm::normalize(forward) * playerCurrentMovementSpeed, ForceMode::VelocityChange);
+					moveForce += glm::normalize(forward) * playerCurrentMovementSpeed;
 				}
 			}
 
@@ -91,22 +96,26 @@ public:
 			}
 
 			if (Input->IsKeyPressed(keys::S)) {
-				tc->LocalTransformation.position -= glm::normalize(forward) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
-				//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, -glm::normalize(forward) * playerCurrentMovementSpeed);
+				//tc->LocalTransformation.position -= glm::normalize(forward) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
+				//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, -glm::normalize(forward) * playerCurrentMovementSpeed, ForceMode::VelocityChange);
+				moveForce += -glm::normalize(forward) * playerCurrentMovementSpeed;
 			}
 
 			if (Input->IsKeyPressed(keys::D)) {
-				tc->LocalTransformation.position -= glm::normalize(right) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
-				//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, -glm::normalize(right) * playerCurrentMovementSpeed);
+				//tc->LocalTransformation.position -= glm::normalize(right) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
+				//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, -glm::normalize(right) * playerCurrentMovementSpeed, ForceMode::VelocityChange);
+				moveForce += -glm::normalize(right) * playerCurrentMovementSpeed;
 			}
 
 			if (Input->IsKeyPressed(keys::A)) {
-				tc->LocalTransformation.position += glm::normalize(right) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
-				//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, glm::normalize(right) * playerCurrentMovementSpeed);
+				//tc->LocalTransformation.position += glm::normalize(right) * playerCurrentMovementSpeed * ecsPtr->m_GetDeltaTime();
+				//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, glm::normalize(right) * playerCurrentMovementSpeed, ForceMode::VelocityChange);
+				moveForce += glm::normalize(right) * playerCurrentMovementSpeed;
 			}
 
 			if (Input->IsKeyTriggered(keys::SPACE) && isGrounded) {
-				physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, { 0.f, playerJumpForce, 0.f }, ForceMode::Impulse);
+				std::cout << "JUMPING\n";
+				physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, { 0.f, playerJumpForce, 0.f }, ForceMode::VelocityChange);
 			}
 
 			if (Input->IsKeyPressed(keys::LeftControl) && isGrounded) {
@@ -122,7 +131,19 @@ public:
 				cameraTransform->LocalTransformation.position.y = cameraStandingHeight;
 				playerCurrentMovementSpeed = playerMovementSpeed;
 			}
+
+			physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, moveForce * ecsPtr->m_GetDeltaTime(), ForceMode::VelocityChange);
 			
+			if (!isGrounded) {
+				//physicsPtr->AddForce(ecsPtr->GetComponent<RigidbodyComponent>(entity)->actor, moveForce * ecsPtr->m_GetDeltaTime(), ForceMode::VelocityChange);
+				ecsPtr->GetComponent<RigidbodyComponent>(entity)->drag = 0.f;
+				playerCurrentMovementSpeed = playerMovementSpeed * 0.05f;
+			}
+			else {
+				ecsPtr->GetComponent<RigidbodyComponent>(entity)->drag = originalDrag;
+				playerCurrentMovementSpeed = playerMovementSpeed;
+			}
+
 			// First Person Camera
 			// THIS IS SUPER CURSED FOR NOW I SWEAR -> HARDCODING THE CAMERA TO BE FIRST CHILD
 			//if (auto* cc = ecsPtr->GetComponent<ecs::CameraComponent>(ecsPtr->GetComponent<ecs::TransformComponent>(entity)->m_childID[0])) {	

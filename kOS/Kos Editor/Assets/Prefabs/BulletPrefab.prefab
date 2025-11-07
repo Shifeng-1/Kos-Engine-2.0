@@ -12,7 +12,11 @@
             "bulletSpeed": 100.0
         },
         "MaterialComponent": {
-            "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+            "materialGUID": [
+                {
+                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                }
+            ]
         },
         "NameComponent": {
             "entityName": "BulletPrefab",

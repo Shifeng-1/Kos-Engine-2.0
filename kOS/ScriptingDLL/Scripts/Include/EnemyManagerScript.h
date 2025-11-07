@@ -6,13 +6,17 @@ public:
 	int enemyHealth;
 	float enemyMovementSpeed;
 
+	// REMOVE LATER
+	bool isDead = false;
+
 	void Start() override {
 
 	}
 
 	void Update() override {
-		if (auto* tc = ecsPtr->GetComponent<ecs::TransformComponent>(entity)) {
-
+		if (isDead) {
+			ecsPtr->DeleteEntity(entity);
+			return;
 		}
 	}
 
