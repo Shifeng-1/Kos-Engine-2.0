@@ -73,6 +73,8 @@ namespace gui {
 
 
 		m_imgui_layout = imguiINI;
+
+		
 		//set up reflection
 
 		//REFLECTION, ADD component
@@ -139,6 +141,9 @@ namespace gui {
 
 		//load scene
 		openAndLoadSceneDialog();
+
+		//set style
+		SetStyle();
 
 		//set first active scene
 		for (auto& scene : m_ecs.sceneMap) {

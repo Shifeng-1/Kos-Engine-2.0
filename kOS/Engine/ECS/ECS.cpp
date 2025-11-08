@@ -133,6 +133,12 @@ namespace ecs{
 
 	void ECS::EndFrame() {
 		if (m_deletedEntities.size() > 0) {
+			std::sort(m_deletedEntities.begin(), m_deletedEntities.end());
+			m_deletedEntities.erase(
+				std::unique(m_deletedEntities.begin(), m_deletedEntities.end()),
+				m_deletedEntities.end()
+			);
+
 			//clear and deletedEntities
 			for (EntityID id : m_deletedEntities) {
 				DeleteEntityImmediate(id);
