@@ -88,35 +88,4 @@ namespace layer {
 	}
 
 
-	void LayerStack::m_hideEntitywithChild(ecs::EntityID id)
-	{
-		ecs::NameComponent* nc = m_ecs.GetComponent<ecs::NameComponent>(id);
-		ecs::TransformComponent* tc = m_ecs.GetComponent<ecs::TransformComponent>(id);
-		nc->hide = true;
-
-		if (tc->m_childID.size() > 0) {
-			for (auto child_id : tc->m_childID) {
-				m_hideEntitywithChild(child_id);
-			}
-
-		}
-		
-	}
-
-	void LayerStack::m_unhideEntitywithChild(ecs::EntityID id)
-	{
-		ecs::NameComponent* nc = m_ecs.GetComponent<ecs::NameComponent>(id);
-		ecs::TransformComponent* tc = m_ecs.GetComponent<ecs::TransformComponent>(id);
-		
-		nc->hide = false;
-
-		if (tc->m_childID.size() > 0) {
-			for (auto child_id : tc->m_childID) {
-				m_unhideEntitywithChild(child_id);
-			}
-
-		}
-	}
-
-
 }

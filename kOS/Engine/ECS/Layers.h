@@ -109,28 +109,6 @@ namespace layer{
 		bool m_IsLayerVisable(int layer);
 
 
-		/******************************************************************/
-		/*!
-		\fn      void m_hideEntitywithChild(ecs::EntityID id)
-		\brief   Hides the specified entity along with all of its child entities.
-		\param   id - The ID of the parent entity to be hidden.
-		*/
-		/******************************************************************/
-		void m_hideEntitywithChild(ecs::EntityID id);
-
-		/******************************************************************/
-		/*!
-		\fn      void m_unhideEntitywithChild(ecs::EntityID id)
-		\brief   Unhides the specified entity along with all of its child entities.
-		\param   id - The ID of the parent entity to be unhidden.
-		*/
-		/******************************************************************/
-		void m_unhideEntitywithChild(ecs::EntityID id);
-
-
-		//bool m_CreateLayer(layer);
-
-		//bool m_DeleteLayer(layer);
 
 	public:
 		layermap m_layerMap;

@@ -35,7 +35,10 @@ namespace ecs {
 
 					//TODO - find better way to go about this
 					SceneData sceneData = m_ecs.GetSceneData(m_ecs.GetSceneByEntityID(id));
-					if (!sceneData.isActive) continue;
+					auto* nc = m_ecs.GetComponent<NameComponent>(id);
+					if (!sceneData.isActive || nc->hide) continue;
+					
+				
 
 					auto script = static_cast<ScriptClass*>(m_ecs.GetIComponent<void*>(scriptName, id));
 

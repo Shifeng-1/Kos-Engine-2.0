@@ -92,15 +92,14 @@ namespace ecs {
 		void ResetComponent(EntityID ID);
 
 		//Hierachy Logic
-
 		void SetParent(EntityID parent, EntityID child, bool updateTransform = false);
-
 		void RemoveParent(EntityID child, bool updateTransform = false);
-
 		std::optional<EntityID> GetParent(EntityID child);
-
 		std::optional<std::vector<EntityID>> GetChild(EntityID parent);
 
+
+		//Set Active Entity
+		void SetActive(EntityID ID, bool active);
 
 
 

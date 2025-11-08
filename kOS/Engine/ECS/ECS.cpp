@@ -456,6 +456,27 @@ namespace ecs{
 
 	}
 
+	void ECS::SetActive(EntityID ID, bool active) {
+
+		ecs::NameComponent* nc = GetComponent<ecs::NameComponent>(ID);
+		ecs::TransformComponent* tc =GetComponent<ecs::TransformComponent>(ID);
+		nc->hide = !active;
+
+		if (active) {
+			RegisterEntity(ID);
+		}
+		else {
+			DeregisterEntity(ID);
+		}
+
+		if (tc->m_childID.size() > 0) {
+			for (auto child_id : tc->m_childID) {
+				SetActive(child_id, active);
+			}
+
+		}
+	}
+
 }
 
 
