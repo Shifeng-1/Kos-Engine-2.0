@@ -190,18 +190,7 @@
             "isKinematic": false,
             "interpolation": 0,
             "collisionDetection": 0,
-            "constraints": 0,
-            "speed": 0.0,
-            "velocity": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "angularVelocity": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            }
+            "constraints": 0
         },
         "TransformComponent": {
             "WorldTransformation": {
@@ -477,18 +466,7 @@
                     "isKinematic": true,
                     "interpolation": 0,
                     "collisionDetection": 0,
-                    "constraints": 0,
-                    "speed": 0.0,
-                    "velocity": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "angularVelocity": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    }
+                    "constraints": 0
                 },
                 "SphereColliderComponent": {
                     "isTrigger": true,
@@ -1064,187 +1042,6 @@
                         "scale": {
                             "x": 1.0,
                             "y": 1.0,
-                            "z": 1.0
-                        }
-                    }
-                }
-            },
-            {
-                "entityGUID": "b8eeac60-a6ab-a28f-7c8c-240a1b138cbb",
-                "NameComponent": {
-                    "entityName": "Paused Text",
-                    "Layer": 0,
-                    "entityTag": "Default",
-                    "isPrefab": false,
-                    "prefabName": "",
-                    "hide": true
-                },
-                "PauseMenuScript": {
-                    "isPaused": true
-                },
-                "TextComponent": {
-                    "fontGUID": "c5c95e70-84b4-24b2-d68f-801ffb4b5105",
-                    "text": "PAUSED",
-                    "color": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0
-                    },
-                    "fontSize": 5.0
-                },
-                "TransformComponent": {
-                    "WorldTransformation": {
-                        "position": {
-                            "x": -0.5,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "rotation": {
-                            "x": 0.0,
-                            "y": -0.0,
-                            "z": 0.0
-                        },
-                        "scale": {
-                            "x": 50.0,
-                            "y": 50.0,
-                            "z": 50.0
-                        }
-                    },
-                    "LocalTransformation": {
-                        "position": {
-                            "x": -0.5,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "rotation": {
-                            "x": 0.0,
-                            "y": -0.0,
-                            "z": 0.0
-                        },
-                        "scale": {
-                            "x": 50.0,
-                            "y": 50.0,
-                            "z": 50.0
-                        }
-                    }
-                }
-            },
-            {
-                "entityGUID": "b33b93f4-d9f7-735e-b37b-b589e0e0f6d6",
-                "NameComponent": {
-                    "entityName": "Healthbar Background",
-                    "Layer": 0,
-                    "entityTag": "Default",
-                    "isPrefab": false,
-                    "prefabName": "",
-                    "hide": false
-                },
-                "SpriteComponent": {
-                    "spriteGUID": "80b316d1-88e7-73dd-2705-10dd782652fd",
-                    "color": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0,
-                        "w": 1.0
-                    }
-                },
-                "TransformComponent": {
-                    "WorldTransformation": {
-                        "position": {
-                            "x": -1.1200000047683716,
-                            "y": -0.4699999988079071,
-                            "z": 0.0
-                        },
-                        "rotation": {
-                            "x": -15.600003242492676,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "scale": {
-                            "x": 1.1200000047683716,
-                            "y": 0.20000000298023224,
-                            "z": 1.0
-                        }
-                    },
-                    "LocalTransformation": {
-                        "position": {
-                            "x": -1.1200000047683716,
-                            "y": -0.4699999988079071,
-                            "z": 0.0
-                        },
-                        "rotation": {
-                            "x": -15.600000381469727,
-                            "y": -0.0,
-                            "z": 0.0
-                        },
-                        "scale": {
-                            "x": 1.1200000047683716,
-                            "y": 0.20000000298023224,
-                            "z": 1.0
-                        }
-                    }
-                }
-            },
-            {
-                "entityGUID": "b8706f81-2420-3752-794d-d6e86ecd3192",
-                "HealthBarScript": {
-                    "playerObjectID": 37,
-                    "healthbar1Sprite": "5a80114f-21eb-f6d3-74e2-39c692250c84",
-                    "healthbar2Sprite": "3b1694a7-4e28-2f22-4dcd-184816902644",
-                    "healthbar3Sprite": "34f41b41-6349-ef6e-84e6-0ef70834ce80",
-                    "healthbar4Sprite": "42cb5f67-56d5-d0de-fcad-54440c8b6a56",
-                    "healthbar5Sprite": "a020dc68-9afd-3640-ccf8-36b64eeb5b36",
-                    "healthbar6Sprite": "341f8dca-b8f5-997c-3e69-56d242256841"
-                },
-                "NameComponent": {
-                    "entityName": "Healthbar UI",
-                    "Layer": 0,
-                    "entityTag": "Default",
-                    "isPrefab": false,
-                    "prefabName": "",
-                    "hide": false
-                },
-                "SpriteComponent": {
-                    "spriteGUID": "341f8dca-b8f5-997c-3e69-56d242256841",
-                    "color": {
-                        "x": 1.0,
-                        "y": 1.0,
-                        "z": 1.0,
-                        "w": 1.0
-                    }
-                },
-                "TransformComponent": {
-                    "WorldTransformation": {
-                        "position": {
-                            "x": -1.1183853149414063,
-                            "y": -0.4700000286102295,
-                            "z": 0.0
-                        },
-                        "rotation": {
-                            "x": -15.600010871887207,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "scale": {
-                            "x": 1.0,
-                            "y": 0.10000000149011612,
-                            "z": 1.0
-                        }
-                    },
-                    "LocalTransformation": {
-                        "position": {
-                            "x": -1.1183853149414063,
-                            "y": -0.4700000286102295,
-                            "z": 0.0
-                        },
-                        "rotation": {
-                            "x": -15.600007057189941,
-                            "y": 0.0,
-                            "z": 0.0
-                        },
-                        "scale": {
-                            "x": 1.0,
-                            "y": 0.10000000149011612,
                             "z": 1.0
                         }
                     }
