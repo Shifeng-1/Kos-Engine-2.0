@@ -180,27 +180,55 @@ void MeshRenderer::Render(const CameraData& camera, Shader& shader)
 
 
 }
+void MeshRenderer::Render(const CameraData& camera, Shader& shader, layer::LAYERS layer)
+{
+	shader.SetBool("isNotRigged", true);
+	shader.SetVec3("color", glm::vec3{ 1.f,1.f,1.f });
+		for (MeshData& mesh : meshesToDraw[layer])
+		{
+			shader.SetTrans("model", mesh.transformation);
+			shader.SetInt("entityID", mesh.entityID + 1);
+			mesh.meshToUse->PBRDraw(shader, mesh.meshMaterial);
+		}
+	
 
+
+}
 void SkinnedMeshRenderer::Render(const CameraData& camera, Shader& shader)
 {
 	shader.SetBool("isNotRigged", false);
 	shader.SetVec3("color", glm::vec3{ 1.f,1.f,1.f });
-	for (SkinnedMeshData& mesh : skinnedMeshesToDraw)
-	{
-		shader.SetTrans("model", mesh.transformation);
-		shader.SetInt("entityID", mesh.entityID+1);
-		if (mesh.animationToUse)
+	for (std::vector<SkinnedMeshData>& meshData : skinnedMeshesToDraw) {
+		for (SkinnedMeshData& mesh : meshData)
 		{
-			mesh.animationToUse->Update(mesh.currentDuration, glm::mat4(1.f), glm::mat4(1.f), mesh.meshToUse->GetBoneMap(), mesh.meshToUse->GetBoneInfo());
-			mesh.meshToUse->DrawAnimation(shader, *mesh.meshMaterial, mesh.animationToUse->GetBoneFinalMatrices());
-		}
-		else
-		{
-			mesh.meshToUse->PBRDraw(shader, mesh.meshMaterial);
-		}
+			shader.SetTrans("model", mesh.transformation);
+			shader.SetInt("entityID", mesh.entityID + 1);
+			if (mesh.animationToUse)
+			{
+				mesh.animationToUse->Update(mesh.currentDuration, glm::mat4(1.f), glm::mat4(1.f), mesh.meshToUse->GetBoneMap(), mesh.meshToUse->GetBoneInfo());
+				mesh.meshToUse->DrawAnimation(shader, *mesh.meshMaterial, mesh.animationToUse->GetBoneFinalMatrices());
+			}
+			else
+			{
+				mesh.meshToUse->PBRDraw(shader, mesh.meshMaterial);
+			}
 
+		}
 	}
 }
+
+void SkinnedMeshRenderer::Render(const CameraData& camera, Shader& shader, layer::LAYERS layer)
+{
+	shader.SetBool("isNotRigged", true);
+	shader.SetVec3("color", glm::vec3{ 1.f,1.f,1.f });
+	for (SkinnedMeshData& mesh : skinnedMeshesToDraw[layer])
+	{
+		shader.SetTrans("model", mesh.transformation);
+		shader.SetInt("entityID", mesh.entityID + 1);
+		mesh.meshToUse->PBRDraw(shader, mesh.meshMaterial);
+	}
+}
+
 void LightRenderer::InitializeLightRenderer() {
 	for (int i{ 0 }; i < 16; i++) {
 		dcm[i].InitializeMap();
@@ -251,8 +279,6 @@ void LightRenderer::DebugRender(const CameraData& camera, Shader& shader) {
 	for (size_t i = 0; i < pointLightsToDraw.size(); i++)
 	{
 		PointLightData& pointLight = pointLightsToDraw[i];
-		//Draw debug sphere
-
 	}
 }
 
@@ -265,7 +291,9 @@ void MeshRenderer::Clear()
 
 void SkinnedMeshRenderer::Clear()
 {
-	skinnedMeshesToDraw.clear();
+	for (std::vector<SkinnedMeshData>& md : skinnedMeshesToDraw) {
+		md.clear();
+	}
 }
 void CubeRenderer::Render(const CameraData& camera, Shader& shader, Cube* cubePtr) {
 	for (CubeData& cd : cubesToDraw) {

@@ -38,8 +38,12 @@ namespace ecs {
 
         utility::GUID audioGUID{};
 
+        bool use3D = { false };
+        float minDistance = { 1.0f };   
+        float maxDistance = { 20.0f };   
+        void* channel = nullptr;
 
-        REFLECTABLE(AudioFile, audioGUID, volume, loop, playOnStart, hasPlayed, pan, isBGM, isSFX)
+        REFLECTABLE(AudioFile, audioGUID, volume, loop, playOnStart, hasPlayed, pan, isBGM, isSFX, use3D,minDistance,maxDistance)
     };
 
     class AudioComponent : public Component {

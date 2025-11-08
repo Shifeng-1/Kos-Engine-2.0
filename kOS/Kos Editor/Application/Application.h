@@ -28,6 +28,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "DeSerialization/json_handler.h"
 #include "Reflection/Field.h"
 #include "ECS/ecs.h"
+#include "Audio/AudioManager.h"
 
 
 #include "../Editor/ImGui Panels/Editor.h"
@@ -53,14 +54,16 @@ namespace Application {
 			, resourceManager()
 			, physicsManager()
 			, graphicsManager() 
-			, ecs(peformance, graphicsManager, resourceManager, input, physicsManager, scriptManager)
+			, ecs(peformance, graphicsManager, resourceManager, input, physicsManager, scriptManager,audioManager)
 			, lvWindow(ecs, input)
 			, layersManager(ecs)
 			, serialization(ecs)
 			, sceneManager(ecs, serialization, resourceManager)
 			, scriptManager(ecs, sceneManager, input, physicsManager,resourceManager, reflectionField)
+			, audioManager()
 			, assetManager()
-			, Editor(lvWindow, assetManager, graphicsManager, ecs, sceneManager, serialization, reflectionField, input, physicsManager, layersManager, resourceManager, scriptManager, peformance)
+			, Editor(lvWindow, assetManager, graphicsManager, ecs, sceneManager, serialization, reflectionField, input, physicsManager, layersManager, resourceManager, scriptManager, peformance, audioManager)
+		
 		{
 		}
 		~Application() = default;
@@ -85,7 +88,7 @@ namespace Application {
 		Fields reflectionField;
 		layer::LayerStack layersManager;
 		AssetManager assetManager;
-
+		audio::AudioManager audioManager;
 		gui::ImGuiHandler Editor;
 
 		

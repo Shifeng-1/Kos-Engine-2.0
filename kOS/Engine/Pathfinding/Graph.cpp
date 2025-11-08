@@ -84,10 +84,6 @@ namespace Octrees {
 	const int maxIterations = 1000;
 
 	bool Graph::AStar(OctreeNode* startNode, OctreeNode* endNode) {
-		//std::cout << "RUNNING PATHFINDING\n";
-		//std::cout << "Pathfind Start: " << startNode->bounds.center.x << ", " << startNode->bounds.center.y << ", " << startNode->bounds.center.z << std::endl;
-		//std::cout << "Pathfind End: " << endNode->bounds.center.x << ", " << endNode->bounds.center.y << ", " << endNode->bounds.center.z << std::endl;
-
 		// Reset path list at the start whenever trying to evaluate another path.
 		pathList.clear();
 
@@ -112,13 +108,11 @@ namespace Octrees {
 		openSet.insert(*start);
 
 		Node *neighbour, current;
-
+		int testtest = 0;
 		while (openSet.size()) {
-			//std::cout << "ITERATION: " << iterationCount << std::endl;
-
 			// Max iterations reached, abort algorithm.
+			std::cout << "PATHFIND LOOP: " << testtest++ << std::endl;
 			if (++iterationCount > maxIterations) {
-				//std::cout << "NO PATH FOUND1\n";
 				return false;
 			}
 
@@ -134,23 +128,15 @@ namespace Octrees {
 
 			// If current node is the end node, path is found.
 			if (current == end) {
-				//std::cout << "PATH IS FOUND\n";
+				std::cout << "PATH FOUND\n";
 				ReconstructPath(current);
 				return true;
 			}
 
 			closedSet.push_back(current);
-			//std::cout << std::endl << "NEW CURRENT NODE: " << std::endl;
+
 			for (Edge edge : current.edges) {
 				neighbour = ((edge.a) == current) ? (edge.b) : (edge.a);
-				
-				//std::cout << "CURRENT NODE: " << current.octreeNode.bounds.center.x << ", "
-				//	<< current.octreeNode.bounds.center.y << ", "
-				//	<< current.octreeNode.bounds.center.z << std::endl;
-				//std::cout << "CURRENT EDGE: " << neighbour->octreeNode.bounds.center.x << ", "
-				//	<< neighbour->octreeNode.bounds.center.y << ", "
-				//	<< neighbour->octreeNode.bounds.center.z << std::endl;
-
 				auto closedSetIt = std::find(closedSet.begin(), closedSet.end(), neighbour);
 				if (closedSetIt != closedSet.end()) {
 					continue;
@@ -172,101 +158,18 @@ namespace Octrees {
 						}
 					}
 
+					//if (neighbour) {
+					//	std::cout << "YES NEIGHBOUR\n";
+					//}
+					//else {
+					//	std::cout << "NO NEIGHBOUR\n";
+					//}
 					openSet.insert(*neighbour);
  				}
 			}
 		}
 
-		//std::cout << "NO PATH FOUND2\n";
-		return false;
-	}
-
-	bool Graph::AStarGround(OctreeNode* startNode, OctreeNode* endNode) {
-		//std::cout << "RUNNING GROUND PATHFINDING\n";
-		//std::cout << "Pathfind Ground Start: " << startNode->bounds.center.x << ", " << startNode->bounds.center.y << ", " << startNode->bounds.center.z << std::endl;
-		//std::cout << "Pathfind Ground End: " << endNode->bounds.center.x << ", " << endNode->bounds.center.y << ", " << endNode->bounds.center.z << std::endl;
-
-		// Reset path list at the start whenever trying to evaluate another path.
-		pathList.clear();
-
-		Node* start = FindNode(startNode);
-		Node* end = FindNode(endNode);
-
-		if (!start || !end) {
-			return false;
-		}
-
-		std::multiset<Node, CompareNode> openSet;
-		std::vector<Node> closedSet;
-
-		// The iteration count for when this number increases pass the max iteration and stops the algorithm.
-		int iterationCount = 0;
-
-		// Calculate the current node's g, h and f cost.
-		start->g = 0;
-		start->h = Heuristic(*start, *end);
-		start->f = start->g + start->h;
-		start->fromID = -1;
-		openSet.insert(*start);
-
-		Node* neighbour, current;
-
-		while (openSet.size()) {
-			// Max iterations reached, abort algorithm.
-			if (++iterationCount > maxIterations) {
-				//std::cout << "NO PATH FOUND1\n";
-				return false;
-			}
-
-			Node smallestFCostNode = *openSet.begin();
-			for (Node nod : openSet) {
-				if (nod.f < smallestFCostNode.f) {
-					smallestFCostNode = nod;
-				}
-			}
-
-			current = (*openSet.begin());
-			openSet.erase(openSet.begin());
-
-			// If current node is the end node, path is found.
-			if (current == end) {
-				//std::cout << "PATH IS FOUND\n";
-				ReconstructPath(current);
-				return true;
-			}
-
-			closedSet.push_back(current);
-
-			for (Edge edge : current.edges) {
-				neighbour = ((edge.a) == current) ? (edge.b) : (edge.a);
-
-				auto closedSetIt = std::find(closedSet.begin(), closedSet.end(), neighbour);
-				if (closedSetIt != closedSet.end()) {
-					continue;
-				}
-
-				float tentative_gCost = current.g + Heuristic(current, *neighbour);
-				auto openSetIt = std::find(openSet.begin(), openSet.end(), neighbour);
-
-				if (tentative_gCost < neighbour->g || openSetIt == openSet.end()) {
-					neighbour->g = tentative_gCost;
-					neighbour->h = Heuristic(*neighbour, *end);
-					neighbour->f = neighbour->g + neighbour->h;
-					neighbour->fromID = current.id;
-
-					// I HAVE TO OPTIZMIE THIS NEXT TIME
-					for (Node node : nodes) {
-						if (node.id == neighbour->id) {
-							node.fromID = current.id;
-						}
-					}
-
-					openSet.insert(*neighbour);
-				}
-			}
-		}
-
-		//std::cout << "NO PATH FOUND2\n";
+		std::cout << "NO PATH FOUND\n";
 		return false;
 	}
 
@@ -286,7 +189,7 @@ namespace Octrees {
 		std::reverse(pathList.begin(), pathList.end());
 	}
 
-	float Graph::Heuristic(Node a, Node b) {
+	float Graph::Heuristic(Node const& a, Node const& b) {
 		float result = glm::length2(a.octreeNode.bounds.center - b.octreeNode.bounds.center);
 		return result;
 	}
@@ -298,44 +201,9 @@ namespace Octrees {
 			}
 		}
 
-		//if (edges.size() > 35 && edges.size() < 37) {
-		//	std::cout << "EDGE 0 ADDING NODE BEFORE1: " << edges[0].a.octreeNode.bounds.center.x << ", "
-		//		<< edges[0].a.octreeNode.bounds.center.y << ", "
-		//		<< edges[0].a.octreeNode.bounds.center.z << " to "
-		//		<< edges[0].b.octreeNode.bounds.center.x << ", "
-		//		<< edges[0].b.octreeNode.bounds.center.y << ", "
-		//		<< edges[0].b.octreeNode.bounds.center.z << std::endl;
-		//}
-
-		//if (edges.size() > 35 && edges.size() < 37) {
-		//	std::cout << "EDGE 0 ADDING NODE BEFORE1: " << edges[0].a->octreeNode.bounds.center.x << ", "
-		//		<< edges[0].a->octreeNode.bounds.center.y << ", "
-		//		<< edges[0].a->octreeNode.bounds.center.z << " to "
-		//		<< edges[0].b->octreeNode.bounds.center.x << ", "
-		//		<< edges[0].b->octreeNode.bounds.center.y << ", "
-		//		<< edges[0].b->octreeNode.bounds.center.z << std::endl;
-		//}
-
 		Node nodeToPush(_octreeNode);
 
 		nodes.push_back(nodeToPush);
-
-		//if (edges.size() > 35 && edges.size() < 37) {
-		//	std::cout << "EDGE 0 ADDING NODE AFTER1: " << edges[0].a.octreeNode.bounds.center.x << ", "
-		//		<< edges[0].a.octreeNode.bounds.center.y << ", "
-		//		<< edges[0].a.octreeNode.bounds.center.z << " to "
-		//		<< edges[0].b.octreeNode.bounds.center.x << ", "
-		//		<< edges[0].b.octreeNode.bounds.center.y << ", "
-		//		<< edges[0].b.octreeNode.bounds.center.z << std::endl;
-		//}
-		//if (edges.size() > 35 && edges.size() < 37) {
-		//	std::cout << "EDGE 0 ADDING NODE BEFORE1: " << edges[0].a->octreeNode.bounds.center.x << ", "
-		//		<< edges[0].a->octreeNode.bounds.center.y << ", "
-		//		<< edges[0].a->octreeNode.bounds.center.z << " to "
-		//		<< edges[0].b->octreeNode.bounds.center.x << ", "
-		//		<< edges[0].b->octreeNode.bounds.center.y << ", "
-		//		<< edges[0].b->octreeNode.bounds.center.z << std::endl;
-		//}
 	}
 
 	void Graph::AddEdge(OctreeNode* a, OctreeNode* b) {
@@ -359,37 +227,7 @@ namespace Octrees {
 
 		nodeA->edges.push_back(edge);
 		nodeB->edges.push_back(edge);
-
-
-
-		//if (edges.size() == 36) {
-		//	std::cout << "SIZE 36: " << edges[0].a->octreeNode.bounds.center.x << ", "
-		//		<< edges[0].a->octreeNode.bounds.center.y << ", "
-		//		<< edges[0].a->octreeNode.bounds.center.z << " to "
-		//		<< edges[0].b->octreeNode.bounds.center.x << ", "
-		//		<< edges[0].b->octreeNode.bounds.center.y << ", "
-		//		<< edges[0].b->octreeNode.bounds.center.z << std::endl;
-		//}
-
-		//if (edges.size() == 37) {
-		//	std::cout << "SIZE 37: " << edges[0].a->octreeNode.bounds.center.x << ", "
-		//		<< edges[0].a->octreeNode.bounds.center.y << ", "
-		//		<< edges[0].a->octreeNode.bounds.center.z << " to "
-		//		<< edges[0].b->octreeNode.bounds.center.x << ", "
-		//		<< edges[0].b->octreeNode.bounds.center.y << ", "
-		//		<< edges[0].b->octreeNode.bounds.center.z << std::endl;
-		//}
 	}
-
-	//Node* Graph::FindNode(OctreeNode* _octreeNode) {
-	//	for (Node& node : nodes) {
-	//		if (node.octreeNode.id == _octreeNode->id) {
-	//			return &node;
-	//		}
-	//	}
-
-	//	return nullptr;
-	//}
 
 	Node* Graph::FindNode(OctreeNode* _octreeNode) {
 		//std::cout << "RUNNING FIND NODE\n";

@@ -39,7 +39,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "Physics/PhysicsManager.h"
 #include "Scene/SceneManager.h"
 #include "Scripting/ScriptManager.h"
-
+#include "Audio/AudioManager.h"
 
 namespace ecs {
 
@@ -53,17 +53,19 @@ namespace ecs {
 		Input::InputSystem& m_inputSystem;
 		physics::PhysicsManager& m_physicsManager;
 		ScriptManager& m_scriptManager;
+		audio::AudioManager& m_audioManager;
 
 	public:
 
 
-		ECS(Peformance& peformance, GraphicsManager& graphics, ResourceManager& rm, Input::InputSystem& is, physics::PhysicsManager& pm, ScriptManager& sm) :
+		ECS(Peformance& peformance, GraphicsManager& graphics, ResourceManager& rm, Input::InputSystem& is, physics::PhysicsManager& pm, ScriptManager& sm, audio::AudioManager& audiom) :
 			m_performance(peformance),
 			m_graphicsManager(graphics),
 			m_resourceManager(rm),
 			m_inputSystem(is),
 			m_physicsManager(pm),
-			m_scriptManager(sm)
+			m_scriptManager(sm),
+			m_audioManager(audiom)
 		{}
 
 		void Load();
@@ -274,7 +276,7 @@ namespace ecs {
 		// reversed order expansion
 		(..., signature.set(GetComponentKey(Components::classname())));
 
-		m_systemMap[T::classname()] = std::make_shared<T>(*this, m_graphicsManager, m_resourceManager, m_inputSystem, m_physicsManager, m_scriptManager, m_performance);
+		m_systemMap[T::classname()] = std::make_shared<T>(*this, m_graphicsManager, m_resourceManager, m_inputSystem, m_physicsManager, m_scriptManager, m_performance,m_audioManager);
 		m_systemMap[T::classname()]->AssignSignature(signature);
 
 		std::bitset<GAMESTATE_COUNT> gameState;

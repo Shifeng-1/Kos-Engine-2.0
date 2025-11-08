@@ -443,7 +443,10 @@ namespace gui
         ecs::NameComponent *nc = m_ecs.GetComponent<ecs::NameComponent>(id);
 
         ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
-        ImGui::InvisibleButton(std::string{"##invireorderbutton" + std::to_string(id)}.c_str(), ImVec2{ImGui::GetContentRegionAvail().x, 1.f});
+        if (ImGui::GetContentRegionAvail().x > 0) {
+            ImGui::InvisibleButton(std::string{ "##invireorderbutton" + std::to_string(id) }.c_str(), ImVec2{ ImGui::GetContentRegionAvail().x, 1.f });
+        }
+        
         ImGui::PopStyleVar();
 
         if (ImGui::BeginDragDropTarget())

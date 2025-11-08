@@ -33,6 +33,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "Debugging/Performance.h"
 #include "Scripting/ScriptManager.h"
 #include "Physics/PhysicsManager.h"
+#include "Audio/AudioManager.h"
 
 namespace Application {
 
@@ -82,6 +83,11 @@ namespace Application {
         INITIALIZE SCIRPT
         --------------------------------------------------------------*/
         scriptManager.Init(exePath.string());
+
+        /*--------------------------------------------------------------
+        INITIALIZE Audio Manager
+        --------------------------------------------------------------*/
+        audioManager.Init();
 
         /*--------------------------------------------------------------
            INITIALIZE Start Scene
