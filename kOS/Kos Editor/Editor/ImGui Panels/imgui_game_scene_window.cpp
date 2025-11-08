@@ -92,7 +92,7 @@ namespace gui
         
         auto winLoc = ImVec2(pos.x - ImGui::GetWindowPos().x, pos.y - ImGui::GetWindowPos().y);
         ImGui::SetCursorPos(winLoc);
-        if (ImGui::InvisibleButton("##GameWindowBut", imageSize, ImGuiButtonFlags_MouseButtonLeft) && m_ecs.GetState() == GAMESTATE::RUNNING) {
+        if ((imageSize.x != 0 && imageSize.y != 0) && m_ecs.GetState() == GAMESTATE::RUNNING && ImGui::InvisibleButton("##GameWindowBut", imageSize, ImGuiButtonFlags_MouseButtonLeft) ) {
             m_input.HideCursor(true);
             ImGuiIO& io = ImGui::GetIO();
             io.ConfigFlags |= ImGuiConfigFlags_NoMouse;
