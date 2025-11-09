@@ -1,0 +1,48 @@
+name: Build Engine (Windows)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    name: Build and Test Engine
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=1' -y
+          choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --quiet --norestart" -y
+        shell: powershell
+
+      - name: Configure with CMake
+        run: cmake -S kOS -B kOS/build
+        shell: powershell
+
+      - name: Build (Release)
+        run: cmake --build kOS/build --config Release -- /m
+        shell: powershell
+
+      - name: Run tests
+        run: |
+          cd kOS/bin
+          mkdir ..\test-results
+          .\Release\Kos_test.exe --gtest_output=xml:..\test-results\report.xml
+        shell: powershell
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: kOS/test-results/report.xml
