@@ -1095,6 +1095,15 @@
             },
             {
                 "entityGUID": "0e9a74f1-57e1-de1d-13bc-cc9c159663ea",
+                "HealthBarScript": {
+                    "healthValue": 6,
+                    "healthbar1Sprite": "5ceb4815-dcd3-0390-d12a-c10d4b5add97",
+                    "healthbar2Sprite": "949383c6-f856-0fc6-f1f7-a461292aa5bc",
+                    "healthbar3Sprite": "07f4426e-5e02-3ee1-b3ab-8e3ce80432f6",
+                    "healthbar4Sprite": "8a9a63e8-a6b0-5cdf-8626-5849660c571b",
+                    "healthbar5Sprite": "c51efb4c-3a39-95d8-c01f-a083cc930e2b",
+                    "healthbar6Sprite": "9f280a66-0aa5-515a-ee70-0c9917796013"
+                },
                 "NameComponent": {
                     "entityName": "HealthBar UI",
                     "Layer": 0,
@@ -1144,6 +1153,289 @@
                         "scale": {
                             "x": 0.699999988079071,
                             "y": 0.15000000596046448,
+                            "z": 1.0
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "28e5146d-0578-51c9-c67b-f846cb0ba3a0",
+                "NameComponent": {
+                    "entityName": "Win UI Panel",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": false,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                },
+                "WinSceneScript": {
+                    "winTextObject": "7625362e-3326-917e-37ed-ef534a6df608",
+                    "currentScoreTextObject": "8de00ba0-b34b-f346-babc-56de399ca2fe",
+                    "highScoreTextObject": "f4c9df94-040b-79e1-14ce-99cbb0a9a23f",
+                    "restartTextObject": "eb9c9028-0a9a-ad66-c8e1-8fac64bb0c13",
+                    "currentScore": 100,
+                    "highScore": 500
+                }
+            },
+            {
+                "entityGUID": "7625362e-3326-917e-37ed-ef534a6df608",
+                "NameComponent": {
+                    "entityName": "Win Text",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": false,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TextComponent": {
+                    "fontGUID": "7c849437-f520-f246-6742-d47c3e0d9657",
+                    "text": "YOU WIN!",
+                    "color": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "fontSize": 150.0
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -0.6593939065933228,
+                            "y": 0.6451373100280762,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.5,
+                            "y": 1.5,
+                            "z": 1.5
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": -0.6593939065933228,
+                            "y": 0.6451373100280762,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.5,
+                            "y": 1.5,
+                            "z": 1.5
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "8de00ba0-b34b-f346-babc-56de399ca2fe",
+                "NameComponent": {
+                    "entityName": "Current Score Text",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": false,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TextComponent": {
+                    "fontGUID": "7c849437-f520-f246-6742-d47c3e0d9657",
+                    "text": "Current Score: ",
+                    "color": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "fontSize": 128.0
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -1.5,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": -1.5,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "f4c9df94-040b-79e1-14ce-99cbb0a9a23f",
+                "NameComponent": {
+                    "entityName": "High Score Text",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": false,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TextComponent": {
+                    "fontGUID": "7c849437-f520-f246-6742-d47c3e0d9657",
+                    "text": "High Score: ",
+                    "color": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "fontSize": 128.0
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -1.5,
+                            "y": -0.30000001192092896,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": -1.5,
+                            "y": -0.30000001192092896,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    }
+                }
+            },
+            {
+                "entityGUID": "eb9c9028-0a9a-ad66-c8e1-8fac64bb0c13",
+                "NameComponent": {
+                    "entityName": "Restart Text",
+                    "Layer": 0,
+                    "entityTag": "Default",
+                    "isPrefab": false,
+                    "prefabName": "",
+                    "hide": false
+                },
+                "TextComponent": {
+                    "fontGUID": "7c849437-f520-f246-6742-d47c3e0d9657",
+                    "text": "Press L to Restart",
+                    "color": {
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
+                    },
+                    "fontSize": 128.0
+                },
+                "TransformComponent": {
+                    "WorldTransformation": {
+                        "position": {
+                            "x": -0.7757575511932373,
+                            "y": -0.7024827003479004,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
+                            "z": 1.0
+                        }
+                    },
+                    "LocalTransformation": {
+                        "position": {
+                            "x": -0.7757575511932373,
+                            "y": -0.7024827003479004,
+                            "z": 0.0
+                        },
+                        "rotation": {
+                            "x": 0.0,
+                            "y": -0.0,
+                            "z": 0.0
+                        },
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0,
                             "z": 1.0
                         }
                     }
