@@ -246,15 +246,7 @@ std::future<void> AssetManager::Compilefile(const std::filesystem::path& filePat
 
         return std::async(std::launch::deferred, []() {});
 	}
-
-
-    
-
-
-
-
-
-
+    return std::async(std::launch::deferred, []() {});
 }
 
 

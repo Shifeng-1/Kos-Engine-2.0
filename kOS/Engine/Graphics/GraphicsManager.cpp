@@ -628,8 +628,8 @@ void GraphicsManager::gm_UpdateBuffers(int width,int height) {
 
 	if (this->windowWidth != width || this->windowHeight != height) {
 		framebufferManager.Update(width, height);
-		this->windowWidth = width;
-		this->windowHeight = height;
+		this->windowWidth = static_cast<float>(width);
+		this->windowHeight = static_cast<float>(height);
 	}
 }
 void GraphicsManager::gm_RenderGameBuffer(){

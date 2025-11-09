@@ -20,7 +20,7 @@ public:
 			//if (col.thisEntityID != this->entity) { return; }
 			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Enemy") {
 				if (auto* enemyScript = ecsPtr->GetComponent<EnemyManagerScript>(col.otherEntityID)) {
-					enemyScript->enemyHealth -= starfallDamage;
+					enemyScript->enemyHealth -= static_cast<int>(starfallDamage);
 
 					if (enemyScript->enemyHealth <= 0) {
 						//ecsPtr->DeleteEntity(col.otherEntityID);

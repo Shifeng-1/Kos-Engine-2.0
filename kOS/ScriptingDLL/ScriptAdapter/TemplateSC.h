@@ -36,7 +36,7 @@ int DuplicatePrefabIntoScene(const std::string& scene, const utility::GUID guid)
 	sm->LoadSceneToCurrent(scene, path);
 	auto* ecs = TemplateSC::ecsPtr;
 	const auto& sceneData = ecs->GetSceneData(scene);
-	ecs::EntityID newID;
+	//ecs::EntityID newID;
 
 	//retrieve the new id that just spawned (the one without parent) - TODO: improve this later
 	for ( auto entityID : sceneData.sceneIDs) {

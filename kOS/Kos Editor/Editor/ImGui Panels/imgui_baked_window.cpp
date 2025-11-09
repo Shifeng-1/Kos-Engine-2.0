@@ -28,7 +28,7 @@ void gui::ImGuiHandler::DrawBakedWindow() {
 
 		LOGGING_INFO("It's a piece of cake to bake a pretty cake");
 		//Just bake first light first
-		PointLightData* pld;
+		//PointLightData* pld;
 		int i = 0;
 
 		auto sceneData =m_ecs.GetSceneData(m_ecs.GetSceneByEntityID(m_clickedEntityId));
