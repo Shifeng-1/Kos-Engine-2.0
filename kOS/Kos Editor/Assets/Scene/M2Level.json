@@ -146,7 +146,7 @@
             "audioFiles": [
                 {
                     "audioGUID": "8f243e52-3d4e-d7bd-13d4-3d60874b10f9",
-                    "volume": 1.0,
+                    "volume": 0.5,
                     "loop": true,
                     "playOnStart": true,
                     "hasPlayed": false,
