@@ -24,3 +24,4 @@
 #include "EventColliderScript.h"
 
 #include "HealthbarUIScript.h"
+#include "WinUIScreenScript.h"
