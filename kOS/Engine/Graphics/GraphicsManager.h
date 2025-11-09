@@ -57,7 +57,8 @@ public:
 
 	//Data Transfer Functions
 	inline void gm_PushScreenTextData(ScreenTextData&& fontData) { textRenderer.screenTextToDraw.emplace_back(std::move(fontData)); };
-	inline void gm_PushMeshData(MeshData&& meshData) { meshRenderer.meshesToDraw.emplace_back(std::move(meshData)); };
+	inline void gm_PushMeshData(MeshData&& meshData) { meshRenderer.meshesToDraw[0].emplace_back(std::move(meshData)); };
+	inline void gm_PushMeshData(MeshData&& meshData,layer::LAYERS index) { meshRenderer.meshesToDraw[index].emplace_back(std::move(meshData)); };
 	inline void gm_PushScreenSpriteData(ScreenSpriteData&& spriteData) { spriteRenderer.screenSpritesToDraw.emplace_back(std::move(spriteData)); };
 	inline void gm_PushPointLightData(PointLightData&& pointLightData) { lightRenderer.pointLightsToDraw.emplace_back(std::move(pointLightData)); };
 	inline void gm_PushDirectionalLightData(DirectionalLightData&& directionalLightData) { lightRenderer.directionLightsToDraw.emplace_back(std::move(directionalLightData)); };
@@ -71,16 +72,21 @@ public:
 	inline void gm_PushSphereData(SphereRenderer::SphereData&& data) { sphereRenderer.spheresToDraw.emplace_back(std::move(data)); };
 	void gm_DrawMaterial(const PBRMaterial& md, FrameBuffer& fb);
 	inline void gm_PushSkinnedMeshData(SkinnedMeshData&& skinnedMeshData) {
-		skinnedMeshRenderer.skinnedMeshesToDraw.emplace_back(std::move(skinnedMeshData));
-		skinnedMeshRenderer.skinnedMeshLookup[skinnedMeshRenderer.skinnedMeshesToDraw.back().entityID]
-			= &skinnedMeshRenderer.skinnedMeshesToDraw.back();
+		skinnedMeshRenderer.skinnedMeshesToDraw[0].emplace_back(std::move(skinnedMeshData));
+		skinnedMeshRenderer.skinnedMeshLookup[skinnedMeshRenderer.skinnedMeshesToDraw[0].back().entityID]
+			= &skinnedMeshRenderer.skinnedMeshesToDraw[0].back();
+	};
+	inline void gm_PushSkinnedMeshData(SkinnedMeshData&& skinnedMeshData,layer::LAYERS layer) {
+		skinnedMeshRenderer.skinnedMeshesToDraw[layer].emplace_back(std::move(skinnedMeshData));
+		skinnedMeshRenderer.skinnedMeshLookup[skinnedMeshRenderer.skinnedMeshesToDraw[layer].back().entityID]
+			= &skinnedMeshRenderer.skinnedMeshesToDraw[0].back();
 	};
 	inline void gm_PushBasicParticleData(BasicParticleData&& basicParticleData) { particleRenderer.particlesToDraw.emplace_back(std::move(basicParticleData)); };
 
 	//Accessors
 	inline const FrameBuffer& gm_GetEditorBuffer() const { return framebufferManager.editorBuffer; };
 	inline const FrameBuffer& gm_GetGameBuffer() const { return framebufferManager.gameBuffer; };
-	void gm_FillDepthCube(const CameraData&, int);
+	void gm_FillDepthCube(const CameraData&, int,glm::vec3 lighPos);
 	void gm_UpdateBuffers(int width, int height);
 	void gm_RenderGameBuffer();
 	//I want my DCMs
@@ -96,7 +102,10 @@ private:
 	void gm_RenderToGameFrameBuffer();
 	void gm_FillDataBuffers(const CameraData& camera);
 	void gm_FillDataBuffersGame(const CameraData& camera);
+	void gm_FillDataBuffersGame(const CameraData& camera,layer::LAYERS);
+
 	void gm_FillGBuffer(const CameraData& camera);
+
 	void gm_FillDepthBuffer(const CameraData& camera);
 	void gm_FillDepthCube(const CameraData& camera);
 	void gm_RenderCubeMap(const CameraData& camera);
@@ -105,6 +114,7 @@ private:
 	void gm_RenderUIObjects(const CameraData& camera);
 
 	void gm_FillGBufferGame(const CameraData& camera);
+	void gm_FillGBufferGame(const CameraData& camera, layer::LAYERS);
 	//Cameras
 	CameraData editorCamera{};
 	std::vector<CameraData> gameCameras{};

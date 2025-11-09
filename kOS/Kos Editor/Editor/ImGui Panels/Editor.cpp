@@ -73,6 +73,8 @@ namespace gui {
 
 
 		m_imgui_layout = imguiINI;
+
+		
 		//set up reflection
 
 		//REFLECTION, ADD component
@@ -106,6 +108,7 @@ namespace gui {
 
 		RegisterComponent<ecs::SphereRendererComponent>();
 		RegisterComponent<ecs::MaterialComponent>();
+
 		//Allocate to map
 		EditorComponentTypeRegistry::CreateAllDrawers(componentDrawers);
 
@@ -119,10 +122,10 @@ namespace gui {
 
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;// Enable Docking
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;// Enable Multi-Viewport / Platform Windows
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;	// Enable Keyboard Controls
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;	// Enable Gamepad Controls
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;		// Enable Docking
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;		// Enable Multi-Viewport / Platform Windows
 
 		DeserializeProfile();
 
@@ -138,6 +141,9 @@ namespace gui {
 
 		//load scene
 		openAndLoadSceneDialog();
+
+		//set style
+		SetStyle();
 
 		//set first active scene
 		for (auto& scene : m_ecs.sceneMap) {
@@ -161,9 +167,6 @@ namespace gui {
 
 	void ImGuiHandler::Update()
 	{
-
-
-
 		NewFrame();
 
 		if (m_input.IsKeyTriggered(keys::F11))
@@ -199,7 +202,6 @@ namespace gui {
 			if (m_ecs.GetEntitySignatureData().find(m_clickedEntityId) == m_ecs.GetEntitySignatureData().end()) {
 				m_clickedEntityId = -1;
 			}
-
 
 			ImVec2 windowSize = ImGui::GetIO().DisplaySize;
 			int windowWidth, windowHeight;
@@ -250,6 +252,7 @@ namespace gui {
 			ImGui::RenderPlatformWindowsDefault();
 			glfwMakeContextCurrent(backup_current_context);
 		}
+
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
@@ -278,15 +281,27 @@ namespace gui {
 		ImGuiIO& io = ImGui::GetIO();  // Get input/output data
 		//If CTRL + S press, save
 		if (io.KeyCtrl && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_S)) && (m_ecs.GetState() != ecs::RUNNING)) {
-
 			onSaveAll.Invoke("");
 		}
 
+		if (m_input.currentMousePos != m_input.prevMousePos && m_input.cursorHidden) {
+			double mouseX, mouseY;
+			int winX, winY;
+			glfwGetWindowPos(m_window.window, &winX, &winY);
+			glfwGetCursorPos(m_window.window, &mouseX, &mouseY);
+			mouseX += winX;
+			mouseY += winY; // Relative position to glfwWindowPosition
+			glm::vec2 relativeMousePos = glm::vec2(mouseX - gameWindowPos.x, gameWindowSize.y - (mouseY - gameWindowPos.y));
+			float xScale = (m_window.windowWidth / gameWindowSize.x);	// Will probably change it so that it doesnt have to recalculate scale and gameWindowSize all the time
+			float yScale = (m_window.windowHeight / gameWindowSize.y);
+			relativeMousePos.x *= xScale;
+			relativeMousePos.y *= yScale;
+			m_input.currentMousePos = relativeMousePos;
+		}
 	}
 
 	void ImGuiHandler::openAndLoadSceneDialog()
 	{
-
 		m_assetManager.GetAssetWatcher()->Pause();
 
 		//char filePath[MAX_PATH];
@@ -323,7 +338,5 @@ namespace gui {
 		// Check if the lowercase version of y is found in x
 		return lower_x.find(lower_y) != std::string::npos;
 	}
-
-
 }
 

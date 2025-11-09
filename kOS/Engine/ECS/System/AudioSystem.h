@@ -30,18 +30,20 @@ namespace ecs {
     class AudioSystem : public ISystem {
     public:
         using ISystem::ISystem;
+
         void Init() override;
         void Update() override;
-
-        static void SetPaused(bool paused);
-        static void StopAll(); 
+ 
+        void SetListener(const glm::vec3& pos,
+            const glm::vec3& fwd,
+            const glm::vec3& up);
 
         REFLECTABLE(AudioSystem)
 
     private:
-        static FMOD::System* s_fmod;
-        static bool s_paused;
-
+        glm::vec3 m_listenerPos{ 0.0f, 0.0f, 0.0f };
+        glm::vec3 m_listenerFwd{ 0.0f, 0.0f, -1.0f };
+        glm::vec3 m_listenerUp{ 0.0f, 1.0f,  0.0f };
     };
 }
 

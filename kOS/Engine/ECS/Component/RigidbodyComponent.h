@@ -59,12 +59,20 @@ namespace ecs {
 		float angularDrag = 0.05f;
 		bool useGravity = true;
 		bool isKinematic = false;
+
+		float speed;
+		glm::vec3 velocity{ 0.0f };
+		glm::vec3 angularVelocity{ 0.0f };
+
+		glm::vec3 prevPosition{ 0.0f };
+		glm::vec3 prevRotation{ 0.0f };
+
 		InterpolationMode interpolation = InterpolationMode::None;
 		CollisionDetectionMode collisionDetection = CollisionDetectionMode::Discrete;
 		Constraints constraints = Constraints::None;
 		void* actor = nullptr;
 
-		REFLECTABLE(RigidbodyComponent, mass, drag, angularDrag, useGravity, isKinematic, interpolation, collisionDetection, constraints)
+		REFLECTABLE(RigidbodyComponent, mass, drag, angularDrag, useGravity, isKinematic, interpolation, collisionDetection, constraints, speed, velocity, angularVelocity)
 	};
 }
 

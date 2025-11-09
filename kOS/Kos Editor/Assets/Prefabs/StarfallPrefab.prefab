@@ -57,10 +57,15 @@
                 "CubeRendererComponent": {},
                 "LightningAcidPowerupManagerScript": {
                     "starfallDamage": 2.0,
-                    "starfallForce": 60.0
+                    "starfallForce": 60.0,
+                    "lingerTime": 0.0
                 },
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Starfall",
@@ -78,7 +83,18 @@
                     "isKinematic": false,
                     "interpolation": 0,
                     "collisionDetection": 0,
-                    "constraints": 0
+                    "constraints": 0,
+                    "speed": 0.0,
+                    "velocity": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "angularVelocity": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
                 },
                 "SphereColliderComponent": {
                     "isTrigger": true,
@@ -133,10 +149,15 @@
                 "CubeRendererComponent": {},
                 "LightningAcidPowerupManagerScript": {
                     "starfallDamage": 2.0,
-                    "starfallForce": 60.0
+                    "starfallForce": 60.0,
+                    "lingerTime": 0.0
                 },
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Starfall",
@@ -154,7 +175,18 @@
                     "isKinematic": false,
                     "interpolation": 0,
                     "collisionDetection": 0,
-                    "constraints": 0
+                    "constraints": 0,
+                    "speed": 0.0,
+                    "velocity": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "angularVelocity": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
                 },
                 "SphereColliderComponent": {
                     "isTrigger": true,
@@ -209,10 +241,15 @@
                 "CubeRendererComponent": {},
                 "LightningAcidPowerupManagerScript": {
                     "starfallDamage": 2.0,
-                    "starfallForce": 60.0
+                    "starfallForce": 60.0,
+                    "lingerTime": 0.0
                 },
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Starfall",
@@ -230,7 +267,18 @@
                     "isKinematic": false,
                     "interpolation": 0,
                     "collisionDetection": 0,
-                    "constraints": 0
+                    "constraints": 0,
+                    "speed": 0.0,
+                    "velocity": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "angularVelocity": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
                 },
                 "SphereColliderComponent": {
                     "isTrigger": true,
@@ -285,10 +333,15 @@
                 "CubeRendererComponent": {},
                 "LightningAcidPowerupManagerScript": {
                     "starfallDamage": 2.0,
-                    "starfallForce": 60.0
+                    "starfallForce": 60.0,
+                    "lingerTime": 0.0
                 },
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Starfall",
@@ -306,7 +359,18 @@
                     "isKinematic": false,
                     "interpolation": 0,
                     "collisionDetection": 0,
-                    "constraints": 0
+                    "constraints": 0,
+                    "speed": 0.0,
+                    "velocity": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "angularVelocity": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
                 },
                 "SphereColliderComponent": {
                     "isTrigger": true,
@@ -361,10 +425,15 @@
                 "CubeRendererComponent": {},
                 "LightningAcidPowerupManagerScript": {
                     "starfallDamage": 2.0,
-                    "starfallForce": 60.0
+                    "starfallForce": 60.0,
+                    "lingerTime": 0.0
                 },
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Starfall",
@@ -382,7 +451,18 @@
                     "isKinematic": false,
                     "interpolation": 0,
                     "collisionDetection": 0,
-                    "constraints": 0
+                    "constraints": 0,
+                    "speed": 0.0,
+                    "velocity": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "angularVelocity": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
                 },
                 "SphereColliderComponent": {
                     "isTrigger": true,

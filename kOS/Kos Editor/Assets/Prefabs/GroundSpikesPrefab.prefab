@@ -71,7 +71,11 @@
                 "entityGUID": "4aa2d530-d5d0-b13e-bd79-dbca4731b2ef",
                 "CubeRendererComponent": {},
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Spikes",
@@ -122,7 +126,11 @@
                 "entityGUID": "b065f351-6dbd-90b7-a357-e5123a43daa8",
                 "CubeRendererComponent": {},
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Spikes",
@@ -173,7 +181,11 @@
                 "entityGUID": "0b610f59-0837-7e41-67f0-0df77cce887c",
                 "CubeRendererComponent": {},
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Spikes",
@@ -224,7 +236,11 @@
                 "entityGUID": "f3d820e4-d5d9-1dd5-7fe8-114795bd275e",
                 "CubeRendererComponent": {},
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Spikes",
@@ -275,7 +291,11 @@
                 "entityGUID": "6c4a20ef-b536-257b-a3ba-3136a2143c51",
                 "CubeRendererComponent": {},
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Spikes",
@@ -326,7 +346,11 @@
                 "entityGUID": "6eefa636-734c-b394-134f-06bfee10b247",
                 "CubeRendererComponent": {},
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Spikes",
@@ -377,7 +401,11 @@
                 "entityGUID": "7882858f-6e33-3464-8991-9c62e6cc0466",
                 "CubeRendererComponent": {},
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Spikes",
@@ -428,7 +456,11 @@
                 "entityGUID": "87312fdf-7e68-aa61-559a-b32edd314283",
                 "CubeRendererComponent": {},
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "2e16031c-9593-31cb-ec41-58220ebbb736"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "Spikes",

@@ -29,6 +29,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "Reflection/Field.h"
 #include "ECS/ecs.h"
 #include "ECS/Layers.h"
+#include "Audio/AudioManager.h"
 
 
 /******************************************************************/
@@ -52,12 +53,13 @@ namespace Application {
 			, resourceManager()
 			, physicsManager()
 			, graphicsManager()
-			, ecs(peformance, graphicsManager, resourceManager, input, physicsManager, scriptManager)
+			, ecs(peformance, graphicsManager, resourceManager, input, physicsManager, scriptManager,audioManager)
 			, lvWindow(ecs, input)
 			, layersManager(ecs)
 			, serialization(ecs)
 			, sceneManager(ecs, serialization, resourceManager)
 			, scriptManager(ecs, sceneManager, input, physicsManager, resourceManager, reflectionField)
+			, audioManager()
 		{
 		}
 		~Application() = default;
@@ -81,6 +83,7 @@ namespace Application {
 		ScriptManager scriptManager;
 		Fields reflectionField;
 		layer::LayerStack layersManager;
+		audio::AudioManager audioManager;
 
 
 

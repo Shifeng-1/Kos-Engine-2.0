@@ -76,7 +76,11 @@
                     "range": 10.0
                 },
                 "MaterialComponent": {
-                    "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "d1dc99cf-dde1-ca8b-eeda-2c33d81b557d"
+                        }
+                    ]
                 },
                 "NameComponent": {
                     "entityName": "LightningStrikePrefab",

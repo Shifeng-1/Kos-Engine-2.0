@@ -20,6 +20,7 @@ file(GLOB_RECURSE ENGINE_SOURCE
     Scene/*.cpp
     Utility/*.cpp
     Events/*.cpp
+    Audio/*.cpp
 )
 
 

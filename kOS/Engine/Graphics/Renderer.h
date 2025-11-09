@@ -47,15 +47,18 @@ struct BasicRenderer
 struct MeshRenderer : BasicRenderer
 {
 	void Render(const CameraData& camera, Shader& shader);
+	void Render(const CameraData& camera, Shader& shader,layer::LAYERS);
 	void Clear() override;
-	std::vector<MeshData> meshesToDraw{};
+	std::array<std::vector<MeshData>, layer::MAXLAYER> meshesToDraw{};
+	//std::array
 };
 
 struct SkinnedMeshRenderer : BasicRenderer
 {
 	void Render(const CameraData& camera, Shader& shader);
+	void Render(const CameraData& camera, Shader& shader, layer::LAYERS);
 	void Clear() override;
-	std::vector<SkinnedMeshData> skinnedMeshesToDraw{};
+	std::array < std::vector<SkinnedMeshData>, layer::MAXLAYER> skinnedMeshesToDraw{};
 	std::unordered_map<unsigned int, SkinnedMeshData*> skinnedMeshLookup{}; //Entity ID, Skinned Mesh Pointer
 };
 

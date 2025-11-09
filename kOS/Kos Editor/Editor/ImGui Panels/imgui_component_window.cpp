@@ -80,7 +80,7 @@ void gui::ImGuiHandler::DrawComponentWindow()
 
             bool hidden = nc->hide;
             if (ImGui::Checkbox("Hide", &hidden)) {
-                nc->hide ? m_layerManager.m_unhideEntitywithChild(entityID) : m_layerManager.m_hideEntitywithChild(entityID);
+				m_ecs.SetActive(entityID, !hidden);
             }
 
             ImGui::TextDisabled(std::string("Entity ID: " + std::to_string(entityID)).c_str());

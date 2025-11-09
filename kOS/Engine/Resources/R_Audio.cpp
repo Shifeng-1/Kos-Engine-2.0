@@ -17,11 +17,9 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "Config/pch.h"
 #include "R_Audio.h"
 
-FMOD::System* R_Audio::s_globalSystem = nullptr;
-
 void R_Audio::Load()
 {
-	FMOD::System* sys = m_system ? m_system : s_globalSystem;
+	FMOD::System* sys = m_system;
 	if (!sys) {
 		return;
 	}

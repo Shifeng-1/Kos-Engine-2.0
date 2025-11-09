@@ -29,6 +29,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "Physics/PhysicsManager.h"
 #include "Scripting/ScriptManager.h"
 #include "Debugging/Performance.h"
+#include "Audio/AudioManager.h"
 
 namespace ecs { class ECS; }
 class ScriptManager;  
@@ -47,9 +48,10 @@ namespace ecs {
 		physics::PhysicsManager& m_physicsManager;
 		ScriptManager& m_scriptManager;
 		Peformance& m_performance;
+		audio::AudioManager& m_audioManager;
 
 	public:
-		ISystem(ECS& ecs, GraphicsManager& graphics, ResourceManager& rm, Input::InputSystem& is, physics::PhysicsManager& pm, ScriptManager& sm, Peformance& peformance )
+		ISystem(ECS& ecs, GraphicsManager& graphics, ResourceManager& rm, Input::InputSystem& is, physics::PhysicsManager& pm, ScriptManager& sm, Peformance& peformance, audio::AudioManager& audiom)
 			: m_ecs(ecs)
 			, m_graphicsManager(graphics)
 			, m_resourceManager(rm)
@@ -57,6 +59,7 @@ namespace ecs {
 			, m_physicsManager(pm) 
 			, m_scriptManager(sm)
 			, m_performance(peformance)
+			, m_audioManager(audiom)
 		{
 		}
 

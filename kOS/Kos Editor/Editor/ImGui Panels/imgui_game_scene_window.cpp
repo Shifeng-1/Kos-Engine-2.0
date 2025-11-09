@@ -51,16 +51,12 @@ namespace gui
 	{
         ImGui::Begin("Game Preview");
 
-
         ImVec2 pos = ImGui::GetCursorScreenPos();
         ImVec2 renderWindowSize = ImGui::GetContentRegionAvail();
         float renderWindowAspectRatio = renderWindowSize.x / renderWindowSize.y;
         float textureAspectRatio = (float)windowWidth / (float)windowHeight;
 
-
         ImVec2 imageSize;
-        imageSize.x = windowWidth / 2.f;
-        imageSize.y = windowHeight / 2.f;
 
         //Dynamic Window Resizing
         if (renderWindowAspectRatio > textureAspectRatio)
@@ -84,23 +80,52 @@ namespace gui
             pos.y += (renderWindowSize.y - imageSize.y) / 2;
         }
 
-        //ImVec2 testSize(960, 540);
-
         //pipe->m_renderFinalPassWithDebug();
+        gameWindowPos = pos;
+        gameWindowSize = imageSize;
         ImVec2 pMax(pos.x + imageSize.x, pos.y + imageSize.y);
 
-        //ImGui::GetWindowDrawList()->AddImage(
-                //    (void*)(GLuint)GraphicsManager::GetInstance()->gm_GetGameBuffer().texID, pos,
-                //    ImVec2(pos.x + testSize.x, pos.y + testSize.y),
-                //    ImVec2(0, 1), ImVec2(1, 0));
         ImGui::GetWindowDrawList()->AddImage(
             reinterpret_cast<void*>(static_cast<uintptr_t>(m_graphicsManager.gm_GetGameBuffer().texID)),
             pos, pMax,
             ImVec2(0, 1), ImVec2(1, 0));
+        
+        auto winLoc = ImVec2(pos.x - ImGui::GetWindowPos().x, pos.y - ImGui::GetWindowPos().y);
+        ImGui::SetCursorPos(winLoc);
+        if ((imageSize.x != 0 && imageSize.y != 0) && m_ecs.GetState() == GAMESTATE::RUNNING && ImGui::InvisibleButton("##GameWindowBut", imageSize, ImGuiButtonFlags_MouseButtonLeft) ) {
+            m_input.HideCursor(true);
+            ImGuiIO& io = ImGui::GetIO();
+            io.ConfigFlags |= ImGuiConfigFlags_NoMouse;
+        }
 
-        gameWindowPos = ImGui::GetCursorScreenPos();
-        gameWindowSize = ImGui::GetContentRegionAvail();
+        if (m_input.cursorHidden) {
+            ImGui::SetMouseCursor(ImGuiMouseCursor_None);
+            if (ImGui::IsKeyDown(ImGuiKey_Escape)) {
+                m_input.HideCursor(false);
+                ImGui::SetMouseCursor(ImGuiMouseCursor_Arrow);
+                ImGuiIO& io = ImGui::GetIO();
+                io.ConfigFlags &= ~ImGuiConfigFlags_NoMouse;
+            }
+        }
+
+        //ImGui::SetCursorPos(winLoc);
+        //auto str1 = "WinPos [" + std::to_string(winLoc.x) + ',' + std::to_string(winLoc.y) + "] Pos: [" + std::to_string(pos.x) + ',' + std::to_string(pos.y) + "]";
+        //ImGui::Text(str1.c_str());
+
+        //ImGui::SetCursorPosY(winLoc.y + imageSize.y);
+        //auto str = std::to_string(ImGui::GetCursorPos().x) + ',' + std::to_string(ImGui::GetCursorPos().y);
+        //ImGui::Text(str.c_str());
    
+        //auto str2 = std::to_string(pMax.x) + ',' + std::to_string(pMax.y);
+        //auto size = ImGui::CalcTextSize(str.c_str());
+        //ImGui::SetCursorPos(ImVec2(pMax.x - size.x - ImGui::GetWindowPos().x, pMax.y - ImGui::GetWindowPos().y));
+        //ImGui::Text(str2.c_str());
+
+        // Draw "Game Mouse Position"
+        //ImGui::GetWindowDrawList()->AddCircleFilled(
+        //    ImVec2(gameWindowPos.x + m_input.currentMousePos.x, gameWindowPos.y + (gameWindowSize.y - m_input.currentMousePos.y)),
+        //    4.0f, IM_COL32(255, 0, 0, 255));
+
         ImGui::End();
 	}
 }

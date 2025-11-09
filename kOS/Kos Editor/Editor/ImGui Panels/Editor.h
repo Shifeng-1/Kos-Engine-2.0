@@ -35,6 +35,7 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "Resources/ResourceManager.h"
 #include "Scripting/ScriptManager.h"
 #include "Debugging/Performance.h"
+#include "Audio/AudioManager.h"
 
 namespace gui {
     
@@ -57,6 +58,7 @@ namespace gui {
 		ResourceManager& m_resourceManager;
 		ScriptManager& m_scriptManager;
 		Peformance& m_performance;
+        audio::AudioManager& m_audioManager;
 
     public:
         /******************************************************************/
@@ -69,7 +71,7 @@ namespace gui {
         ImGuiHandler(Application::AppWindow& window, AssetManager& am, GraphicsManager& gm, 
             ecs::ECS& ecs, scenes::SceneManager& sm,  serialization::Serialization& slm, 
             Fields& field, Input::InputSystem& input, physics::PhysicsManager& pm, 
-            layer::LayerStack& ls, ResourceManager& rm, ScriptManager& scriptm, Peformance& peformance):
+            layer::LayerStack& ls, ResourceManager& rm, ScriptManager& scriptm, Peformance& peformance, audio::AudioManager& audioM):
             m_window(window), 
             m_assetManager(am),
             m_graphicsManager(gm),
@@ -83,7 +85,8 @@ namespace gui {
 			m_prefabManager(ecs, sm, am, m_serialization),
 			m_resourceManager(rm),
 			m_scriptManager(scriptm),
-			m_performance(peformance)
+			m_performance(peformance),
+            m_audioManager(audioM)
         {
 
 

@@ -12,7 +12,7 @@ This release focuses on **performance, scalability**, and **automated testing** 
 
 ---
 ## Preview
-<img width="1898" height="1000" alt="Screenshot 2025-10-26 010148" src="https://github.com/user-attachments/assets/cb1a4833-d7f2-41c8-9c9c-f4f5ea328fe2" />
+<img width="1898" height="1000" alt="Screenshot 2025-10-26 010148" src="https://github.com/user-attachments/assets/f41733e9-afb0-4b02-86b4-5d602736ff25" />
 
 
 ## 🚀 Features  

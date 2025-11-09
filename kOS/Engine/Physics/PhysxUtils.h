@@ -108,12 +108,12 @@ inline void ToPhysxCollisionDetectionMode(PxRigidDynamic* actor, CollisionDetect
 
 inline void ToPhysxInterpolation(PxRigidDynamic* actor, InterpolationMode mode) {
 	switch (mode) {
+	case InterpolationMode::None:
 	case InterpolationMode::Interpolate:
+		actor->setRigidBodyFlag(PxRigidBodyFlag::eENABLE_POSE_INTEGRATION_PREVIEW, false);
+		break;
 	case InterpolationMode::Extrapolate:
 		actor->setRigidBodyFlag(PxRigidBodyFlag::eENABLE_POSE_INTEGRATION_PREVIEW, true);
-		break;
-	default:
-		actor->setRigidBodyFlag(PxRigidBodyFlag::eENABLE_POSE_INTEGRATION_PREVIEW, false);
 		break;
 	}
 }

@@ -9,6 +9,9 @@ public:
 
 	float currentTimer = 0.f;
 
+	// REMOVE ALTER
+	bool isDead = false;
+
 	void Start() override {
 		physicsPtr->GetEventCallback()->OnTriggerEnter.Add([this](const physics::Collision& col) {
 			//if (col.thisEntityID != this->entity) { return; }
@@ -18,7 +21,10 @@ public:
 
 					if (enemyScript->enemyHealth <= 0) {
 						//ecsPtr->DeleteEntity(col.otherEntityID);
+						enemyScript->isDead = true;
 					}
+
+					isDead = true;
 				}
 			}
 			});
@@ -28,7 +34,7 @@ public:
 		if (currentTimer <= lingerTime) {
 			currentTimer += ecsPtr->m_GetDeltaTime();
 
-			if (currentTimer >= lingerTime) {
+			if (currentTimer >= lingerTime || isDead) {
 				ecsPtr->DeleteEntity(entity);
 			}
 		}

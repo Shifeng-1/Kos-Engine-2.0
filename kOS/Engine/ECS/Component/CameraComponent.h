@@ -49,8 +49,9 @@ namespace ecs {
 		glm::vec2 size{ 1600.f,900.f };
 		glm::vec3 target{ 0.f, 0.f, -1.f };   // Target point that the camera is looking 
 		bool active{ false };
-
-		REFLECTABLE(CameraComponent, cameraType, fov, nearPlane, farPlane, size, target, active);
+        bool culling{ false };
+        layer::LAYERS layer;
+		REFLECTABLE(CameraComponent, cameraType, fov, nearPlane, farPlane, size, target, active,culling,layer);
     };
 
 }

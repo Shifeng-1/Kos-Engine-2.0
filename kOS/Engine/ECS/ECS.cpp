@@ -51,7 +51,7 @@ namespace ecs{
 		RegisterSystem<RigidbodySystem, TransformComponent, RigidbodyComponent>(RUNNING);
 		RegisterSystem<PhysicsSystem, TransformComponent, RigidbodyComponent>(RUNNING);
 		RegisterSystem<CameraSystem, TransformComponent, CameraComponent>();
-		RegisterSystem<MeshRenderSystem, TransformComponent, MaterialComponent, MeshFilterComponent>();
+		RegisterSystem<MeshRenderSystem, TransformComponent,MaterialComponent, MeshFilterComponent>();
 		RegisterSystem<SkinnedMeshRenderSystem, TransformComponent, SkinnedMeshRendererComponent, AnimatorComponent>();
 		RegisterSystem<CubeRenderSystem, TransformComponent, MaterialComponent, CubeRendererComponent>();
 		RegisterSystem<SphereRenderSystem, TransformComponent, MaterialComponent, SphereRendererComponent>();
@@ -133,6 +133,12 @@ namespace ecs{
 
 	void ECS::EndFrame() {
 		if (m_deletedEntities.size() > 0) {
+			std::sort(m_deletedEntities.begin(), m_deletedEntities.end());
+			m_deletedEntities.erase(
+				std::unique(m_deletedEntities.begin(), m_deletedEntities.end()),
+				m_deletedEntities.end()
+			);
+
 			//clear and deletedEntities
 			for (EntityID id : m_deletedEntities) {
 				DeleteEntityImmediate(id);
@@ -448,6 +454,27 @@ namespace ecs{
 
 		return parentTransform->m_childID;
 
+	}
+
+	void ECS::SetActive(EntityID ID, bool active) {
+
+		ecs::NameComponent* nc = GetComponent<ecs::NameComponent>(ID);
+		ecs::TransformComponent* tc =GetComponent<ecs::TransformComponent>(ID);
+		nc->hide = !active;
+
+		if (active) {
+			RegisterEntity(ID);
+		}
+		else {
+			DeregisterEntity(ID);
+		}
+
+		if (tc->m_childID.size() > 0) {
+			for (auto child_id : tc->m_childID) {
+				SetActive(child_id, active);
+			}
+
+		}
 	}
 
 }

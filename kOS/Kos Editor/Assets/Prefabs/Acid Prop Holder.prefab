@@ -69,7 +69,11 @@
             {
                 "entityGUID": "55d986f6-250d-876d-6b09-f6ed54032156",
                 "MaterialComponent": {
-                    "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                    "materialGUID": [
+                        {
+                            "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                        }
+                    ]
                 },
                 "MeshFilterComponent": {
                     "meshGUID": "660b9bb0-6212-77a4-c1f4-dc40ea8cce28"

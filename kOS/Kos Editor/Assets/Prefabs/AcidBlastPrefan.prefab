@@ -15,7 +15,11 @@
         },
         "CubeRendererComponent": {},
         "MaterialComponent": {
-            "materialGUID": "61cfd855-ca21-6e2a-3bf8-8fc94756f547"
+            "materialGUID": [
+                {
+                    "materialGUID": "c47bcb8a-af57-706b-4154-69f26de1bc97"
+                }
+            ]
         },
         "NameComponent": {
             "entityName": "AcidBlastPrefan",

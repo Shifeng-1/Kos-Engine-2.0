@@ -21,7 +21,11 @@
             }
         },
         "MaterialComponent": {
-            "materialGUID": "d1dc99cf-dde1-ca8b-eeda-2c33d81b557d"
+            "materialGUID": [
+                {
+                    "materialGUID": "d1dc99cf-dde1-ca8b-eeda-2c33d81b557d"
+                }
+            ]
         },
         "MeshFilterComponent": {
             "meshGUID": "d99f9522-9e6b-105a-4ef2-7e2b63bcc074"
