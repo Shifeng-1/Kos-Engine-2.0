@@ -625,6 +625,7 @@ void GraphicsManager::gm_ClearGBuffer()
 }
 
 void GraphicsManager::gm_UpdateBuffers(int width,int height) {
+	if (width <= 0 || height <= 0)return;
 
 	if (this->windowWidth != width || this->windowHeight != height) {
 		framebufferManager.Update(width, height);

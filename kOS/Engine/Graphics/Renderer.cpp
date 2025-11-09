@@ -233,7 +233,7 @@ void LightRenderer::InitializeLightRenderer() {
 	for (int i{ 0 }; i < 16; i++) {
 		dcm[i].InitializeMap();
 	}
-	testDCM.LoadDepthCubeMap("D:/CJJJ2/kOS/Kos Editor/Assets/DepthMap/test.dcm");
+	//testDCM.LoadDepthCubeMap("D:/CJJJ2/kOS/Kos Editor/Assets/DepthMap/test.dcm");
 
 	LOGGING_INFO("Initialized shadow maps\n");
 }
