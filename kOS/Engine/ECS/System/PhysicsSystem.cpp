@@ -26,9 +26,11 @@ namespace ecs {
             PxTransform pxTrans{ PxVec3{ pos.x, pos.y, pos.z }, PxQuat{ rot.x, rot.y, rot.z, rot.w } };
 
             if (rb->isKinematic) { actor->setKinematicTarget(pxTrans); }
-            else { actor->setGlobalPose(pxTrans); }
-            actor->setLinearVelocity(PxVec3{ rb->velocity.x, rb->velocity.y, rb->velocity.z });
-            actor->setAngularVelocity(PxVec3{ rb->angularVelocity.x, rb->angularVelocity.y, rb->angularVelocity.z });
+            else { 
+                actor->setGlobalPose(pxTrans); 
+                actor->setLinearVelocity(PxVec3{ rb->velocity.x, rb->velocity.y, rb->velocity.z });
+                actor->setAngularVelocity(PxVec3{ rb->angularVelocity.x, rb->angularVelocity.y, rb->angularVelocity.z });
+            }
         }
 
         m_physicsManager.Update(m_ecs.m_GetDeltaTime());
@@ -43,17 +45,15 @@ namespace ecs {
             PxRigidDynamic* actor = static_cast<PxRigidDynamic*>(rb->actor);
 
             if (!rb->isKinematic) {
-                PxTransform pxTrans = actor->getGlobalPose();
-                TransformSystem::SetImmediateWorldPosition(m_ecs, trans, glm::vec3{ pxTrans.p.x, pxTrans.p.y, pxTrans.p.z });
-                glm::quat q{ pxTrans.q.w, pxTrans.q.x, pxTrans.q.y, pxTrans.q.z };
-                TransformSystem::SetImmediateWorldRotation(m_ecs, trans, glm::degrees(glm::eulerAngles(q)));
+                PxVec3 vel = actor->getLinearVelocity();
+                PxVec3 aVel = actor->getAngularVelocity();
+                rb->velocity = glm::vec3{ vel.x, vel.y, vel.z };
+                rb->angularVelocity = glm::vec3{ aVel.x, aVel.y, aVel.z };
+                rb->speed = glm::length(rb->velocity);
+            } else {
+                rb->velocity = glm::vec3{ 0.0f };
+                rb->angularVelocity = glm::vec3{ 0.0f };
             }
-
-            PxVec3 vel = actor->getLinearVelocity();
-            PxVec3 aVel = actor->getAngularVelocity();
-            rb->velocity = glm::vec3{ vel.x, vel.y, vel.z };
-            rb->angularVelocity = glm::vec3{ aVel.x, aVel.y, aVel.z };
-            rb->speed = glm::length(rb->velocity);
         }
 
         SyncTransforms();
