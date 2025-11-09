@@ -192,18 +192,18 @@ namespace prefab
         for (const auto& [ComponentName, key] : componentKey) {
             auto action = m_ecs.componentAction[ComponentName];
 
-            //{ //peform conditions
-            //    //keep position unique to each object
-            //    if (key == transformKey) {
-            //        //auto* tcA = m_ecs.GetComponent<ecs::TransformComponent>(idA);
-            //        //auto* tcB = m_ecs.GetComponent<ecs::TransformComponent>(idB);
-            //        //auto deepCopy = DeepCopyComponents<ecs::TransformComponent>();
-            //        ////skip position and roation
-            //        //deepCopy(tcA->WorldTransformation.rotation, tcA->WorldTransformation.rotation);
-            //        //deepCopy(tcA->WorldTransformation.scale, tcA->WorldTransformation.scale);
-            //        continue;
-            //    }
-            //}
+            { //peform conditions
+                //keep position unique to each object
+                if (key == transformKey) {
+                    auto* tcA = m_ecs.GetComponent<ecs::TransformComponent>(idA);
+                    auto* tcB = m_ecs.GetComponent<ecs::TransformComponent>(idB);
+                    auto deepCopy = DeepCopyComponents<ecs::TransformComponent>();
+                    //skip position and roation
+                    deepCopy(tcA->WorldTransformation.rotation, tcA->WorldTransformation.rotation);
+                    deepCopy(tcA->WorldTransformation.scale, tcA->WorldTransformation.scale);
+                    continue;
+                }
+            }
 
             if (signatureA.test(key)) {
                 if (action->Compare(idA, idB) == false) { // if A != B or B does not exist, call duplicate (Assign and create(if missing) component

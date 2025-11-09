@@ -35,17 +35,12 @@ prior written consent of DigiPen Institute of Technology is prohibited.
 #include "imgui_impl_opengl3.h"
 #include "Editor.h"
 #include "imgui_internal.h"
-
-
-#include "ECS/ECS.h"
 #include "Application/Application.h"
 
 
 #include "Editor/EditorCamera.h"
 #include "Resources/ResourceManager.h"
 #include "AssetManager/Prefab.h"
-
-#include "ECS/ecs.h"
 
 #include "Graphics/GraphicsManager.h"
 

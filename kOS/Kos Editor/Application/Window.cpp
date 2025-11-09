@@ -196,7 +196,7 @@ namespace Application {
 
         monitor = glfwGetPrimaryMonitor();
         mode = glfwGetVideoMode(monitor);
-        window = glfwCreateWindow(_windowWidth, _windowHeight, "Alchemication", enabledFullScreen ? monitor : NULL, NULL);
+        window = glfwCreateWindow(_windowWidth, _windowHeight, "Kos Engine", enabledFullScreen ? monitor : NULL, NULL);
         glfwSetWindowUserPointer(window, this);
         m_inputSystem.InputInit(window);
 
