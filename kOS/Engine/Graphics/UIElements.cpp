@@ -116,7 +116,7 @@ void ScreenSpriteMesh::CreateMesh()
 void ScreenSpriteMesh::DrawMesh(const ScreenSpriteData& spriteData, Shader& shader, const CameraData& camera)
 {
     shader.Use();
-
+    shader.SetFloat("uShaderType", 2.1f);
     constexpr float radianConversion = 3.14159f / 180.f;
     float angle = spriteData.rotation * radianConversion;
 
@@ -139,6 +139,36 @@ void ScreenSpriteMesh::DrawMesh(const ScreenSpriteData& spriteData, Shader& shad
         //LOGGING_ERROR("First OpenGL Error: 0x%X", err);h
         std::cout << "after OpenGL Error: " << err << std::endl;
     }
+    shader.Disuse();
+}
+void ScreenSpriteMesh::DrawMeshWorld(const ScreenSpriteData& spriteData, Shader& shader, const CameraData& camera)
+{
+    shader.Use();
+    shader.SetFloat("uShaderType", 2.1f);
+    constexpr float radianConversion = 3.14159f / 180.f;
+    float angle = spriteData.rotation * radianConversion;
+
+    shader.SetMat4("projection", camera.GetPerspMtx());
+    shader.SetMat4("view", camera.GetViewMtx());
+    shader.SetVec3("point", spriteData.position);
+    shader.SetVec2("scale", spriteData.scale);
+    shader.SetFloat("rotation", angle);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, spriteData.textureToUse->RetrieveTexture());
+    shader.SetInt("sprite", 0);
+    shader.SetVec4("color", spriteData.color);
+    shader.SetInt("entityID", spriteData.entityID + 1);
+    glBindVertexArray(this->vaoID);
+    glDrawElements(GL_TRIANGLE_STRIP, 4, GL_UNSIGNED_SHORT, NULL);
+    glBindVertexArray(0);
+
+    GLenum err = glGetError();
+    if (err != GL_NO_ERROR) {
+        //LOGGING_ERROR("First OpenGL Error: 0x%X", err);h
+        std::cout << "after OpenGL Error: " << err << std::endl;
+    }
+    shader.Disuse();
 }
 
 void GridMesh::CreateMesh()

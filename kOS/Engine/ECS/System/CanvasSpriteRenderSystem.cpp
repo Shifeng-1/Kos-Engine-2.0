@@ -53,6 +53,28 @@ namespace ecs {
             std::optional<std::vector<EntityID>> childEntities = m_ecs.GetChild(id);
             if (!childEntities.has_value()) continue;
 
+            //IF NOT SCREEN SPACE, push though other shit
+            if (!canvas->isScreenSpace){
+                for (EntityID childID : childEntities.value())
+                {
+                    if (m_ecs.HasComponent<SpriteComponent>(childID))
+                    {
+                        SpriteComponent* spriteComp = m_ecs.GetComponent<SpriteComponent>(childID);
+                        TransformComponent* childTransform = m_ecs.GetComponent<TransformComponent>(childID);
+                        if (!spriteComp->spriteGUID.Empty())
+                        {
+                            std::shared_ptr<R_Texture> fontResource = m_resourceManager.GetResource<R_Texture>(spriteComp->spriteGUID);
+                            m_graphicsManager.gm_PushWorldSpriteData(ScreenSpriteData{ childTransform->WorldTransformation.position,
+                                                               glm::vec2{ childTransform->WorldTransformation.scale.x,
+                                                                          childTransform->WorldTransformation.scale.y},
+                                                                          -childTransform->WorldTransformation.rotation.x, spriteComp->color,
+                                                                          fontResource.get(), 0, 0, 0,childID }); /// Temporarily all 0
+                        }
+                    }
+
+                }
+                return;;
+            }
             for (EntityID childID : childEntities.value())
             {
                 if (m_ecs.HasComponent<SpriteComponent>(childID))

@@ -388,9 +388,18 @@ void SpriteRenderer::RenderScreenSprites(const CameraData& camera, Shader& shade
 	}
 }
 
+void SpriteRenderer::RenderWorldSprites(const CameraData& camera, Shader& shader) {
+	for (const ScreenSpriteData& screenSprite : worldSpriteToDraw)
+	{
+		screenSpriteMesh.DrawMeshWorld(screenSprite, shader, camera);
+	}
+
+}
+
 void SpriteRenderer::Clear()
 {
 	screenSpritesToDraw.clear();
+	worldSpriteToDraw.clear();
 }
 
 void LightRenderer::Clear()

@@ -60,6 +60,7 @@ public:
 	inline void gm_PushMeshData(MeshData&& meshData) { meshRenderer.meshesToDraw[0].emplace_back(std::move(meshData)); };
 	inline void gm_PushMeshData(MeshData&& meshData,layer::LAYERS index) { meshRenderer.meshesToDraw[index].emplace_back(std::move(meshData)); };
 	inline void gm_PushScreenSpriteData(ScreenSpriteData&& spriteData) { spriteRenderer.screenSpritesToDraw.emplace_back(std::move(spriteData)); };
+	inline void gm_PushWorldSpriteData(ScreenSpriteData&& spriteData) { spriteRenderer.worldSpriteToDraw.emplace_back(std::move(spriteData)); };
 	inline void gm_PushPointLightData(PointLightData&& pointLightData) { lightRenderer.pointLightsToDraw.emplace_back(std::move(pointLightData)); };
 	inline void gm_PushDirectionalLightData(DirectionalLightData&& directionalLightData) { lightRenderer.directionLightsToDraw.emplace_back(std::move(directionalLightData)); };
 	inline void gm_PushSpotLightData(SpotLightData&& spotLightData) { lightRenderer.spotLightsToDraw.emplace_back(std::move(spotLightData)); };

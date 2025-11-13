@@ -99,8 +99,10 @@ struct SpriteRenderer : BasicRenderer
 {
 	void InitializeSpriteRendererMeshes();
 	void RenderScreenSprites(const CameraData& camera, Shader& shader);
+	void RenderWorldSprites(const CameraData& camera, Shader& shader);
 	void Clear() override;
 	std::vector<ScreenSpriteData> screenSpritesToDraw{};
+	std::vector<ScreenSpriteData> worldSpriteToDraw{};
 
 private:
 	ScreenSpriteMesh screenSpriteMesh;

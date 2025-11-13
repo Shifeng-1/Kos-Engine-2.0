@@ -100,6 +100,8 @@ struct ScreenSpriteMesh : UIMesh
 {
 	void CreateMesh() override;
 	void DrawMesh(const ScreenSpriteData& spriteData, Shader& shader, const CameraData& camera);
+	void DrawMeshWorld(const ScreenSpriteData& spriteData, Shader& shader, const CameraData& camera);
+
 };
 
 // Grid (Unimplemented)
