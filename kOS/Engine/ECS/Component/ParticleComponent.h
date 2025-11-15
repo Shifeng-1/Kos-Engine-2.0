@@ -29,7 +29,7 @@ namespace ecs {
 		// Velocity over lifetime
 		bool velocity_Over_Lifetime = false;
 		glm::vec3 velocity_Modifier = glm::vec3(0.0f);
-
+		//TEST
 		// Size over lifetime
 		float start_Size = 0.1f;
 		float end_Size = 0.1f;
