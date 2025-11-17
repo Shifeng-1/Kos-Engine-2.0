@@ -15,8 +15,8 @@ namespace physics {
             unsigned int entityA = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(pairHeader.actors[0]->userData));
             unsigned int entityB = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(pairHeader.actors[1]->userData));
 
-            Collision collisionA{};
-            Collision collisionB{};
+            Collision collisionA{}, collisionB{};
+
             collisionA.thisEntityID = entityA;
             collisionA.otherEntityID = entityB;
 
@@ -25,22 +25,30 @@ namespace physics {
 
             PxContactPairPoint contacts[16];
             PxU32 contactCount = cp.extractContacts(contacts, 16);
+
             collisionA.contacts.reserve(contactCount);
             collisionB.contacts.reserve(contactCount);
 
             glm::vec3 totalImpulse{ 0.0f };
+
             for (PxU32 j = 0; j < contactCount; ++j) {
                 const PxContactPairPoint& p = contacts[j];
+
                 ContactPoint ptA;
+
                 ptA.point = { p.position.x, p.position.y, p.position.z };
                 ptA.normal = { p.normal.x, p.normal.y, p.normal.z };
                 ptA.impulse = p.impulse.magnitude();
                 ptA.separation = p.separation;
+
                 collisionA.contacts.push_back(ptA);
+
                 ContactPoint ptB = ptA;
-                ptB.normal = -ptB.normal;
+                ptB.normal = -ptA.normal;
+
                 collisionB.contacts.push_back(ptB);
-                totalImpulse += glm::vec3(p.impulse.x, p.impulse.y, p.impulse.z);
+
+                totalImpulse += glm::vec3{ p.impulse.x, p.impulse.y, p.impulse.z };
             }
 
             collisionA.impulse = glm::length(totalImpulse);
@@ -49,20 +57,23 @@ namespace physics {
             glm::vec3 velA = GetLinearVelocity(pairHeader.actors[0]);
             glm::vec3 velB = GetLinearVelocity(pairHeader.actors[1]);
             glm::vec3 relVel = velB - velA;
+
             collisionA.relativeVelocity = relVel;
             collisionB.relativeVelocity = -relVel;
 
             if (cp.events & PxPairFlag::eNOTIFY_TOUCH_FOUND) {
-                OnCollisionEnter.Invoke(collisionA);
-                OnCollisionEnter.Invoke(collisionB);
+                if (CollisionEnterList.contains(entityA)) { CollisionEnterList[entityA].Invoke(collisionA); }
+                if (CollisionEnterList.contains(entityB)) { CollisionEnterList[entityB].Invoke(collisionB); }
                 m_activeCollisions.insert(pair);
             }
+
             if (cp.events & PxPairFlag::eNOTIFY_TOUCH_PERSISTS) {
                 m_activeCollisions.insert(pair);
             }
+
             if (cp.events & PxPairFlag::eNOTIFY_TOUCH_LOST) {
-                OnCollisionExit.Invoke(collisionA);
-                OnCollisionExit.Invoke(collisionB);
+                if (CollisionExitList.contains(entityA)) { CollisionExitList[entityA].Invoke(collisionA); }
+                if (CollisionExitList.contains(entityB)) { CollisionExitList[entityB].Invoke(collisionB); }
                 m_activeCollisions.erase(pair);
             }
         }
@@ -71,6 +82,7 @@ namespace physics {
     void PhysicsEventCallback::onTrigger(PxTriggerPair* pairs, PxU32 count) { 
         for (PxU32 i = 0; i < count; ++i) {
             const PxTriggerPair& tp = pairs[i];
+
             TriggerPair pair{ tp.triggerActor, tp.otherActor };
 
             if (tp.flags & (PxTriggerPairFlag::eREMOVED_SHAPE_TRIGGER | PxTriggerPairFlag::eREMOVED_SHAPE_OTHER)) { 
@@ -82,17 +94,22 @@ namespace physics {
             unsigned int entityB = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(tp.otherActor->userData));
 
             Collision triggerA{}, triggerB{};
+
+            triggerA.thisEntityID = entityA;
             triggerA.otherEntityID = entityB;
+
+            triggerB.thisEntityID = entityB;
             triggerB.otherEntityID = entityA;
 
             if (tp.status & PxPairFlag::eNOTIFY_TOUCH_FOUND) {
-                OnTriggerEnter.Invoke(triggerA);
-                OnTriggerEnter.Invoke(triggerB);
+                if (TriggerEnterList.contains(entityA)) { TriggerEnterList[entityA].Invoke(triggerA); }
+                if (TriggerEnterList.contains(entityB)) { TriggerEnterList[entityB].Invoke(triggerB); }
                 m_activeTriggers.insert(pair);
             }
+
             else if (tp.status & PxPairFlag::eNOTIFY_TOUCH_LOST) {
-                OnTriggerExit.Invoke(triggerA);
-                OnTriggerExit.Invoke(triggerB);
+                if (TriggerExitList.contains(entityA)) { TriggerExitList[entityA].Invoke(triggerA); }
+                if (TriggerExitList.contains(entityB)) { TriggerExitList[entityB].Invoke(triggerB); }
                 m_activeTriggers.erase(pair);
             }
         }
@@ -103,8 +120,7 @@ namespace physics {
             unsigned int entityA = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(pair.collision->userData));
             unsigned int entityB = static_cast<unsigned int>(reinterpret_cast<uintptr_t>(pair.other->userData));
 
-            Collision collisionA{};
-            Collision collisionB{};
+            Collision collisionA{}, collisionB{};
 
             collisionA.thisEntityID = entityA;
             collisionA.otherEntityID = entityB;
@@ -112,8 +128,8 @@ namespace physics {
             collisionB.thisEntityID = entityB;
             collisionB.otherEntityID = entityA;
 
-            OnCollisionStay.Invoke(collisionA);
-            OnCollisionStay.Invoke(collisionB);
+            if (CollisionStayList.contains(entityA)) { CollisionStayList[entityA].Invoke(collisionA); }
+            if (CollisionStayList.contains(entityB)) { CollisionStayList[entityB].Invoke(collisionB); }
         }
     }
 
@@ -125,11 +141,14 @@ namespace physics {
             Collision triggerA{};
             Collision triggerB{};
 
+            triggerA.thisEntityID = entityA;
             triggerA.otherEntityID = entityB;
+
+            triggerB.thisEntityID = entityB;
             triggerB.otherEntityID = entityA;
 
-            OnTriggerStay.Invoke(triggerA);
-            OnTriggerStay.Invoke(triggerB);
+            if (TriggerStayList.contains(entityA)) { TriggerStayList[entityA].Invoke(triggerA); }
+            if (TriggerStayList.contains(entityB)) { TriggerStayList[entityB].Invoke(triggerB); }
         }
     }
 }

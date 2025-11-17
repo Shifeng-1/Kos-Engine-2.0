@@ -43,7 +43,7 @@ public:
 		//	});
 
 		// Rudimentary bullets
-		physicsPtr->GetEventCallback()->OnTriggerEnter.Add([this](const physics::Collision& col) {
+		physicsPtr->GetEventCallback()->OnTriggerEnter(entity, [this](const physics::Collision& col) {
 			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Enemy") {
 				if (auto* ac = ecsPtr->GetComponent<ecs::AudioComponent>(entity)) {
 					for (auto& af : ac->audioFiles) {
@@ -53,16 +53,9 @@ public:
 						}
 					}
 				}
-					ecsPtr->DeleteEntity(col.otherEntityID);
+				ecsPtr->DeleteEntity(col.otherEntityID);
 			}
 		});
-
-		physicsPtr->GetEventCallback()->OnTriggerExit.Add([this](const physics::Collision& col) {
-			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Enemy") {
-				physicsPtr->GetEventCallback()->OnTriggerEnter.Clear();
-			}
-			});
-
 	}
 
 	void Update() override {

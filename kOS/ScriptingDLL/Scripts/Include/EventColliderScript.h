@@ -19,16 +19,10 @@ public:
 	void Update() {
 		timer += ecsPtr->m_GetDeltaTime();
 
-		physicsPtr->GetEventCallback()->OnTriggerEnter.Add([this](const physics::Collision& col) {
+		physicsPtr->GetEventCallback()->OnTriggerEnter(entity, [this](const physics::Collision& col) {
 			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Player" && timer > 10.f) {
 				std::cout << "WHAT THE FUCK\n";
 				ecsPtr->GetComponent<TextComponent>(winUIObjectID)->text = "LEVEL COMPLETE!";
-			}
-		});
-
-		physicsPtr->GetEventCallback()->OnTriggerExit.Add([this](const physics::Collision& col) {
-			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Player") {
-				physicsPtr->GetEventCallback()->OnTriggerEnter.Clear();
 			}
 		});
 	}

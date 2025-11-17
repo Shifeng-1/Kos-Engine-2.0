@@ -58,15 +58,21 @@ namespace physics {
     class PhysicsEventCallback : public PxSimulationEventCallback {
     public:
         PhysicsEventCallback() : PxSimulationEventCallback() {}
-
-        Delegate<const Collision&> OnCollisionEnter;
-        Delegate<const Collision&> OnCollisionStay;
-        Delegate<const Collision&> OnCollisionExit;
-        Delegate<const Collision&> OnTriggerEnter;
-        Delegate<const Collision&> OnTriggerStay;
-        Delegate<const Collision&> OnTriggerExit;
-
         virtual ~PhysicsEventCallback() = default;
+
+        std::unordered_map<unsigned int, Delegate<const Collision&>> CollisionEnterList;
+        std::unordered_map<unsigned int, Delegate<const Collision&>> CollisionStayList;
+        std::unordered_map<unsigned int, Delegate<const Collision&>> CollisionExitList;
+        std::unordered_map<unsigned int, Delegate<const Collision&>> TriggerEnterList;
+        std::unordered_map<unsigned int, Delegate<const Collision&>> TriggerStayList;
+        std::unordered_map<unsigned int, Delegate<const Collision&>> TriggerExitList;
+
+        void OnCollisionEnter(unsigned int id, Delegate<const Collision&>::Func f) { CollisionEnterList[id].Add(std::move(f)); }
+        void OnCollisionStay(unsigned int id, Delegate<const Collision&>::Func f)  { CollisionStayList[id].Add(std::move(f)); }
+        void OnCollisionExit(unsigned int id, Delegate<const Collision&>::Func f)  { CollisionExitList[id].Add(std::move(f)); }
+        void OnTriggerEnter(unsigned int id, Delegate<const Collision&>::Func f)   { TriggerEnterList[id].Add(std::move(f)); }
+        void OnTriggerStay(unsigned int id, Delegate<const Collision&>::Func f)    { TriggerStayList[id].Add(std::move(f)); }
+        void OnTriggerExit(unsigned int id, Delegate<const Collision&>::Func f)    { TriggerExitList[id].Add(std::move(f)); }
         
         void onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs) override;
         void onTrigger(PxTriggerPair* pairs, PxU32 count) override;

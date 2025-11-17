@@ -11,7 +11,7 @@ public:
 	float currentTimer = 0.f;
 
 	void Start() override {
-		physicsPtr->GetEventCallback()->OnTriggerEnter.Add([this](const physics::Collision& col) {
+		physicsPtr->GetEventCallback()->OnTriggerEnter(entity, [this](const physics::Collision& col) {
 			//if (col.thisEntityID != this->entity) { return; }
 			if (ecsPtr->GetComponent<NameComponent>(col.otherEntityID)->entityTag == "Enemy") {
 				if (auto* enemyScript = ecsPtr->GetComponent<EnemyManagerScript>(col.otherEntityID)) {

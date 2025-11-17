@@ -32,11 +32,10 @@ public:
 
         health = 1;
         shield = 50;
-        physicsPtr->GetEventCallback()->OnCollisionEnter.Add([this](const physics::Collision& col) {
-            if (col.thisEntityID != this->entity) { return; }
-            std::cout << "Collided with Entity: " << col.otherEntityID << std::endl;
-            
-            });
+        
+        physicsPtr->GetEventCallback()->OnCollisionEnter(entity, [this](const physics::Collision& collision) {
+            std::cout << "Hit entity: " << collision.otherEntityID << std::endl;
+        });
     }
 
     void Update() override {
