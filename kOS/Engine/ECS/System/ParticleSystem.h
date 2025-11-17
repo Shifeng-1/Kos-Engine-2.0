@@ -9,11 +9,14 @@ namespace ecs {
 
     struct ParticleInstance {
         std::vector<glm::vec3> positions_Particle;
-        glm::vec4 color{ 1.f,1.f,1.f,1.f };
-        glm::vec3 scale{ 1.f,1.f,1.f };
-        float rotate{};
+        std::vector<glm::vec4> colors;
+        std::vector<glm::vec2> sizes;
+        std::vector<float>     rotates;
     };
-
+    struct EmissionData {
+        glm::vec3 positionOffset;  // Offset from emitter position
+        glm::vec3 direction;       // Normalized direction
+    };
     enum STATE {
         POSITION,
         VELOCITY,
@@ -22,30 +25,70 @@ namespace ecs {
         LIFESPAN,
         counter  
     };
+
+
     class ParticleSystem : public ISystem {
     public:
         using ISystem::ISystem;
         void Init() override;
         void Update() override;
+       
+       
 
-        //getter function for the position + velocity for scripting side
-        
         // Spawn a new particle
         void EmitParticle(EntityID entityId, const glm::vec3& particle_position,
-            const glm::vec3& velocity, float lifetime, ParticleComponent*& particle, glm::vec4* position, glm::vec3* velocities, float* lifetime_list);
+            const glm::vec3& velocity, float lifetime, ParticleComponent*& particle, glm::vec4* position, glm::vec3* velocities, float* lifetime_list, float* lifetime_Counter_list);
         
         // Update particle lifetimes and kill dead particles
-        void UpdateParticleLifetimes(float dt, ParticleComponent*& particle, glm::vec4* positions, float* lifetime_list);
+        void UpdateParticleLifetimes(float dt, ParticleComponent*& particle, glm::vec4* positions, glm::vec3* velocities, float* lifetime_list, float* lifetime_Counter_list);
         
         // Handle particle emission from emitter components
-        void UpdateEmitters(float dt, EntityID id, ParticleComponent*& particleComp,  TransformComponent* transform, glm::vec4* position, glm::vec3* velocities, float* lifetime_list);
+        void UpdateEmitters(float dt, EntityID id, ParticleComponent*& particleComp,  TransformComponent* transform, glm::vec4* position, glm::vec3* velocities, float* lifetime_list, float* lifetime_Counter_list);
 
         void SyncActiveBuffer(ParticleComponent* particle);
 
-        void ExtractParticlePositionsOptimized(ParticleComponent* particle, std::vector<glm::vec3>& outPositions, glm::vec4* positions);
-        
-        void* getVoid(ParticleComponent* particle, STATE state);
+        void ExtractParticleDataOptimized(ParticleComponent* particle, ParticleInstance& data, glm::vec4* positions);
 
+
+        //===========================================
+        // SHAPES FUNCTION
+        //===========================================
+        EmissionData GenerateBoxEmission(ParticleComponent* particle);
+        EmissionData GenerateConeEmission(ParticleComponent* particle);
+        EmissionData GenerateSphereEmission(ParticleComponent* particle);
+        EmissionData GenerateCircleEmission(ParticleComponent* particle);
+        EmissionData GenerateEdgeEmission(ParticleComponent* particle);
+
+        // Apply random chaos to direction
+        glm::vec3 ApplyRandomDirection(const glm::vec3& direction, float randomAmount);
+
+
+        //===========================================
+        // HELPER FUNCTIONS
+        //===========================================
+
+        void* getVoid(ParticleComponent* particle, STATE state);
+       
+        inline float RandomRange(float minValue, float maxValue) {
+            static std::mt19937 generator(std::random_device{}());      // create once
+            std::uniform_real_distribution<float> distribution(glm::min(minValue, maxValue), glm::max(minValue, maxValue));
+            return distribution(generator);
+        }
+
+        inline float AbsRandomRange(float minValue, float maxValue){
+            static std::mt19937 generator(std::random_device{}());      // create once
+            std::uniform_real_distribution<float> distribution(glm::min(glm::abs(minValue),glm::abs(maxValue)),glm::max(glm::abs(minValue), glm::abs(maxValue)));
+            return distribution(generator);
+        }
+
+        inline glm::vec4 RandomColourRange(glm::vec4 color_Start, glm::vec4 color_End) {
+            glm::vec4 ret;
+            ret.r = AbsRandomRange(color_Start.r, color_End.r);
+            ret.g = AbsRandomRange(color_Start.g, color_End.g);
+            ret.b = AbsRandomRange(color_Start.b, color_End.b);
+            ret.a = 1.f;
+            return ret;
+        }
 
         REFLECTABLE(ParticleSystem);
     };
