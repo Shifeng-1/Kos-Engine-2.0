@@ -7,26 +7,16 @@
 
 namespace ecs {
 
-    struct Particle {
-        std::vector<glm::vec3> positions;
-        std::vector<glm::vec4> colors;
-        std::vector<glm::vec3> scales;
-        std::vector<float>     rotations;
-    };
-
     struct ParticleInstance {
         std::vector<glm::vec3> positions_Particle;
-        //new
         std::vector<glm::vec4> colors;
-        std::vector<glm::vec3> scales;
-        std::vector<float>     rotations;
-
-        //old
-        glm::vec4 color{ 1.f,1.f,1.f,1.f };
-        glm::vec3 scale{ 1.f,1.f,1.f };
-        float rotate{};
+        std::vector<glm::vec2> sizes;
+        std::vector<float>     rotates;
     };
-
+    struct EmissionData {
+        glm::vec3 positionOffset;  // Offset from emitter position
+        glm::vec3 direction;       // Normalized direction
+    };
     enum STATE {
         POSITION,
         VELOCITY,
@@ -61,22 +51,41 @@ namespace ecs {
 
 
         //===========================================
+        // SHAPES FUNCTION
+        //===========================================
+        EmissionData GenerateBoxEmission(ParticleComponent* particle);
+        EmissionData GenerateConeEmission(ParticleComponent* particle);
+        EmissionData GenerateSphereEmission(ParticleComponent* particle);
+        EmissionData GenerateCircleEmission(ParticleComponent* particle);
+        EmissionData GenerateEdgeEmission(ParticleComponent* particle);
+
+        // Apply random chaos to direction
+        glm::vec3 ApplyRandomDirection(const glm::vec3& direction, float randomAmount);
+
+
+        //===========================================
         // HELPER FUNCTIONS
         //===========================================
 
         void* getVoid(ParticleComponent* particle, STATE state);
-
-        inline float RandomRange(float minValue, float maxValue){
+       
+        inline float RandomRange(float minValue, float maxValue) {
             static std::mt19937 generator(std::random_device{}());      // create once
-            std::uniform_real_distribution<float> distribution(std::min(minValue,maxValue),std::max(minValue, maxValue));
+            std::uniform_real_distribution<float> distribution(glm::min(minValue, maxValue), glm::max(minValue, maxValue));
+            return distribution(generator);
+        }
+
+        inline float AbsRandomRange(float minValue, float maxValue){
+            static std::mt19937 generator(std::random_device{}());      // create once
+            std::uniform_real_distribution<float> distribution(glm::min(glm::abs(minValue),glm::abs(maxValue)),glm::max(glm::abs(minValue), glm::abs(maxValue)));
             return distribution(generator);
         }
 
         inline glm::vec4 RandomColourRange(glm::vec4 color_Start, glm::vec4 color_End) {
             glm::vec4 ret;
-            ret.r = RandomRange(color_Start.r, color_End.r);
-            ret.g = RandomRange(color_Start.g, color_End.g);
-            ret.b = RandomRange(color_Start.b, color_End.b);
+            ret.r = AbsRandomRange(color_Start.r, color_End.r);
+            ret.g = AbsRandomRange(color_Start.g, color_End.g);
+            ret.b = AbsRandomRange(color_Start.b, color_End.b);
             ret.a = 1.f;
             return ret;
         }

@@ -606,12 +606,20 @@ void ParticleRenderer::Render(const CameraData& camera, Shader& shader)
 		instancedBasicParticles.reserve(std::accumulate(particlesToDraw.begin(), particlesToDraw.end(), size_t(0),
 			[](size_t sum, const BasicParticleData& p) { return sum + p.particlePositions.size(); }));
 
-		for (const auto& p : particlesToDraw)
+		for (int i = 0; i < particlesToDraw.size(); ++i)
 		{
+			BasicParticleData& p = particlesToDraw[i];
+			//std::transform(p.particlePositions.begin(), p.particlePositions.end(),
+			//	std::back_inserter(instancedBasicParticles),
+			//	[&](const glm::vec3& pos) {
+			//		return BasicParticleInstance{ pos,p.sizes[i], p.colors[i], p.rotates[i]};
+			//	});
+
+			//CHANGES TO RENDERING LET SEAN KNOW
 			std::transform(p.particlePositions.begin(), p.particlePositions.end(),
 				std::back_inserter(instancedBasicParticles),
-				[&](const glm::vec3& pos) {
-					return BasicParticleInstance{ pos,p.scale, p.color, p.rotate };
+				[&, j = 0](const glm::vec3& pos) mutable {
+					return BasicParticleInstance{ pos, p.sizes[j], p.colors[j], p.rotates[j++] };
 				});
 		}
 		particlesToDraw.clear();
